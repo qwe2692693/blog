@@ -41,9 +41,7 @@ export default {
     });
   },
   watch: {
-    '$route'(to, from) {
-      console.log(to)
-       console.log(from)
+    '$route'(to) {
        this.content(to.params.name);
     }
   }

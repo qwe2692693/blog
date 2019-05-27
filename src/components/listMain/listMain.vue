@@ -39,7 +39,6 @@
   </el-main>
 </template>
 <script>
-import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -61,7 +60,7 @@ export default {
     this.contenFun(this.$route.params.id);
   },
   watch: {
-    '$route'(to, from) {
+    '$route'() {
       this.contenFun(this.$route.params.id);
     }
   }
