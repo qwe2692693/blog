@@ -1,0 +1,68 @@
+html(lang = 'en')
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible" content="ie=edge")
+        title #{title}
+        link(href="/static/css/bootstrap.min.css" rel="stylesheet")
+        link(href="/static/css/common.css" rel="stylesheet")
+body
+    div(id="container")
+        section(id="open-content")
+            section(class="wrapper")
+                form(id="content")
+                    div(class="form-group")
+                        label 昵称
+                        input(name="userId" type="hidden" value=user._id)
+                        input(class="form-control" name='nickname' type="text" value=user.nickname placeholder="请输入内容昵称")
+                    div(class="form-group")
+                        label 邮箱
+                        if user.email == '暂无邮箱'
+                            input(class="form-control" name='email' type="text" placeholder="请输入邮箱")
+                        else
+                            input(class="form-control" name='email' type="text" value=user.email placeholder="请输入邮箱")
+                    div(class="form-check")
+                        if user.isAdmin
+                            input(class="form-check-input" id="adminCheck" name='isAdmin' type="checkbox" checked)
+                        else
+                            input(class="form-check-input" id="adminCheck" name='isAdmin' type="checkbox")
+                        label(for="adminCheck") 管理员
+                    button(class="btn btn-primary btn-block" id='userSave' type="button") 保存
+    script(src="/static/js/jquery-3.3.1.min.js")
+    script(src="/static/js/bootstrap.min.js")
+    script(src="/static/js/common.js")
+    script.
+        let $content = $("#content"),
+            $userId = $content.find("[name=userId]")
+            $nickname = $content.find("[name=nickname]"),
+            $email = $content.find("[name=email]"),
+            $isAdmin = $content.find("[name=isAdmin]");
+        $("#userSave").on('click',function(){
+            let $isAdminBoolean = $isAdmin.prop('checked') ? true : false;
+            if($nickname.val()==''){
+                $nickname.after(hintErr('昵称不能为空',$nickname))
+                return 
+            }
+            $.ajax({
+                type:"post",
+                url:'/admin/user_edit',
+                data:{
+                    userId:$userId.val(),
+                    nickname:$nickname.val(),
+                    email:$email.val(),
+                    isAdmin:$isAdminBoolean
+                },
+                dataType:'json',
+                success(result){
+                    if(result.code == 1){
+                        $nickname.after(hint(result.message,$nickname))
+                        return 
+                    }
+                    $("#userSave").before( alertBox(result.message+"即将跳转"))
+                    setTimeout(()=>{
+                        window.close();
+                        window.opener.location.reload();
+                    },1000)
+                }
+            })     
+        })

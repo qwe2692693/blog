@@ -1,0 +1,134 @@
+extends layout.pug
+block content
+    div(class="customTable")
+        table(class="table table-hover")
+            thead(class="thead-light table-sm")
+                tr
+                    th 昵称
+                    th 邮箱
+                    th 是否是管理员
+                    th(class="text-center") 操作
+            tbody
+                each item,index in users
+                    tr
+                        td= item.nickname
+                        td= item.email
+                        td
+                            if item.isAdmin
+                                | 是
+                            else
+                                | 否
+                        td(class="text-center")
+                            a(class="btn btn-info btn-sm edit" href="/admin/user_edit?id="+item._id role="button") 编辑
+                            button(class="btn btn-danger btn-sm ml-3 delete" data-appid=item._id type="button") 删除
+    div(class="clearfix")
+        ul(class="pagination pagination-sm float-right")
+            //-显示页数数
+            - let showPage = 5
+            //-偏移量
+            - let pageOffset = (showPage-1)/2
+            //-初始化数据
+            - let start = 1
+            - let endPage = data.pages
+            if data.page<=1
+                li(class="page-item disabled")
+                    a(class="page-link active" href="javascript:;") 上一页
+            else
+                li(class="page-item")
+                    a(class="page-link active" href="/admin/user?page="+ (data.page-1)) 上一页
+            if endPage > showPage
+                if data.page > pageOffset+1
+                    li(class="page-item disabled")
+                        a(class="page-link active" href="javascript:;") ...
+                if data.page > pageOffset
+                    - start = data.page - pageOffset
+                    - endPage = data.pages > data.page+pageOffset ? data.page+pageOffset : data.pages
+                else
+                    - start = 1
+                    - endPage = data.pages > showPage ? showPage : data.pages
+                if data.page + pageOffset > data.pages
+                    - start = start - (data.pages + pageOffset - endPage)
+            - for(let i = start; i<=endPage;i++)
+                if data.page == i       
+                    li(class="page-item active")
+                        a(class="page-link" href="javascript:;")= i
+                else
+                    li(class="page-item")
+                        a(class="page-link" href="/admin/user?page="+(i))= i
+            if data.pages > showPage && data.pages > data.page + pageOffset
+                li(class="page-item disabled")
+                    a(class="page-link active" href="javascript:;") ...
+            if data.page>=data.pages
+                li(class="page-item disabled")
+                    a(class="page-link active" href="javascript:;") 下一页
+            else
+                li(class="page-item")
+                    a(class="page-link active" href="/admin/user?page="+ (data.page+1)) 下一页
+            li(class="page-item ml-3  disabled")
+                a(class="page-link active" href="javascript:;") 共 #{data.pages} 页
+            li(class="page-item ml-3")
+                form(action="/admin/user" method="get")
+                    div(class="input-group input-group-sm")
+                        div(class="input-group-prepend")
+                            span(class="input-group-text") 到第
+                        input(class="form-control text-center" name="page" type="text" size='2')
+                        div(class="input-group-prepend")
+                            button(class="btn btn-secondary" type="submit") 跳转
+    div(class="modal" id="exampleModal" role="dialog" tabindex="-1")
+        div(class="modal-dialog" role="document")
+            div(class="modal-content")
+                div(class="modal-header")
+                    h5(class="modal-title") 是否删除
+                div(class="modal-body")
+                div(class="modal-footer text-center")
+                    button(class="btn btn-danger" id='deleteBtn' type="button") 删除
+                    button(class="btn btn-secondary ml-3" data-dismiss="modal" type="button") 返回
+    script(src="/static/js/common.js")
+    script.
+        $(".edit").on('click', function (e){
+            let $href = $(this)[0].href;
+            e.preventDefault()
+            openwindow($href,'新建页面',500,$(window).height())
+        })
+
+        function openwindow(url,name,width,height){
+            let $windowWidth = $(window).width(),
+                $windowHeight = $(window).height();
+            let myWindow=window.open(url,name,'width='+width+',height='+height+',left='+($windowWidth-width)/2+',top=30');
+        }
+        let appId = ''
+        $(".delete").on('click',function (){
+            $('#exampleModal').modal({
+                 backdrop: 'static'
+            })
+            appId = $(this).data('appid')
+        })
+
+        $("#deleteBtn").on('click',function (){
+            $.ajax({
+                type:'post',
+                url:'/admin/user_remove',
+                data:{
+                    appId:appId
+                },
+                dataType:'json',
+                success(result){
+                    if(result.code == 1){
+                        $(".modal-body").append(alertBox(result.message))
+                        return
+                    }
+                    if(result.code == 2){
+                        $(".modal-body").append(alertBox(result.message))
+                        return
+                    }
+                    $(".modal-body").append(alertBox('删除成功 1秒后跳转'))
+                   setTimeout(()=>{
+                       window.location.reload()
+                   },1000)
+                },
+                error(xhr){
+                    console.log(错误提示 + xhr.status+ +xhr.statusText)
+                }
+            })
+        })
+        

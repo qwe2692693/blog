@@ -1,0 +1,201 @@
+ul li{
+    list-style: none;
+}
+#container{
+    width: 100%;
+    height:100vh;
+}
+#main-content{
+    height:100vh;
+    margin-left: 200px;
+    padding-top: 56px;
+}
+#open-content{
+    height: 100%;
+    padding: 10px;
+}
+#out{
+    position: absolute;
+    bottom: 0;
+}
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 20px;
+    min-height: 57px;
+}
+.portrait{
+    margin-top: 10px;
+    margin-bottom: 70px;
+}
+.portrait a{
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+}
+.portrait img{
+    width: 100%;
+    border-radius: 50%;
+}
+.font-load{
+text-align: center;
+  text-transform: uppercase;
+  font-family: 'Nunito', sans-serif;
+  color: transparent;
+  letter-spacing: 0.01em;
+}
+.font-load span{
+    text-shadow: 0 0 1px rgba(204, 208, 212,0.9),
+                 0 0 3px rgba(169, 206, 193, 0.3),
+                 0 -2px 3px rgba(153, 208, 171, 0.1),
+                 0 -3px 3px rgba(69, 162, 109, 0.9);
+    animation: fontLoad 1.20s ease-in-out infinite alternate;
+    -webkit-animation: fontLoad 1.20s ease-in-out infinite alternate;
+    -moz-animation: fontLoad 1.20s ease-in-out infinite alternate;
+}
+@keyframes fontLoad {
+	to {text-shadow:
+    0 0 2px rgba(204, 208, 212,0.2),
+    0 0 3px rgba(169, 206, 193, 0.03),
+    0 0 0 rgba(153, 208, 171, 0.1),
+    0 0 0 rgba(69, 162, 109,0.2),
+    0 0 0 rgba(50, 172, 103);}
+}
+@-webkit-keyframes fontLoad {
+	to {text-shadow:
+    0 0 2px rgba(204, 208, 212,0.2),
+    0 0 3px rgba(169, 206, 193, 0.03),
+    0 0 0 rgba(153, 208, 171, 0.1),
+    0 0 0 rgba(69, 162, 109,0.2),
+    0 0 0 rgba(50, 172, 103);}
+}
+@-moz-keyframes fontLoad {
+	to {text-shadow:
+    0 0 2px rgba(204, 208, 212,0.2),
+    0 0 3px rgba(169, 206, 193, 0.03),
+    0 0 0 rgba(153, 208, 171, 0.1),
+    0 0 0 rgba(69, 162, 109,0.2),
+    0 0 0 rgba(50, 172, 103);}
+}
+
+.font-load span:nth-child(2){
+  animation-delay:0.15s;
+}
+.font-load span:nth-child(3){
+  animation-delay:0.30s;
+}
+.font-load span:nth-child(4){
+  animation-delay:0.45s;
+}
+.font-load span:nth-child(5){
+  animation-delay:0.60s;
+}
+.font-load span:nth-child(6){
+  animation-delay:0.75s;
+}
+.font-load span:nth-child(7){
+  animation-delay:0.90s;
+}
+.font-load span:nth-child(8){
+  animation-delay:1.05s;
+}
+.font-load span:nth-child(9){
+  animation-delay:1.20s;
+}
+.font-load span:nth-child(10){
+    animation-delay:1.35s;
+  }
+  .font-load span:nth-child(11){
+    animation-delay:1.50s;
+  }
+
+.slider{
+    position: fixed;
+    top: 56px;
+    width: 200px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+}
+.wrapper{
+    padding:15px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+ul.sidebar-menu,
+ul.sidebar-menu ul.sub{
+    padding: 0 0 10px;
+}
+ul.sidebar-menu ul.sub{
+   display: none;
+} 
+ul.sidebar-menu li a{
+    display: block;
+    color: #aeb2b7;
+}
+ul.sidebar-menu li{
+    perspective:180;
+    -webkit-perspective:180;
+    -moz-perspective: 180;
+    margin: 0 10px 5px;
+}
+ul.sidebar-menu>li>a.active{
+    background: #4ECDC4;
+    color: #fff;
+}
+ul.sidebar-menu>li>a{
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+}
+ul.sidebar-menu>li>a:hover{
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transform: rotateX(10deg);
+    -webkit-transform: rotateX(10deg);
+    -moz-transform: rotateX(10deg);
+    background: #4ECDC4;
+    color: #fff;
+}
+ul.sidebar-menu ul.sub li{
+    margin: 0;
+    padding-left: 25px;
+}
+ul.sidebar-menu ul.sub li a{
+    padding-top:10px;
+    font-size: 13px;
+}
+ul.sidebar-menu ul.sub li a:hover{
+    text-decoration: none;
+    color: #fff;
+}
+ul.sidebar-menu ul.sub li a.active{
+    color: #4ECDC4;
+}
+.customTable{
+    /* padding: 10px 10px 0; */
+    margin: 20px 0;
+    background: #fff;
+    /* box-shadow: 0px 0px 3px #8a9a99; */
+    border: 1px solid  #dee2e6;
+}
+.customTable .table{
+    margin: 0;
+}
+.customTable .table td{
+    vertical-align: middle;
+}
+.customTable .table th{
+    padding: 10px;
+    font-weight: normal;
+    font-size: 14px;
+}
+.mark-box .form-control{
+    min-height: 200px;
+    max-height: 46%;
+    overflow: auto;
+}
