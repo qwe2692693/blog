@@ -9,7 +9,7 @@ module.exports = {
     saveUninitialized: false, // 是否保存未初始化的会话
     cookie: {
       secure: false,
-      // maxAge: 60000
+      //maxAge: 24 * 60 * 7
     }
   }
 }

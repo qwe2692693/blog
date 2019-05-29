@@ -1,13 +1,11 @@
 const express = require('express')
 const db = require('./mongodb/db')
 const config = require('config-lite')(__dirname)
-const app = express()
 const path = require('path')
 const bodyParser = require('body-parser')
+//暂时不用
+// const cookieParser = require('cookie-parser')
 const session = require('express-session')
-
-
-
 // 路由连接
 const admin = require('./routers/admin')
 const login = require('./routers/login')
@@ -16,6 +14,9 @@ const content = require('./routers/content')
 const api = require('./routers/api')
 const upload = require('./routers/upload')
 const err404 = require('./routers/404')
+const app = express()
+
+
 
 // 注册ejs模板为html页。简单的讲，就是原来以.ejs为后缀的模板页，现在的后缀名可以//是.html了
 app.engine('.html', require('pug').__express)
@@ -32,6 +33,8 @@ app.use('/static', express.static(__dirname + '/public'))
 // bodyParser 设置
 app.use(bodyParser.urlencoded({ extended: true }))
 
+//设置cookies
+// app.use(cookieParser(config.session.secret))
 // session设置
 app.use(session({
   secret: config.session.secret,
@@ -56,13 +59,14 @@ app.use('/api',api)
  * 判断用户是否登陆顺序很重要
  */
 app.use('/login', login)
-
 app.use((req, res, next) => {
-  var url = req.originalUrl;
-  if (url != "/login" && !req.session.user) {
-    return res.redirect("/login");
+  // var url = req.originalUrl;
+  if (!req.session.user) {
+    res.redirect("/login");
+    return 
+  }else{
+    next();
   }
-  next();
 });
 app.use('/admin', admin)
 app.use('/category', category)
@@ -70,7 +74,7 @@ app.use('/content', content)
 app.use('/upload',upload)
 app.use('/404', err404)
 
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.render("404")
 });
 

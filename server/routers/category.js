@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
 
     let CategoryList = await Category.find().limit(data.limit).skip(skip)
     res.render('category/category', {
-      username: req.session.user.nickname,
+      username:req.session.user.nickname,
       CategoryList: CategoryList,
       data: data
     })
@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
 router.get('/category_err', async (req, res) => {
   try {
     res.render('category/category_err', {
-      username: req.session.user.nickname
+      username:req.session.user.nickname
     })
   } catch (err) {
     console.log(err)
@@ -64,7 +64,7 @@ router.get('/category_err', async (req, res) => {
 router.get('/category_add', async (req, res) => {
   try {
     res.render('category/category_add', {
-      username: req.session.user.nickname
+      username:req.session.user.nickname
     })
   } catch (err) {
     console.log(err)
@@ -120,13 +120,13 @@ router.get('/category_edit', async (req, res) => {
       responseData.code = 1
       responseData.message = '分类信息不存在'
       res.render('category/category_err', {
-        username: req.session.user.nickname,
+        username:req.session.user.nickname,
         responseData: responseData
       })
       return
     } else {
       res.render('category/category_edit', {
-        username: req.session.user.nickname,
+        username:req.session.user.nickname,
         category: category
       })
       return

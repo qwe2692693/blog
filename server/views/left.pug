@@ -42,7 +42,8 @@ nav(class="slider bg-dark")
         })
         $("#out").on('click', () => {
             $.ajax({
-                url: '/api/user/logout',
+                type:'get',
+                url: '/login/user/logout',
                 success(result) {
                     if (!result.code) {
                         window.location.href = '/login'

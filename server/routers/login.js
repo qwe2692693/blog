@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express')
 const router = express.Router()
 const User = require('../modules/User')
@@ -22,11 +23,11 @@ router.get('/', function (req, res) {
  * 
  * 数据库查询
  */
-router.post('/user/register', (req, res, next) => {
-  let nickname = req.body.nickname
-  email = req.body.email == '' ? '暂无邮箱' : req.body.email
-  username = req.body.username
-  password = req.body.password
+router.post('/user/register', (req, res) => {
+  let nickname = req.body.nickname,
+  email = req.body.email == '' ? '暂无邮箱' : req.body.email,
+  username = req.body.username,
+  password = req.body.password,
   passwords = req.body.passwords
   // 验证用户名密码
   if (username == '') {
@@ -108,9 +109,9 @@ router.post('/user/register', (req, res, next) => {
 })
 
 // 登陆
-router.post('/user/login', (req, res, next) => {
+router.post('/user/login', (req, res) => {
   let username = req.body.username,
-    password = req.body.password
+      password = req.body.password
   if (username == '' || password == '') {
     responseData.code = 1,
       responseData.message = '用户名和密码不能为空',
@@ -140,21 +141,17 @@ router.post('/user/login', (req, res, next) => {
       _id: userInfo._id,
       username: username
     }
-    req.session.user = {
-      nickname: userInfo.nickname,
-      username: req.body.username,
-      userId: userInfo._id
-    }
+    req.session.user = responseData.userInfo;   
     res.json(responseData)
     return
   }).catch((err) => {
-    console.log(err)
+    console.error(err)
     return
   })
 })
 //退出
-router.get('/user/logout', (req, res, next) => {
-  req.session.user = null
+router.get('/user/logout', (req, res) => {
+  delete  req.session.user;
   res.json(responseData);
 })
 module.exports = router

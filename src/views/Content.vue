@@ -30,7 +30,7 @@ export default {
         this.contentObj = content.data;
         this.loging = true;
       } catch (err) {
-        console.log("内容" + err);
+        alert("内容" + err);
       }
     }
   },

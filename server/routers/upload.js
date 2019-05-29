@@ -1,9 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const formidable = require('formidable')
-const http = require('http')
-const url  = require('url')
-const path = require('path')
 const fs = require('fs');
 
 
