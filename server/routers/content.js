@@ -156,7 +156,7 @@ router.post('/content_edit', async (req, res) => {
         },
             {
                 category: cateName,
-                user: req.session.user.userId,
+                user: req.session.user._id,
                 title: title,
                 content: content,
                 description: description

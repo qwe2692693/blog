@@ -1,6 +1,6 @@
 <template>
   <el-row class="row-container">
-    <h1 class="htitle">特别推荐</h1>
+    <h1 class="htitle">最新博文</h1>
     <ul class="list">
       <li>
         <h3 class="list-title">

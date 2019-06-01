@@ -67,7 +67,6 @@ block content
                     },
                     dataType:'json',
                     success(result){
-                        console.log(result)
                         if(result.code == 1){
                             $title.after(hintErr(result.message,$title))
                             $title.focus()       

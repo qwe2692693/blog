@@ -1,7 +1,7 @@
 link(rel="stylesheet", href="/static/css/font/iconfont.css")
 nav(class="slider bg-dark")
     div(class="portrait text-center")
-        a(href="javascript:;")
+        a(href="javascript:;" id="tx-btn")
             img(src="/static/images/item-img.jpg", alt="")
         h5(class="text-muted mt-1") #{username}        
     ul(class="sidebar-menu" id='nav-level')
@@ -50,6 +50,9 @@ nav(class="slider bg-dark")
                     }
                 }
             })
+        })
+        $("#tx-btn").on("click",()=>{
+                
         })
 
 
