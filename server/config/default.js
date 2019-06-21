@@ -1,6 +1,6 @@
 // 配置
 module.exports = {
-  port: process.env.PORT || 8081,
+  port: process.env.PORT || 8082,
   url: 'mongodb://localhost:27018/blog',
   session: {
     secret: 'SID',

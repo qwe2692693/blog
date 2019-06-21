@@ -15,7 +15,7 @@ router.use((req, res, next) => {
 })
 
 router.get('/', function (req, res) {
-  res.render('login', { title: '登陆页面' })
+  res.render('login')
 })
 
 /**
