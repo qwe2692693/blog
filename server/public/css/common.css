@@ -2,6 +2,9 @@
 .loginBody{
     height: 100%
 }
+.layui-text-right{
+    text-align: right;
+}
 .loginBody{
     background: url(../images/loginbg.jpeg) no-repeat center center;
     background-size: cover

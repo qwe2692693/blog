@@ -58,15 +58,15 @@ app.use('/api',api)
  * 判断用户是否登陆顺序很重要
  */
 app.use('/login', login)
-app.use((req, res, next) => {
-  // var url = req.originalUrl;
-  if (!req.session.user) {
-    res.redirect("/login");
-    return 
-  }else{
-    next();
-  }
-});
+// app.use((req, res, next) => {
+//   // var url = req.originalUrl;
+//   if (!req.session.user) {
+//     res.redirect("/login");
+//     return 
+//   }else{
+//     next();
+//   }
+// });
 app.use('/admin', admin)
 app.use('/category', category)
 app.use('/content', content)
