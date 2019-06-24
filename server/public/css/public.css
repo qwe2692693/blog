@@ -32,3 +32,92 @@
     -moz-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
 }
+.user-photo{
+    width: 200px;
+    padding: 15px 0 5px;
+}
+.user-photo a.img{
+   display: block;
+   width: 80px;
+   height: 80px;
+   margin: 0 auto;
+   overflow: hidden;
+   border-radius: 50%;
+   background: #fff;
+}
+.user-photo a.img img{
+    width: 100%;
+}
+.user-photo p{
+    padding-top: 5px;
+    text-align: center;
+    font-size: 12px;
+}
+.layui-nav cite{
+    margin-left: 10px;
+}
+.top-tabBox{
+    height: 41px;
+    margin: 0;
+    padding-right: 138px;
+}
+.clildFrame.layui-tab-content{
+    position: absolute;
+    top: 41px;
+    bottom: 0;
+    width: 100%;
+    padding: 0;
+}
+.closeBox{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #fff;
+}
+.closeBox .layui-nav-item{
+    line-height: 40px;
+}
+.closeBox .layui-nav-item a,
+.closeBox .layui-nav-item a:hover{
+    color: #000;
+}
+.closeBox .layui-nav-more{
+    border-top-color: #000;
+}
+.closeBox .layui-nav-mored{
+    border-color: transparent transparent #000;
+}
+.closeBox a i.caozuo{
+    position: absolute;
+    left: 0 ;
+}
+.closeBox .layui-nav-child{
+    top: 42px;
+    left: -12px;
+}
+.closeBox .layui-nav-bar{
+    display: none;
+}
+.layui-tab-title li cite {
+    font-style: normal;
+    padding-left: 5px;
+}
+#top_tabs {
+    position: absolute;
+}
+.layui-nav .layui-nav-item a {
+    cursor: pointer;
+}
+.layui-layout-admin .layui-side {
+    left: 0;
+    overflow: hidden;
+}
+iframe {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border: none;
+}
+.childrenBody{
+    padding: 10px;
+}

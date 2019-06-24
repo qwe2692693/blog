@@ -5,9 +5,11 @@ const bodyParser = require('body-parser')
 //暂时不用
 // const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 // 路由连接
 const admin = require('./routers/admin')
 const login = require('./routers/login')
+const viewPage = require('./routers/viewPage')
 const category = require('./routers/category')
 const content = require('./routers/content')
 const api = require('./routers/api')
@@ -36,6 +38,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // app.use(cookieParser(config.session.secret))
 // session设置
 app.use(session({
+  store: new MongoStore({
+    url: config.url,
+  }),
   secret: config.session.secret,
   resave: config.session.resave,
   name: config.session.name,
@@ -68,14 +73,15 @@ app.use('/login', login)
 //   }
 // });
 app.use('/admin', admin)
+app.use('/viewPage',viewPage)
 app.use('/category', category)
 app.use('/content', content)
 app.use('/upload',upload)
-app.use('/404', err404)
+// app.use('/404', err404)
 
-app.use((req, res) => {
-  res.render("404")
-});
+// app.use((req, res) => {
+//   res.render("404")
+// });
 
 
 const server = app.listen(config.port,'localhost',function () {
