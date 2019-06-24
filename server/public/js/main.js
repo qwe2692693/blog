@@ -6,7 +6,8 @@ getNowDat()
 function getNowDat() {
     let dateObj = new Date(),
         year = dateObj.getFullYear(),
-        
+        month = dateObj.getMonth()+1;
+        console.log(month)
 
 }
 
