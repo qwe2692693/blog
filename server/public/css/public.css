@@ -1,17 +1,20 @@
-.layui-float-left{
+.layui-float-left {
     float: left;
 }
-.layui-float-right{
+
+.layui-float-right {
     float: right;
 }
-.logo{
+
+.logo {
     width: 200px;
     line-height: 60px;
     text-align: center;
     color: #fff;
     font-size: 20px;
 }
-.hideMenu{
+
+.hideMenu {
     line-height: 60px;
     color: #fff;
     font-size: 20px;
@@ -20,7 +23,8 @@
     -moz-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
 }
-.hideMenu:hover{
+
+.hideMenu:hover {
     color: #fff;
     -webkit-transform: scale(1.1);
     -moz-transform: scale(1.1);
@@ -32,92 +36,118 @@
     -moz-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
 }
-.user-photo{
+
+.user-photo {
     width: 200px;
     padding: 15px 0 5px;
 }
-.user-photo a.img{
-   display: block;
-   width: 80px;
-   height: 80px;
-   margin: 0 auto;
-   overflow: hidden;
-   border-radius: 50%;
-   background: #fff;
+
+.user-photo a.img {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #fff;
 }
-.user-photo a.img img{
+
+.user-photo a.img img {
     width: 100%;
 }
-.user-photo p{
+
+.user-photo p {
     padding-top: 5px;
     text-align: center;
     font-size: 12px;
 }
-.layui-nav cite{
+
+.layui-nav cite {
     margin-left: 10px;
 }
-.top-tabBox{
+
+.top-tabBox {
     height: 41px;
     margin: 0;
     padding-right: 138px;
 }
-.clildFrame.layui-tab-content{
+
+.clildFrame.layui-tab-content {
     position: absolute;
     top: 41px;
     bottom: 0;
     width: 100%;
     padding: 0;
 }
-.closeBox{
+
+.closeBox {
     position: absolute;
     right: 0;
     top: 0;
     background: #fff;
 }
-.closeBox .layui-nav-item{
+
+.closeBox .layui-nav-item {
     line-height: 40px;
 }
+
 .closeBox .layui-nav-item a,
-.closeBox .layui-nav-item a:hover{
+.closeBox .layui-nav-item a:hover {
     color: #000;
 }
-.closeBox .layui-nav-more{
+
+.closeBox .layui-nav-more {
     border-top-color: #000;
 }
-.closeBox .layui-nav-mored{
+
+.closeBox .layui-nav-mored {
     border-color: transparent transparent #000;
 }
-.closeBox a i.caozuo{
+
+.closeBox a i.caozuo {
     position: absolute;
-    left: 0 ;
+    left: 0;
 }
-.closeBox .layui-nav-child{
+
+.closeBox .layui-nav-child {
     top: 42px;
     left: -12px;
 }
-.closeBox .layui-nav-bar{
+
+.closeBox .layui-nav-bar {
     display: none;
 }
+
 .layui-tab-title li cite {
     font-style: normal;
     padding-left: 5px;
 }
+
 #top_tabs {
     position: absolute;
 }
+
 .layui-nav .layui-nav-item a {
     cursor: pointer;
 }
+
 .layui-layout-admin .layui-side {
     left: 0;
     overflow: hidden;
 }
+
 iframe {
     position: absolute;
     height: 100%;
     width: 100%;
     border: none;
 }
-.childrenBody{
+
+.childrenBody {
     padding: 10px;
+}
+
+#nowTime {
+    text-align: center;
+    letter-spacing: 2px;
 }

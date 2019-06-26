@@ -1,19 +1,36 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%= title %></title>
+    <title>
+        <%= title %>
+    </title>
     <link href="/static/css/fonts/iconfont.css" rel="stylesheet">
     <link href="/static/layui/css/layui.css" rel="stylesheet">
     <link href="/static/css/public.css" rel="stylesheet">
 </head>
+
 <body class="childrenBody">
     <blockquote class="layui-elem-quote layui-bg-green">
-        <div class="nowTime"></div>
+        <h3 id="nowTime"></h3>
     </blockquote>
-
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md6">
+            <blockquote class="layui-elem-quote">
+                浏览记录
+            </blockquote>
+        </div>
+        <div class="layui-col-md6">
+            <blockquote class="layui-elem-quote">
+                最新文章
+            </blockquote>
+            <table id="content" lay-filter="content"></table>
+        </div>
+    </div>
     <script src="/static/layui/layui.js"></script>
     <script src="/static/js/main.js"></script>
 </body>
+
 </html>
