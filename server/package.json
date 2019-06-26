@@ -1,27 +1,30 @@
 {
-  "name": "blogserver",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "config-lite": "^2.1.0",
-    "connect-mongo": "^3.0.0",
-    "cookie": "^0.4.0",
-    "cookie-parser": "^1.4.4",
-    "ejs": "^2.6.2",
-    "express": "^4.16.4",
-    "express-session": "^1.15.6",
-    "formidable": "^1.2.1",
-    "mongodb": "^3.2.2",
-    "mongoose": "^5.4.19",
-    "node-pinyin": "^0.2.3",
-    "wangeditor": "^3.1.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+    "name": "blogserver",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "config-lite": "^2.1.0",
+        "connect-mongo": "^3.0.0",
+        "cookie": "^0.4.0",
+        "cookie-parser": "^1.4.4",
+        "ejs": "^2.6.2",
+        "express": "^4.16.4",
+        "express-session": "^1.15.6",
+        "formidable": "^1.2.1",
+        "mongodb": "^3.2.2",
+        "mongoose": "^5.4.19",
+        "node-pinyin": "^0.2.3",
+        "wangeditor": "^3.1.1"
+    },
+    "devDependencies": {
+        "nodemon": "^1.19.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon"
+    },
+    "author": "",
+    "license": "ISC"
 }
