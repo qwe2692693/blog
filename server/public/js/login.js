@@ -1,4 +1,4 @@
-layui.use(['form', 'layer', 'jquery'], function () {
+layui.use(['form', 'layer', 'jquery'], function() {
     let form = layui.form,
         layer = layui.layer,
         $ = layui.jquery;
@@ -8,7 +8,7 @@ layui.use(['form', 'layer', 'jquery'], function () {
         anim: 6, //默认动画风格
     });
     // 登陆
-    form.on('submit(login)', function (data) {
+    form.on('submit(login)', function(data) {
         $.ajax({
             type: 'post',
             url: '/login/user/login',
@@ -31,12 +31,12 @@ layui.use(['form', 'layer', 'jquery'], function () {
                     return
                 }
                 $(data.elem).text('登录中...').attr('disabled', 'disabled').addClass('layui-disabled');
-                setTimeout(function () {
+                setTimeout(function() {
                     window.location.href = 'admin';
                 }, 1000);
                 form.val('rest', {
-                    'username': ''
-                    , 'password': ''
+                    'username': '',
+                    'password': ''
                 })
                 return false;
             }
@@ -44,16 +44,16 @@ layui.use(['form', 'layer', 'jquery'], function () {
 
     })
 
-    $('.loginBody .input-item').click(function (e) {
+    $('.loginBody .input-item').click(function(e) {
         e.stopPropagation();
         $(this).addClass('input-focus').find('.layui-input').focus();
     })
 
-    $('.loginBody .input-item .layui-input').focus(function () {
+    $('.loginBody .input-item .layui-input').focus(function() {
         $(this).parent().addClass('input-focus');
     })
 
-    $('.loginBody .input-item .layui-input').blur(function () {
+    $('.loginBody .input-item .layui-input').blur(function() {
         $(this).parent().removeClass('input-focus');
         if ($(this).val() != '') {
             $(this).parent().addClass('input-focus-active');
@@ -101,17 +101,17 @@ layui.use(['form', 'layer', 'jquery'], function () {
 
     //注册
 
-    $('#regSub').on('click', function () {
+    $('#regSub').on('click', function() {
         $('#regBox').removeClass('layui-hide');
         $('#loginBox').addClass('layui-hide');
 
     })
-    $('#returnLogin').on('click', function () {
+    $('#returnLogin').on('click', function() {
         $('#loginBox').removeClass('layui-hide');
         $('#regBox').addClass('layui-hide');
 
     })
-    form.on('submit(regSub)', function (data) {
+    form.on('submit(regSub)', function(data) {
         $.ajax({
             type: 'post',
             url: '/login/user/register',
@@ -145,16 +145,16 @@ layui.use(['form', 'layer', 'jquery'], function () {
                     $('#loginBox').removeClass('layui-hide');
                     $('#regBox').addClass('layui-hide');
                     form.val('rest', {
-                        'username': data.field.username, 
+                        'username': data.field.username,
                         'password': data.field.password,
                     })
-                    $('.loginBody .input-item .layui-input').parent().addClass('input-focus-active')                    
+                    $('.loginBody .input-item .layui-input').parent().addClass('input-focus-active')
                     form.val('restF', {
-                        'nickname':'',
-                        'email':'',
-                        'username': '', 
+                        'nickname': '',
+                        'email': '',
+                        'username': '',
                         'password': '',
-                        'passwords':''
+                        'passwords': ''
                     })
                     return false
                 }
