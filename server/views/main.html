@@ -23,10 +23,18 @@
             </blockquote>
         </div>
         <div class="layui-col-md6">
-            <blockquote class="layui-elem-quote">
+            <blockquote class="layui-elem-quote margin-0">
                 最新文章
             </blockquote>
-            <table id="content" lay-filter="content"></table>
+            <table id="mainContent" lay-filter="mainContent" class="layui-table margin-0" lay-skin='line'>
+                <colgroup>
+                    <col>
+                    <col width="150">
+                </colgroup>
+                <tbody class="bodyList">
+
+                </tbody>
+            </table>
         </div>
     </div>
     <script src="/static/layui/layui.js"></script>

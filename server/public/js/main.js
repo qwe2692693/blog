@@ -2,7 +2,7 @@
 let nowDate = '';
 
 function dateFilter(date) {
-    return date > 10 ? date : '0' + date;
+    return date < 10 ? '0' + date : date;
 }
 getNowDat()
     //获取时间的方法
@@ -44,3 +44,16 @@ function getNowDat() {
     document.getElementById('nowTime').innerHTML = nowDate;
     setTimeout('getNowDat()', 1000)
 }
+layui.use(['jquery'], () => {
+    let $ = layui.jquery,
+        tabHtml = '';
+    $.get('/content', (data) => {
+        for (let i = 0; i < data.contents.length; i++) {
+            tabHtml += '<tr>' +
+                '<td>' + data.contents[i].description + '</td>' +
+                '<td>' + data.contents[i].addTime + '</td>' +
+                '</tr>';
+        }
+        $('.bodyList').html(tabHtml)
+    })
+})
