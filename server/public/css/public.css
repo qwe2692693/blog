@@ -155,3 +155,8 @@ iframe {
     text-align: center;
     letter-spacing: 2px;
 }
+
+.upload-box {
+    padding: 39px 0;
+    width: 100%;
+}

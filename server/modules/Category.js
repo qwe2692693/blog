@@ -1,4 +1,14 @@
 const mongoose = require('mongoose')
 const CategorySchemas = require('../schemas/category')
 
-module.exports = mongoose.model('Category', CategorySchemas)
+CategorySchemas.pre('save', function(next) {
+    CategoryModel.updateMany({
+        seq: 'entityId'
+    }, { $inc: { id: 1 } }, function(err, ps) {
+        this.id = ps.id
+    })
+    next()
+})
+
+const CategoryModel = mongoose.model('Category', CategorySchemas)
+module.exports = CategoryModel;

@@ -41,11 +41,11 @@ router.get('/', async(req, res) => {
         let skip = (data.page - 1) * data.limit
 
         let CategoryList = await Category.find().limit(data.limit).skip(skip)
-        res.render('category/category', {
-            username: req.session.user.nickname,
-            CategoryList: CategoryList,
-            data: data
+        res.json({
+            CategoryList,
+            data
         })
+
     } catch (err) {
         console.log(err)
     }
@@ -66,7 +66,9 @@ router.get('/category_err', async(req, res) => {
 router.post('/category_add', async(req, res) => {
         try {
             let cateName = await req.body.cateName || '';
-            let cateShort = await req.body.cateShort || '';
+            let cateDes = await req.body.cateDes || '';
+            let cateContent = await req.body.cateContent || '';
+            // let cateShort = await req.body.cateShort || '';
             // 类名是否为空
             if (cateName == '') {
                 responseData.code = 1,
@@ -74,11 +76,11 @@ router.post('/category_add', async(req, res) => {
                 res.json(responseData)
                 return
             }
-            if (cateShort == '') {
-                cateShort = pinyin(cateName, {
-                    style: 'normal',
-                }).join().replace(/,/g, '')
-            }
+            // if (cateShort == '') {
+            //     cateShort = pinyin(cateName, {
+            //         style: 'normal',
+            //     }).join().replace(/,/g, '')
+            // }
             let catName = await Category.findOne({ catname: cateName })
             if (catName) {
                 responseData.code = 2,
@@ -88,7 +90,7 @@ router.post('/category_add', async(req, res) => {
             }
             let categoryName = await new Category({
                 catname: cateName,
-                cateShort: cateShort
+                cateDes: cateDes,
             })
             responseData.message = '保存成功'
             res.json(responseData)

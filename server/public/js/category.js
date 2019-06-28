@@ -1,13 +1,32 @@
 layui.config({
-    base: '/static/layui/treeTable/' //假设这是你存放拓展模块的根目录
-}).extend({ //设定模块别名
-    mymod: 'treeTable' //如果 mymod.js 是在根目录，也可以不用设定别名
-});
-
+    base: '/static/layui/treeTable/', //假设这是你存放拓展模块的根目录
+})
 layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
     let $ = layui.jquery,
         layer = layui.layer,
+        treeTable = layui.treeTable,
+        form = layui.form,
         index;
+
+    $.get('/category', function(data) {
+        treeFun(data.CategoryList)
+    })
+
+    function treeFun(data) {
+        treeTable.render({
+            elem: '#tree-table',
+            data: data,
+            icon_key: 'title',
+            is_checkbox: true,
+            cols: [{
+                key: 'title',
+                title: '名称',
+                template: function(item) {
+                    return '<span>' + item.catname + '</span>';
+                }
+            }]
+        })
+    }
 
     function addCategory() {
         index = layui.layer.open({

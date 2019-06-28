@@ -12,21 +12,21 @@
 <body class="childrenBody">
     <form class="layui-form" action="">
         <div class="layui-row layui-col-space10">
-            <div class="layui-col-md7">
+            <div class="layui-col-md8 layui-col-xs7">
                 <div class="layui-form-item">
                     <label class="layui-form-label">输入栏目</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" required lay-verify="required" placeholder="输入栏目" autocomplete="off" class="layui-input">
+                        <input type="text" name="cateName" lay-verify="required|cateName" lay-reqtext="栏目不能为空哦！" placeholder="输入栏目" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">栏目摘要</label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                        <textarea placeholder="请输入内容" name="cateDes" class="layui-textarea"></textarea>
                     </div>
                 </div>
             </div>
-            <div class="layui-col-md5">
+            <div class="layui-col-md4 layui-col-xs5">
                 <div class="layui-upload-drag upload-box" id="test10">
                     <i class="layui-icon"></i>
                     <p>点击上传，或将文件拖拽到此处</p>
@@ -35,12 +35,19 @@
 
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">内容编辑</label>
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                <div id="editor"></div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <a href="javascript:;" class="layui-btn" lay-filter="submit" lay-submit>立即提交</a>
             </div>
         </div>
     </form>
     <script src="/static/layui/layui.js"></script>
+    <script src="/static/js/wangEditor.min.js"></script>
     <script src="/static/js/categoryAdd.js"></script>
 </body>
 
