@@ -68,6 +68,7 @@ router.post('/category_add', async(req, res) => {
             let cateName = await req.body.cateName || '';
             let cateDes = await req.body.cateDes || '';
             let cateContent = await req.body.cateContent || '';
+            let cateImg = await req.body.cateImg || '';
             // let cateShort = await req.body.cateShort || '';
             // 类名是否为空
             if (cateName == '') {
@@ -91,6 +92,8 @@ router.post('/category_add', async(req, res) => {
             let categoryName = await new Category({
                 catname: cateName,
                 cateDes: cateDes,
+                cateContent: cateContent,
+                cateImg: cateImg
             })
             responseData.message = '保存成功'
             res.json(responseData)

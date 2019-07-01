@@ -9,6 +9,8 @@ router.post('/', (req, res) => {
     // 创建临时目录
     let dir = form.uploadDir = "./public/upload/"
     form.parse(req, (err, fields, files) => {
+        // console.log(files.file)
+        // return
         if (err) {
             return console.log('formidable, form.parse err' + err);
         }

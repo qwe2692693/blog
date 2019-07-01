@@ -7,6 +7,7 @@ const categoreSchema = new mongoose.Schema({
     catname: String,
     cateDes: String,
     cateContent: String,
+    cateImg: String,
 })
 
 module.exports = categoreSchema;

@@ -2,11 +2,11 @@ const express = require('express')
 const db = require('./mongodb/db')
 const config = require('config-lite')(__dirname)
 const bodyParser = require('body-parser')
-//暂时不用
-// const cookieParser = require('cookie-parser')
+    //暂时不用
+    // const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
-// 路由连接
+    // 路由连接
 const admin = require('./routers/admin')
 const login = require('./routers/login')
 const viewPage = require('./routers/viewPage')
@@ -38,54 +38,54 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // app.use(cookieParser(config.session.secret))
 // session设置
 app.use(session({
-  store: new MongoStore({
-    url: config.url,
-  }),
-  secret: config.session.secret,
-  resave: config.session.resave,
-  name: config.session.name,
-  saveUninitialized: config.session.saveUninitialized,
-  cookie: config.session.cookie
+    store: new MongoStore({
+        url: config.url,
+    }),
+    secret: config.session.secret,
+    resave: config.session.resave,
+    name: config.session.name,
+    saveUninitialized: config.session.saveUninitialized,
+    cookie: config.session.cookie
 }))
 
 
 
 // 路由
-app.use('/api',(req,res,next)=>{
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
-  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  next();
+app.use('/api', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    next();
 })
-app.use('/api',api)
+app.use('/api', api)
 
 /**
  * 判断用户是否登陆顺序很重要
  */
 app.use('/login', login)
-// app.use((req, res, next) => {
-//   // var url = req.originalUrl;
-//   if (!req.session.user) {
-//     res.redirect("/login");
-//     return 
-//   }else{
-//     next();
-//   }
-// });
+    // app.use((req, res, next) => {
+    //   // var url = req.originalUrl;
+    //   if (!req.session.user) {
+    //     res.redirect("/login");
+    //     return 
+    //   }else{
+    //     next();
+    //   }
+    // });
 app.use('/admin', admin)
-app.use('/viewPage',viewPage)
+app.use('/viewPage', viewPage)
 app.use('/category', category)
 app.use('/content', content)
-app.use('/upload',upload)
-// app.use('/404', err404)
+app.use('/upload', upload)
+    // app.use('/404', err404)
 
 // app.use((req, res) => {
 //   res.render("404")
 // });
 
 
-const server = app.listen(config.port,'localhost',function () {
-  var host = server.address().address;
+const server = app.listen(config.port, 'localhost', function() {
+    var host = server.address().address;
     var port = server.address().port;
     console.log('当前访问地址:  http://%s:%s', host, port)
 })
