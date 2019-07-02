@@ -1,6 +1,7 @@
 var E = window.wangEditor
 var editor = new E('#editor')
 
+
 function initEditor(obj) {
     obj.customConfig = {
         debug: true, //开启debug调试
@@ -10,15 +11,16 @@ function initEditor(obj) {
         uploadFileName: 'myFileName', //配置文件参数名（这个参数必需配置，后台用这个值接收图片）
         showLinkImg: true //隐藏网络图片tab
     };
-    // obj.customConfig.debug = true
+    obj.customConfig.zIndex = 100;
     obj.create()
 }
 initEditor(editor)
 
-layui.use(['form', 'layer', 'upload'], function() {
+layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
     let form = layui.form,
         layer = layui.layer,
         upload = layui.upload,
+        laytpl = layui.laytpl,
         $ = layui.jquery;
     let imgErr = true,
         cateImg;
@@ -52,12 +54,27 @@ layui.use(['form', 'layer', 'upload'], function() {
             });
             return
         }
-        $.post('/category/category_add', {
-            cateName: data.field.cateName,
-            cateDes: data.field.cateDes,
-            cateContent: editor.txt.text(),
-            cateImg: cateImg
-        }, (req) => {
+        if ($("#parentId").val() != '') {
+            cateAddFun({
+                cateName: data.field.cateName,
+                cateDes: data.field.cateDes,
+                cateContent: editor.txt.text(),
+                cateImg: cateImg,
+                cateId: $("#cateNameVal").val(),
+            })
+
+        } else {
+            cateAddFun({
+                cateName: data.field.cateName,
+                cateDes: data.field.cateDes,
+                cateContent: editor.txt.text(),
+                cateImg: cateImg
+            })
+        }
+    })
+
+    function cateAddFun(data) {
+        $.post('/category/category_add', data, (req) => {
             if (req.code == 1) {
                 form.verify({
                     cateName: function() {
@@ -96,5 +113,27 @@ layui.use(['form', 'layer', 'upload'], function() {
 
             }
         })
+    }
+
+
+
+
+
+
+    $.get('/category', { async: false }, function(data) {
+        let getTpl = parentFun.innerHTML,
+            view = document.getElementById('parentView'),
+            cateId = $("#parentId").val();
+
+        let cateDatas = {
+            CategoryList: data.CategoryList,
+            CateId: cateId
+        }
+        laytpl(getTpl).render(cateDatas, function(html) {
+            view.innerHTML = html;
+        });
+        form.render('select')
     })
+
+
 })

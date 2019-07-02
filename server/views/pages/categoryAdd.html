@@ -13,6 +13,17 @@
     <form class="layui-form" action="">
         <div class="layui-row layui-col-space10">
             <div class="layui-col-md8 layui-col-xs7">
+                <div class="layui-form-item layui-hide" id="parentS">
+                    <input type="hidden" id="parentId">
+                    <label class="layui-form-label">顶级栏目</label>
+                    <div class="layui-input-block" id="parentView"></div>
+
+                    <!-- <input type="hidden" id="parentId">
+                    <label class="layui-form-label">顶级栏目</label>
+                    <div class="layui-input-block">
+                        <select name="cateName" id="cateName" lay-verify=""></select>
+                    </div> -->
+                </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">输入栏目</label>
                     <div class="layui-input-block">
@@ -49,6 +60,19 @@
     <script src="/static/layui/layui.js"></script>
     <script src="/static/js/wangEditor.min.js"></script>
     <script src="/static/js/categoryAdd.js"></script>
+
+    <script id="parentFun" type="text/html">
+        <select name="cateName" id='cateNameVal'>
+                {{# layui.each(d.CategoryList, function (index,item){ }}
+                    {{# if(d.CateId == item._id){ }}
+                         <option value="{{ item.id }}" selected> {{ item.catname }} </option>
+                    {{# } else{ }}
+                        <option value="{{ item.id }}"> {{ item.catname }} </option>
+                    {{#  } }}
+                {{# });}}
+            </select>
+
+    </script>
 </body>
 
 </html>

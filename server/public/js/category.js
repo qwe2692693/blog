@@ -6,12 +6,10 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
         layer = layui.layer,
         treeTable = layui.treeTable,
         form = layui.form,
-        element = layui.element,
         index;
 
     $.get('/category', function(data) {
         treeFun(data.CategoryList)
-        treeTable.render(treeFun(data.CategoryList));
     })
 
     function treeFun(data) {
@@ -37,7 +35,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
                             '<i class="layui-icon">&#xe65f;</i>' +
                             '</a>' +
                             '<dl class="more-child">' +
-                            '<dd><a href="javascript:;" class="addChild">增加子类</a></dd>' +
+                            '<dd><a href="javascript:;" class="addChild" lay-filter="add">增加子类</a></dd>' +
                             '<dd><a href="javascript:;" class="delete">删除</a></dd>' +
                             '<dd><a href="javascript:;" class="edit">编辑</a></dd>' +
                             '</dl>' +
@@ -48,27 +46,41 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
         })
     }
 
-    function addCategory() {
-        index = layui.layer.open({
+    function addCategory(obj) {
+
+        index = layer.open({
             title: "添加栏目",
             type: 2,
-            content: 'categoryAdd'
-        })
+            content: 'categoryAdd',
+            success: function(layero, index) {
+                let body = layer.getChildFrame('body', index);
+                if (obj) {
+                    if (obj.elem.className == 'addChild') {
 
+                        body.find('#parentS').removeClass('layui-hide');
+                        body.find('#parentId').val(obj.item._id)
+                    }
+                }
+            }
+        })
         setTimeout(function() {
             layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
                 tips: 3
             });
         }, 500)
-        layui.layer.full(index);
-        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        layer.full(index);
 
     }
-    $(window).on("resize", function() {
-        layui.layer.full(index);
+
+    $(window).on('resize', function() {
+        layer.full(index);
     })
-    $(".addCategory").on('click', function() {
+
+    $('.addCategory').on('click', function() {
         addCategory()
     })
 
+    treeTable.on('tree(add)', function(data) {
+        addCategory(data)
+    })
 })

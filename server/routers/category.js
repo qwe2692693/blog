@@ -65,11 +65,12 @@ router.get('/category_err', async(req, res) => {
      **/
 router.post('/category_add', async(req, res) => {
         try {
+            console.log(req.body)
             let cateName = await req.body.cateName || '';
             let cateDes = await req.body.cateDes || '';
             let cateContent = await req.body.cateContent || '';
             let cateImg = await req.body.cateImg || '';
-            // let cateShort = await req.body.cateShort || '';
+            let cateId = await req.body.cateId || '';
             // 类名是否为空
             if (cateName == '') {
                 responseData.code = 1,
@@ -77,11 +78,6 @@ router.post('/category_add', async(req, res) => {
                 res.json(responseData)
                 return
             }
-            // if (cateShort == '') {
-            //     cateShort = pinyin(cateName, {
-            //         style: 'normal',
-            //     }).join().replace(/,/g, '')
-            // }
             let catName = await Category.findOne({ catname: cateName })
             if (catName) {
                 responseData.code = 2,
@@ -158,11 +154,11 @@ router.post('/category_edit', async(req, res) => {
             //   responseData.message = '名称未修改'
             //   res.json(responseData)
             // }
-            if ((editcateShort == '') || (editcateShort != category.cateShort)) {
-                editcateShort = pinyin(editName, {
-                    style: 'normal'
-                }).join().replace(/,/g, '')
-            }
+            // if ((editcateShort == '') || (editcateShort != category.cateShort)) {
+            //     editcateShort = pinyin(editName, {
+            //         style: 'normal'
+            //     }).join().replace(/,/g, '')
+            // }
             responseData.message = '修改成功'
             res.json(responseData)
             return Category.updateOne({
