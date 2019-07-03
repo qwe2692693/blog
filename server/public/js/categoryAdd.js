@@ -78,7 +78,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
             if (req.code == 1) {
                 form.verify({
                     cateName: function() {
-                        return req.message;
+                        req.message;
                     }
                 })
                 layer.msg(req.message, {
@@ -87,11 +87,10 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
                     time: 1000,
                 });
                 return
-            }
-            if (req.code == 2) {
+            } else if (req.code == 2) {
                 form.verify({
                     cateName: function() {
-                        return req.message;
+                        req.message;
                     }
                 })
                 layer.msg(req.message, {
@@ -100,9 +99,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
                     time: 1000,
                 });
                 return
-            }
-
-            if (req.code == 0) {
+            } else if (req.code == 0) {
                 layer.msg(req.message, {
                     time: 1000,
                 }, function() {
@@ -116,24 +113,20 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
     }
 
 
+    if (!$("#parentS").hasClass('layui-hide')) {
+        $.get('/category', { async: false }, function(data) {
+            let getTpl = parentFun.innerHTML,
+                view = document.getElementById('parentView'),
+                cateId = $("#parentId").val();
 
-
-
-
-    $.get('/category', { async: false }, function(data) {
-        let getTpl = parentFun.innerHTML,
-            view = document.getElementById('parentView'),
-            cateId = $("#parentId").val();
-
-        let cateDatas = {
-            CategoryList: data.CategoryList,
-            CateId: cateId
-        }
-        laytpl(getTpl).render(cateDatas, function(html) {
-            view.innerHTML = html;
-        });
-        form.render('select')
-    })
-
-
+            let cateDatas = {
+                CategoryList: data.CategoryList,
+                CateId: cateId
+            }
+            laytpl(getTpl).render(cateDatas, function(html) {
+                view.innerHTML = html;
+            });
+            form.render('select')
+        })
+    }
 })

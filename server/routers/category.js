@@ -40,7 +40,7 @@ router.get('/', async(req, res) => {
         data.page = Math.max(data.page, 1)
         let skip = (data.page - 1) * data.limit
 
-        let CategoryList = await Category.find().limit(data.limit).skip(skip)
+        let CategoryList = await Category.find({ catname: { $ne: null } }).limit(data.limit).skip(skip)
         res.json({
             CategoryList,
             data
@@ -65,32 +65,43 @@ router.get('/category_err', async(req, res) => {
      **/
 router.post('/category_add', async(req, res) => {
         try {
-            console.log(req.body)
             let cateName = await req.body.cateName || '';
             let cateDes = await req.body.cateDes || '';
             let cateContent = await req.body.cateContent || '';
             let cateImg = await req.body.cateImg || '';
             let cateId = await req.body.cateId || '';
+            let categoryName;
             // 类名是否为空
             if (cateName == '') {
-                responseData.code = 1,
-                    responseData.message = '名称不能为空'
+                responseData.code = 1
+                responseData.message = '名称不能为空'
                 res.json(responseData)
                 return
             }
             let catName = await Category.findOne({ catname: cateName })
+                // 类名是否存在
             if (catName) {
-                responseData.code = 2,
-                    responseData.message = '当前类名已存在,请勿重复添加'
+                responseData.code = 2
+                responseData.message = '当前类名已存在,请勿重复添加'
                 res.json(responseData)
                 return
             }
-            let categoryName = await new Category({
-                catname: cateName,
-                cateDes: cateDes,
-                cateContent: cateContent,
-                cateImg: cateImg
-            })
+            if (cateId != '') {
+                categoryName = await new Category({
+                    catname: cateName,
+                    cateDes: cateDes,
+                    cateContent: cateContent,
+                    pid: cateId
+                })
+            } else {
+                categoryName = await new Category({
+                    catname: cateName,
+                    cateDes: cateDes,
+                    cateContent: cateContent,
+                    cateImg: cateImg
+                })
+            }
+            responseData.code = 0
             responseData.message = '保存成功'
             res.json(responseData)
             return categoryName.save()
