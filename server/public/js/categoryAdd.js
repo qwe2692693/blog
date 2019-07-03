@@ -40,7 +40,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function () {
             obj.preview(function (index, file, result) {
                 let imgSrc = '<div class="showImgBox"><img src=' + result + '></div>';
                 cateImg = file.name;
-                $("#dateAddUpload").append(imgSrc)
+                $("#dateAddUpload .zw").html(imgSrc)
             })
         }
     })
@@ -114,6 +114,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function () {
 
     if ($("#submitBtn").attr('lay-filter') == 'edit') {
         editor.txt.html($("input[name=editor]").val())
+        $("input[name=editor]").val('')
     }
 
     form.on('submit(edit)', function (data) {

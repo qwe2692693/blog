@@ -67,7 +67,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function () {
                         body.find('input[name=cateName]').val(obj.item.catname)
                         body.find('textarea[name=cateDes]').val(obj.item.cateDes)
                         body.find('input[name=editor]').val(obj.item.cateContent)
-                        console.log(body.find("#submitBtn").attr('lay-filter','edit'))
+                        body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=/static/upload/' + obj.item.cateImg + '></div>')
                     }
                 }
             }
