@@ -6,10 +6,15 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
         layer = layui.layer,
         treeTable = layui.treeTable,
         form = layui.form,
+        flag = false,
         index;
 
     $.get('/category', function(data) {
-        treeFun(data.CategoryList)
+        flag = true
+        if (flag) {
+            $("#loading").hide()
+            treeFun(data.CategoryList)
+        }
     })
 
     function treeFun(data) {
@@ -69,12 +74,14 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
             });
         }, 500)
         layer.full(index);
-
+        $(window).on('resize', function() {
+            layer.full(index);
+        })
     }
 
-    $(window).on('resize', function() {
-        layer.full(index);
-    })
+    // $(window).on('resize', function() {
+    //     layer.full(index);
+    // })
 
     $('.addCategory').on('click', function() {
         addCategory()

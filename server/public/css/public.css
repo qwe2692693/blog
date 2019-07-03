@@ -219,3 +219,8 @@ iframe {
 .more:hover .more-child {
     display: block !important;
 }
+
+#loading {
+    width: 100%;
+    text-align: center;
+}
