@@ -1,7 +1,6 @@
 var E = window.wangEditor
 var editor = new E('#editor')
 
-
 function initEditor(obj) {
     obj.customConfig = {
         debug: true, //开启debug调试
@@ -11,12 +10,12 @@ function initEditor(obj) {
         uploadFileName: 'myFileName', //配置文件参数名（这个参数必需配置，后台用这个值接收图片）
         showLinkImg: true //隐藏网络图片tab
     };
+    obj.customConfig.uploadImgShowBase64 = true
     obj.customConfig.zIndex = 100;
     obj.create()
 }
-initEditor(editor)
 
-layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
+layui.use(['form', 'layer', 'upload', 'laytpl'], function () {
     let form = layui.form,
         layer = layui.layer,
         upload = layui.upload,
@@ -24,6 +23,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
         $ = layui.jquery;
     let imgErr = true,
         cateImg;
+    initEditor(editor)
     //上传栏目图片
     upload.render({
         elem: '#dateAddUpload',
@@ -31,13 +31,13 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
         auto: false, //选择文件后不自动上传
         bindAction: '#submitBtn', //指向一个按钮触发上传
         field: 'myFileName',
-        done: function(res, index, upload) {
+        done: function (res, index, upload) {
             if (!res.isOk) {
                 imgErr = false;
             }
         },
-        choose: function(obj) {
-            obj.preview(function(index, file, result) {
+        choose: function (obj) {
+            obj.preview(function (index, file, result) {
                 let imgSrc = '<div class="showImgBox"><img src=' + result + '></div>';
                 cateImg = file.name;
                 $("#dateAddUpload").append(imgSrc)
@@ -45,7 +45,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
         }
     })
 
-    form.on('submit(submit)', function(data) {
+    form.on('submit(submit)', function (data) {
         if (!imgErr) {
             layer.msg('图片上传错误', {
                 anim: 6,
@@ -67,7 +67,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
             cateAddFun({
                 cateName: data.field.cateName,
                 cateDes: data.field.cateDes,
-                cateContent: editor.txt.text(),
+                cateContent: editor.txt.html(),
                 cateImg: cateImg
             })
         }
@@ -77,7 +77,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
         $.post('/category/category_add', data, (req) => {
             if (req.code == 1) {
                 form.verify({
-                    cateName: function() {
+                    cateName: function () {
                         req.message;
                     }
                 })
@@ -89,7 +89,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
                 return
             } else if (req.code == 2) {
                 form.verify({
-                    cateName: function() {
+                    cateName: function () {
                         req.message;
                     }
                 })
@@ -102,7 +102,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
             } else if (req.code == 0) {
                 layer.msg(req.message, {
                     time: 1000,
-                }, function() {
+                }, function () {
                     layer.closeAll("iframe");
                     //刷新父页面
                     parent.location.reload();
@@ -112,9 +112,16 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
         })
     }
 
+    if ($("#submitBtn").attr('lay-filter') == 'edit') {
+        editor.txt.html($("input[name=editor]").val())
+    }
+
+    form.on('submit(edit)', function (data) {
+
+    })
 
     if (!$("#parentS").hasClass('layui-hide')) {
-        $.get('/category', { async: false }, function(data) {
+        $.get('/category', { async: false }, function (data) {
             let getTpl = parentFun.innerHTML,
                 view = document.getElementById('parentView'),
                 cateId = $("#parentId").val();
@@ -123,7 +130,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
                 CategoryList: data.CategoryList,
                 CateId: cateId
             }
-            laytpl(getTpl).render(cateDatas, function(html) {
+            laytpl(getTpl).render(cateDatas, function (html) {
                 view.innerHTML = html;
             });
             form.render('select')

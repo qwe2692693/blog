@@ -24,6 +24,7 @@ router.get('/category', async(req, res) => {
 router.get('/categoryAdd', async(req, res) => {
     try {
         res.render('pages/categoryAdd', {
+            title: '栏目添加',
             username: req.session.user.nickname
         })
     } catch (err) {

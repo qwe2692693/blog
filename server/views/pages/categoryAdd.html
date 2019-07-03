@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title><%= title %></title>
     <link href="/static/layui/css/layui.css" rel="stylesheet">
     <link href="/static/css/public.css" rel="stylesheet">
 </head>
@@ -17,12 +17,6 @@
                     <input type="hidden" id="parentId">
                     <label class="layui-form-label">顶级栏目</label>
                     <div class="layui-input-block" id="parentView"></div>
-
-                    <!-- <input type="hidden" id="parentId">
-                    <label class="layui-form-label">顶级栏目</label>
-                    <div class="layui-input-block">
-                        <select name="cateName" id="cateName" lay-verify=""></select>
-                    </div> -->
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">输入栏目</label>
@@ -47,6 +41,7 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">内容编辑</label>
+            <input type="hidden" name="editor">
             <div class="layui-input-block">
                 <div id="editor"></div>
             </div>
