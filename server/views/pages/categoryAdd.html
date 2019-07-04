@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%= title %></title>
+    <title>
+        <%= title %>
+    </title>
     <link href="/static/layui/css/layui.css" rel="stylesheet">
     <link href="/static/css/public.css" rel="stylesheet">
 </head>
 
 <body class="childrenBody">
     <form class="layui-form" action="">
+        <input type="hidden" id="editId">
         <div class="layui-row layui-col-space10">
             <div class="layui-col-md8 layui-col-xs7">
                 <div class="layui-form-item layui-hide" id="parentS">
@@ -61,6 +64,8 @@
         <select name="cateName" id='cateNameVal'>
                 {{# layui.each(d.CategoryList, function (index,item){ }}
                     {{# if(d.CateId == item._id){ }}
+                         <option value="{{ item.id }}" selected> {{ item.catname }} </option>
+                    {{# } else if(d.CateId == item.id){ }}
                          <option value="{{ item.id }}" selected> {{ item.catname }} </option>
                     {{# } else{ }}
                         <option value="{{ item.id }}"> {{ item.catname }} </option>
