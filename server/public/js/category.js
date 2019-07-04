@@ -42,7 +42,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
                             '<dl class="more-child">' +
                             '<dd><a href="javascript:;" class="addChild" lay-filter="add">增加子类</a></dd>' +
                             '<dd><a href="javascript:;" class="edit" lay-filter="edit">编辑</a></dd>' +
-                            '<dd><a href="javascript:;" class="delete">删除</a></dd>' +
+                            '<dd><a href="javascript:;" class="delete" lay-filter="delete">删除</a></dd>' +
                             '</dl>' +
                             '</div > '
                     }
@@ -111,5 +111,9 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
 
     treeTable.on('tree(edit)', function(data) {
         addCategory(data)
+    })
+
+    treeTable.on('tree(delete)', function(data) {
+
     })
 })
