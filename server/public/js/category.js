@@ -114,15 +114,11 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
     })
 
     treeTable.on('tree(delete)', function(data) {
-        layer.confirm('是否删除', { icon: 3, closeBtn: 0 }, function(index) {
-            $.post('/category/category_remove', {
-                appid: data.item._id,
-                flag: false
-            }, function(res) {
-                location.reload();
-                layer.close(index);
-            })
-
+        $.post('/category/category_remove', {
+            appid: data.item._id,
+            flag: false
+        }, function(res) {
+            console.log(res)
         })
     })
 })

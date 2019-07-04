@@ -227,6 +227,19 @@ router.post('/category_remove', async(req, res) => {
             let deCategor = await Content.find({
                 category: appid
             }).populate(['category'])
+
+            // let categors = await Content.find({
+            //     _id: appid,
+            //     pid: categor.id
+            // })
+            let categors = await Content.find({
+                $and: [
+                    { _id: appid },
+                    { pid: categor.id }
+                ]
+            })
+            console.log(categor)
+            return
             if (!flag) {
                 if (deCategor.length > 0) {
                     responseData.code = 3
