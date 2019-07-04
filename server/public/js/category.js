@@ -1,7 +1,7 @@
 layui.config({
     base: '/static/layui/treeTable/', //假设这是你存放拓展模块的根目录
 })
-layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
+layui.use(['treeTable', 'layer', 'form', 'jquery'], function () {
     let $ = layui.jquery,
         layer = layui.layer,
         treeTable = layui.treeTable,
@@ -9,7 +9,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
         flag = false,
         index;
 
-    $.get('/category', function(data) {
+    $.get('/category', function (data) {
         flag = true
         if (flag) {
             $("#loading").hide()
@@ -24,29 +24,29 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
             icon_key: 'title',
             is_checkbox: true,
             cols: [{
-                    key: 'title',
-                    title: '名称',
-                    template: function(item) {
-                        return '<span>' + item.catname + '</span>';
-                    }
-                },
-                {
-                    title: '操作',
-                    align: 'center',
-                    width: '50px',
-                    template: function(item) {
-                        return '<div class="more">' +
-                            '<a href = "javascript:;" >' +
-                            '<i class="layui-icon">&#xe65f;</i>' +
-                            '</a>' +
-                            '<dl class="more-child">' +
-                            '<dd><a href="javascript:;" class="addChild" lay-filter="add">增加子类</a></dd>' +
-                            '<dd><a href="javascript:;" class="edit" lay-filter="edit">编辑</a></dd>' +
-                            '<dd><a href="javascript:;" class="delete" lay-filter="delete">删除</a></dd>' +
-                            '</dl>' +
-                            '</div > '
-                    }
+                key: 'title',
+                title: '名称',
+                template: function (item) {
+                    return '<span>' + item.catname + '</span>';
                 }
+            },
+            {
+                title: '操作',
+                align: 'center',
+                width: '50px',
+                template: function (item) {
+                    return '<div class="more">' +
+                        '<a href = "javascript:;" >' +
+                        '<i class="layui-icon">&#xe65f;</i>' +
+                        '</a>' +
+                        '<dl class="more-child">' +
+                        '<dd><a href="javascript:;" class="addChild" lay-filter="add">增加子类</a></dd>' +
+                        '<dd><a href="javascript:;" class="edit" lay-filter="edit">编辑</a></dd>' +
+                        '<dd><a href="javascript:;" class="delete" lay-filter="delete">删除</a></dd>' +
+                        '</dl>' +
+                        '</div > '
+                }
+            }
             ]
         })
     }
@@ -56,7 +56,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
             title: "添加栏目",
             type: 2,
             content: 'categoryAdd',
-            success: function(layero, index) {
+            success: function (layero, index) {
                 let body = layer.getChildFrame('body', index);
                 if (obj) {
                     if (obj.elem.className == 'addChild') {
@@ -90,35 +90,54 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
                 }
             }
         })
-        setTimeout(function() {
+        setTimeout(function () {
             layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
                 tips: 3
             });
         }, 500)
         layer.full(index);
-        $(window).on('resize', function() {
+        $(window).on('resize', function () {
             layer.full(index);
         })
     }
 
-    $('.addCategory').on('click', function() {
+    $('.addCategory').on('click', function () {
         addCategory()
     })
 
-    treeTable.on('tree(add)', function(data) {
+    treeTable.on('tree(add)', function (data) {
         addCategory(data)
     })
 
-    treeTable.on('tree(edit)', function(data) {
+    treeTable.on('tree(edit)', function (data) {
         addCategory(data)
     })
 
-    treeTable.on('tree(delete)', function(data) {
-        $.post('/category/category_remove', {
+    treeTable.on('tree(delete)', function (data) {
+        $.post('/category/category_removeFind', {
             appid: data.item._id,
-            flag: false
-        }, function(res) {
-            console.log(res)
+        }, function (res) {
+            if (res.code == 4 || res.code == 0) {
+                deleteFu(res.message, data.item._id)
+                return
+            }else if (res.code == 1 || res.code == 2 || res.code == 3) {
+                layer.msg(res.message, { icon: 5, anim: 6 });
+                return
+            }
         })
     })
+
+    function deleteFu(msg, obj) {
+        layer.confirm(msg,{closeBtn: 0},function (index) {
+            $.post('/category/category_remove', {
+                appid: obj,
+            }, function (res) {
+                layer.msg(res.message, { anim: 5, time: 1000 }, function () {
+                    location.reload()
+                })
+                layer.close(index)
+
+            })
+        });
+    }
 })
