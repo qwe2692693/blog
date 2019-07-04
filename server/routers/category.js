@@ -208,7 +208,7 @@ router.post('/category_edit', async(req, res) => {
 router.post('/category_remove', async(req, res) => {
     try {
         let appid = req.body.appid || '',
-            flag = !req.body.flag ? false : req.body.flag
+            flag = !req.body.flag ? false : req.body.flag;
         if (appid == '') {
             responseData.code = 1
             responseData.message = '条件不能为空'
