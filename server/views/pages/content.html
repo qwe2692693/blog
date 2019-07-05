@@ -18,8 +18,11 @@
         <button type="button" class="layui-btn layui-btn-danger allDelet">全部删除</button>
     </blockquote>
 
-    <table class="layui-table layui-form" id="content-table"></table>
+    <table class="layui-hide" id="content-table"></table>
 
+    <script type="text/html" id="titleTpl">
+        {{ d.user.nickname}}
+    </script>
     <!-- <div id="loading">
         <img src="/static/images/loading.gif" alt="">
     </div> -->
