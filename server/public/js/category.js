@@ -94,7 +94,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
             }
         })
         setTimeout(function() {
-            layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
+            layer.tips('点击此处返回类目列表', '.layui-layer-setwin .layui-layer-close', {
                 tips: 3
             });
         }, 500)

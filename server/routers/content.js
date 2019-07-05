@@ -41,8 +41,8 @@ router.get('/', async(req, res, next) => {
 
             let contents = await Content.find().limit(data.limit).skip(skip).sort({ '_id': -1 }).populate(['category', 'user'])
             res.json({
-                contents: contents,
-                data: data
+                contents,
+                data
             })
         } catch (err) {
             console.log("这是个错误content页面错误" + err)
