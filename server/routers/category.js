@@ -7,16 +7,16 @@ const pinyin = require('node-pinyin')
 // 返回统一格式
 let responseData
 router.use((req, res, next) => {
-    responseData = {
-        code: 0,
-        message: ''
-    }
-    next()
-})
-/**
- * 分类显示
- */
-router.get('/', async (req, res) => {
+        responseData = {
+            code: 0,
+            message: ''
+        }
+        next()
+    })
+    /**
+     * 分类显示
+     */
+router.get('/', async(req, res) => {
     try {
         /**
          * 读取所有的用户记录
@@ -32,11 +32,11 @@ router.get('/', async (req, res) => {
         }
         let categoryCount = await Category.countDocuments()
         data.count = categoryCount
-        // 计算总页数
+            // 计算总页数
         data.pages = Math.ceil(data.count / data.limit)
-        // 取值不能小于pages
+            // 取值不能小于pages
         data.page = Math.min(data.page, data.pages)
-        // 取值不能小于pages
+            // 取值不能小于pages
         data.page = Math.max(data.page, 1)
         let skip = (data.page - 1) * data.limit
 
@@ -51,161 +51,161 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/category_err', async (req, res) => {
-    try {
-        res.render('category/category_err', {
-            username: req.session.user.nickname
-        })
-    } catch (err) {
-        console.log(err)
-    }
-})
-/**
- * 分类保存
- **/
-router.post('/category_add', async (req, res) => {
-    try {
-        let cateName = await req.body.cateName || '',
-            cateDes = await req.body.cateDes || '',
-            cateContent = await req.body.cateContent || '',
-            cateImg = await req.body.cateImg || '',
-            cateId = await req.body.cateId || '';
-        // 类名是否为空
-        if (cateName == '') {
-            responseData.code = 1
-            responseData.message = '名称不能为空'
-            res.json(responseData)
-            return
-        }
-        let catName = await Category.findOne({ catname: cateName })
-        // 类名是否存在
-        if (catName) {
-            responseData.code = 2
-            responseData.message = '当前类名已存在,请勿重复添加'
-            res.json(responseData)
-            return
-        }
-        if (cateId != '') {
-            categoryName = await new Category({
-                catname: cateName,
-                cateDes: cateDes,
-                cateContent: cateContent,
-                cateImg: cateImg,
-                pid: cateId
+router.get('/category_err', async(req, res) => {
+        try {
+            res.render('category/category_err', {
+                username: req.session.user.nickname
             })
-        } else {
-            categoryName = await new Category({
-                catname: cateName,
-                cateDes: cateDes,
-                cateContent: cateContent,
-                cateImg: cateImg
-            })
+        } catch (err) {
+            console.log(err)
         }
-        responseData.code = 0
-        responseData.message = '保存成功'
-        res.json(responseData)
-        return categoryName.save()
-    } catch (err) {
-        console.log('这是错误' + err)
-    }
-})
-/**
- * 分类修改
- */
-// router.get('/category_edit', async(req, res) => {
-//     try {
-//         let editId = await req.query.id || '';
-//         let category = await Category.findOne({
-//             _id: editId
-//         })
-//         if (!category) {
-//             responseData.code = 1
-//             responseData.message = '分类信息不存在'
-//             res.render('category/category_err', {
-//                 username: req.session.user.nickname,
-//                 responseData: responseData
-//             })
-//             return
-//         } else {
-//             res.render('category/category_edit', {
-//                 username: req.session.user.nickname,
-//                 category: category
-//             })
-//             return
-//         }
-//     } catch (err) {
-//         console.log(err)
-//     }
-// })
-
-router.post('/category_edit', async (req, res) => {
-    try {
-        let editId = await req.body.editId || '',
-            cateName = await req.body.cateName || '',
-            cateDes = await req.body.cateDes || '',
-            cateContent = await req.body.cateContent || '',
-            cateImg = await req.body.cateImg || '',
-            cateId = await req.body.cateId || '';
-        // 类名是否为空
-        if (cateName == '') {
-            responseData.code = 1
-            responseData.message = '名称不能为空'
-            res.json(responseData)
-            return
-        }
-        let category = await Category.findOne({
-            _id: editId
-        })
-
-        if (!category) {
-            responseData.code = 2
-            responseData.message = '分类信息不存在'
-            res.json(responseData)
-            return
-        }
-        // if (editName == category.catname) {
-        //     responseData.code = 3
-        //     responseData.message = '名称未修改'
-        //     res.json(responseData)
-        // }
-        // if ((editcateShort == '') || (editcateShort != category.cateShort)) {
-        //     editcateShort = pinyin(editName, {
-        //         style: 'normal'
-        //     }).join().replace(/,/g, '')
-        // }
-        responseData.message = '修改成功'
-        res.json(responseData)
-
-        if (cateId != '') {
-            return Category.updateOne({
-                _id: editId
-            }, {
+    })
+    /**
+     * 分类保存
+     **/
+router.post('/category_add', async(req, res) => {
+        try {
+            let cateName = await req.body.cateName || '',
+                cateDes = await req.body.cateDes || '',
+                cateContent = await req.body.cateContent || '',
+                cateImg = await req.body.cateImg || '',
+                cateId = await req.body.cateId || '';
+            // 类名是否为空
+            if (cateName == '') {
+                responseData.code = 1
+                responseData.message = '名称不能为空'
+                res.json(responseData)
+                return
+            }
+            let catName = await Category.findOne({ catname: cateName })
+                // 类名是否存在
+            if (catName) {
+                responseData.code = 2
+                responseData.message = '当前类名已存在,请勿重复添加'
+                res.json(responseData)
+                return
+            }
+            if (cateId != '') {
+                categoryName = await new Category({
                     catname: cateName,
                     cateDes: cateDes,
                     cateContent: cateContent,
                     cateImg: cateImg,
                     pid: cateId
                 })
-        } else {
-            return Category.updateOne({
-                _id: editId
-            }, {
+            } else {
+                categoryName = await new Category({
                     catname: cateName,
                     cateDes: cateDes,
                     cateContent: cateContent,
                     cateImg: cateImg
                 })
+            }
+            responseData.code = 0
+            responseData.message = '保存成功'
+            res.json(responseData)
+            return categoryName.save()
+        } catch (err) {
+            console.log('这是错误' + err)
         }
+    })
+    /**
+     * 分类修改
+     */
+    // router.get('/category_edit', async(req, res) => {
+    //     try {
+    //         let editId = await req.query.id || '';
+    //         let category = await Category.findOne({
+    //             _id: editId
+    //         })
+    //         if (!category) {
+    //             responseData.code = 1
+    //             responseData.message = '分类信息不存在'
+    //             res.render('category/category_err', {
+    //                 username: req.session.user.nickname,
+    //                 responseData: responseData
+    //             })
+    //             return
+    //         } else {
+    //             res.render('category/category_edit', {
+    //                 username: req.session.user.nickname,
+    //                 category: category
+    //             })
+    //             return
+    //         }
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // })
+
+router.post('/category_edit', async(req, res) => {
+        try {
+            let editId = await req.body.editId || '',
+                cateName = await req.body.cateName || '',
+                cateDes = await req.body.cateDes || '',
+                cateContent = await req.body.cateContent || '',
+                cateImg = await req.body.cateImg || '',
+                cateId = await req.body.cateId || '';
+            // 类名是否为空
+            if (cateName == '') {
+                responseData.code = 1
+                responseData.message = '名称不能为空'
+                res.json(responseData)
+                return
+            }
+            let category = await Category.findOne({
+                _id: editId
+            })
+
+            if (!category) {
+                responseData.code = 2
+                responseData.message = '分类信息不存在'
+                res.json(responseData)
+                return
+            }
+            // if (editName == category.catname) {
+            //     responseData.code = 3
+            //     responseData.message = '名称未修改'
+            //     res.json(responseData)
+            // }
+            // if ((editcateShort == '') || (editcateShort != category.cateShort)) {
+            //     editcateShort = pinyin(editName, {
+            //         style: 'normal'
+            //     }).join().replace(/,/g, '')
+            // }
+            responseData.message = '修改成功'
+            res.json(responseData)
+
+            if (cateId != '') {
+                return Category.updateOne({
+                    _id: editId
+                }, {
+                    catname: cateName,
+                    cateDes: cateDes,
+                    cateContent: cateContent,
+                    cateImg: cateImg,
+                    pid: cateId
+                })
+            } else {
+                return Category.updateOne({
+                    _id: editId
+                }, {
+                    catname: cateName,
+                    cateDes: cateDes,
+                    cateContent: cateContent,
+                    cateImg: cateImg
+                })
+            }
 
 
-    } catch (err) {
-        console.log(err)
-    }
-})
-/**
- * 分类查询删除
- */
-router.post('/category_removeFind', async (req, res) => {
+        } catch (err) {
+            console.log(err)
+        }
+    })
+    /**
+     * 分类查询删除
+     */
+router.post('/category_removeFind', async(req, res) => {
     try {
         let appid = await req.body.appid || '';
         if (appid == '') {
@@ -249,56 +249,67 @@ router.post('/category_removeFind', async (req, res) => {
         console.log(err)
     }
 })
-router.post('/category_remove', async (req, res) => {
-    try {
-        let appid = await req.body.appid || '';
-        let categor = await Category.findOne({
-            _id: appid
-        })
-        let categorChild = await Category.find({
-            $or: [
-                { _id: appid },
-                { pid: categor.id }
-            ]
-        })
-        if (categorChild.length > 1) {
-            responseData.code = 4
-            responseData.message = '全部删除成功'
-            res.json(responseData)
-            return await Category.deleteMany({
+router.post('/category_remove', async(req, res) => {
+        try {
+            let appid = await req.body.appid || '';
+            let allid = await req.body.allid || '';
+            if (allid.length > 0 && allid != '') {
+                let categorAll = await Category.find({ id: allid })
+                if (categorAll) {
+                    responseData.message = '全部删除成功'
+                    res.json(responseData)
+                    return await Category.deleteMany({
+                        id: allid
+                    })
+                }
+            }
+            let categor = await Category.findOne({
+                _id: appid
+            })
+            let categorChild = await Category.find({
                 $or: [
                     { _id: appid },
                     { pid: categor.id }
                 ]
             })
+            if (categorChild.length > 1) {
+                responseData.code = 4
+                responseData.message = '全部删除成功'
+                res.json(responseData)
+                return await Category.deleteMany({
+                    $or: [
+                        { _id: appid },
+                        { pid: categor.id }
+                    ]
+                })
+            }
+            responseData.message = '该条目删除成功'
+            res.json(responseData)
+            return await Category.deleteOne({
+                _id: appid
+            })
+        } catch (err) {
+            console.log(err)
         }
-        responseData.message = '该条目删除成功'
-        res.json(responseData)
-        return await Category.deleteOne({
-            _id: appid
-        })
-    } catch (err) {
-        console.log(err)
-    }
 
-})
-// router.post('/category_remove', async (req, res) => {
-//     try {
-//         let appid = req.body.appid || '';
-//         if (appid == '') {
-//             responseData.code = 1
-//             responseData.message = '条件不能为空'
-//             return
-//         }
-//         let categor = await Category.findOne({
-//             _id: appid
-//         })
-//         if (!categor) {
-//             responseData.code = 2
-//             responseData.message = '该条目不存在'
-//             res.json(responseData)
-//             return
-//         } else {
+    })
+    // router.post('/category_remove', async (req, res) => {
+    //     try {
+    //         let appid = req.body.appid || '';
+    //         if (appid == '') {
+    //             responseData.code = 1
+    //             responseData.message = '条件不能为空'
+    //             return
+    //         }
+    //         let categor = await Category.findOne({
+    //             _id: appid
+    //         })
+    //         if (!categor) {
+    //             responseData.code = 2
+    //             responseData.message = '该条目不存在'
+    //             res.json(responseData)
+    //             return
+    //         } else {
 
 //             let deCategor = await Content.find({
 //                 category: appid
