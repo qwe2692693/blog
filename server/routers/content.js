@@ -51,22 +51,23 @@ router.get('/', async(req, res, next) => {
     /***
      * 添加内容页面
      */
-router.get('/content_add', async(req, res) => {
-    try {
-        let category = await Category.find().sort({ _id: -1 })
-        res.render('content/content_add', {
-            category: category,
-        })
-    } catch (err) {
-        console.log(err)
-    }
-})
 router.post('/content_add', async(req, res) => {
         try {
-            let cateName = req.body.cateName || ''
-            let title = req.body.title || ''
-            let description = req.body.description || ''
-            let content = req.body.content || ''
+            let title = req.body.title || '',
+                description = req.body.description || '',
+                content = req.body.content || '',
+                cateId = req.body.cateId || '';
+            console.log(req.session.user.userId)
+            return
+            let cateIdMod = await Category.findOne({
+                _id: cateId
+            })
+            if (!cateIdMod) {
+                responseData.code = 4
+                responseData.message = "当前栏目不存在"
+                res.json(responseData)
+                return
+            }
             if (title == '') {
                 responseData.code = 1
                 responseData.message = "标题不能为空"
@@ -85,19 +86,13 @@ router.post('/content_add', async(req, res) => {
                 res.json(responseData)
                 return
             }
-            if (!cateName || cateName == '') {
-                responseData.code = 4
-                responseData.message = "当前栏目不存在"
-                res.json(responseData)
-                return
-            }
             let contents = await Content.findOne({
                 title: title,
             })
 
             if (!contents) {
                 let contentBox = new Content({
-                    category: cateName,
+                    category: cateId,
                     user: req.session.user.userId,
                     title: title,
                     description: description,

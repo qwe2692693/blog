@@ -48,10 +48,10 @@ layui.use(['jquery'], () => {
     let $ = layui.jquery,
         tabHtml = '';
     $.get('/content', (data) => {
-        for (let i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.contents.length; i++) {
             tabHtml += '<tr>' +
-                '<td>' + data.data[i].description + '</td>' +
-                '<td>' + data.data[i].addTime + '</td>' +
+                '<td>' + data.contents[i].description + '</td>' +
+                '<td>' + data.contents[i].addTime + '</td>' +
                 '</tr>';
         }
         $('.bodyList').html(tabHtml)

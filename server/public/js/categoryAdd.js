@@ -149,7 +149,6 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
         $("input[name=editor]").val('')
     }
 
-
     if (!$("#parentS").hasClass('layui-hide')) {
         $.get('/category', { async: false }, function(data) {
             let getTpl = parentFun.innerHTML,

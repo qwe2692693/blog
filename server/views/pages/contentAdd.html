@@ -17,26 +17,18 @@
             <div class="layui-col-md8 layui-col-xs7">
                 <div class="layui-form-item">
                     <label class="layui-form-label">栏目选择</label>
-                    <div class="layui-input-block">
-                        <select name="city">
-                        <option value="0">北京</option>
-                        <option value="1">上海</option>
-                        <option value="2">广州</option>
-                        <option value="3">深圳</option>
-                        <option value="4">杭州</option>
-                      </select>
-                    </div>
+                    <div class="layui-input-block" id="parentView"></div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">内容标题</label>
                     <div class="layui-input-block">
-                        <input type="text" name="cateName" lay-verify="required|cateName" lay-reqtext="标题不能为空哦！" placeholder="输入内容标题" autocomplete="off" class="layui-input">
+                        <input type="text" name="title" lay-verify="required" lay-reqtext="内容标题不能为空哦！" placeholder="输入内容标题" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">内容摘要</label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入内容" name="cateDes" class="layui-textarea"></textarea>
+                        <textarea placeholder="请输入内容" name="cateDes" autocomplete="off" class="layui-textarea"></textarea>
                     </div>
                 </div>
             </div>
@@ -65,6 +57,13 @@
     <script src="/static/layui/layui.js"></script>
     <script src="/static/js/wangEditor.min.js"></script>
     <script src="/static/js/contentAdd.js"></script>
+    <script id="parendFun" type="text/html">
+        <select name="cateId" id='cateNameVal'>
+            {{# layui.each(d.CategoryList, function (index,item){ }}
+                <option value="{{ item._id }}"> {{ item.catname }} </option>
+            {{# });}}
+        </select>
+    </script>
 </body>
 
 </html>
