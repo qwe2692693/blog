@@ -22,11 +22,13 @@ layui.use(['table', 'jquery', 'layer'], function () {
     table.render({
         elem: '#content-table',
         url: '/content',
+        page: true, //开启分页
         cols: [[ //表头
-            { field: '_id', title: 'ID', sort: true, fixed: 'left' },
-            { field: 'title', title: '文章标题'},
-            { field: 'user', title: '发布者', templet: '#titleTpl' },
-            { field: 'addTime', title: '发布时间' },
+            { field: '_id', title: 'ID', sort: true, fixed: 'left' }
+            , { field: 'title', title: '文章标题' }
+            , { field: 'category', title: '所属栏目', templet: '#categoryTpl' }
+            , { field: 'user', title: '发布者', templet: '#userTpl' }
+            , { field: 'addTime', title: '发布时间' }
         ]]
     })
 

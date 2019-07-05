@@ -23,14 +23,15 @@
                     <a href="javascript:;">内容管理</a>
                 </li>
                 <li class="layui-nav-item" data-menu="memberCenter" pc>
-						<a href="javascript:;"><i class="seraph icon-icon10" data-icon="icon-icon10"></i><cite>用户中心</cite></a>
-					</li>
-					<li class="layui-nav-item" data-menu="systemeSttings" pc>
-						<a href="javascript:;"><i class="layui-icon">&#xe620;</i><cite>系统设置</cite></a>
-					</li>
-					<li class="layui-nav-item" data-menu="seraphApi" pc>
-						<a href="javascript:;"><i class="layui-icon"></i><cite>使用文档</cite></a>
-					</li>
+                    <a href="javascript:;"><i class="seraph icon-icon10"
+                            data-icon="icon-icon10"></i><cite>用户中心</cite></a>
+                </li>
+                <li class="layui-nav-item" data-menu="systemeSttings" pc>
+                    <a href="javascript:;"><i class="layui-icon">&#xe620;</i><cite>系统设置</cite></a>
+                </li>
+                <li class="layui-nav-item" data-menu="seraphApi" pc>
+                    <a href="javascript:;"><i class="layui-icon"></i><cite>使用文档</cite></a>
+                </li>
             </ul>
             <ul class="layui-nav layui-float-right">
                 <li class="layui-nav-item">
@@ -47,38 +48,39 @@
         </div>
         <!--左侧导航-->
         <div class="layui-side layui-bg-black">
-             <!--管理员头像-->
-             <div class="user-photo">
-                    <a class="img" href="javascrit:;">
-                        <img src="/static/images/timg.png" alt>
-                    </a>
-                    <p class="text">
-                        你好！<%= username%>, 欢迎登录
-                    </p>
-                </div>
+            <!--管理员头像-->
+            <div class="user-photo">
+                <a class="img" href="javascrit:;">
+                    <img src="/static/images/timg.png" alt>
+                </a>
+                <p class="text">
+                    你好！<%= username%>, 欢迎登录
+                </p>
+            </div>
             <div class="navBar layui-side-scroll" id="side-bar">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
                     <li class="layui-nav-item llayui-this">
-                        <a data-url="viewPage/main" href="javascript:;"><i class="layui-icon" data-icon=""></i><cite>后台首页</cite></a>
+                        <a data-url="viewPage/main" href="javascript:;"><i class="layui-icon"
+                                data-icon=""></i><cite>后台首页</cite></a>
                     </li>
                 </ul>
             </div>
         </div>
-        
+
         <!--右侧内容-->
         <div class="layui-body">
-                <div class="layui-tab top-tabBox layui-tab-card" lay-filter="bodyTab" id="top_tabs_box">
-                  <ul class="layui-tab-title top_tab" id="top_tabs">
+            <div class="layui-tab top-tabBox layui-tab-card" lay-filter="bodyTab" id="top_tabs_box">
+                <ul class="layui-tab-title top_tab" id="top_tabs">
                     <li class="layui-this" lay-id="">
                         <i class="layui-icon" data-icon=""></i>
                         <cite>后台首页</cite>
                     </li>
-                  </ul>
-                  <ul class="layui-nav closeBox">
+                </ul>
+                <ul class="layui-nav closeBox">
                     <li class="layui-nav-item">
                         <a href="javascript:;">
-                            <i class="layui-icon caozuo">&#xe643;</i> 
+                            <i class="layui-icon caozuo">&#xe643;</i>
                             页面操作
                         </a>
                         <dl class="layui-nav-child">
@@ -89,7 +91,7 @@
                                 </a>
                             </dd>
                             <dd>
-                                <a href="javascript:;"  class="closePageOther">
+                                <a href="javascript:;" class="closePageOther">
                                     <i class="seraph layui-icon">&#xe753;</i>
                                     关闭其他
                                 </a>
@@ -97,21 +99,24 @@
                             <dd>
                                 <a href="javascript:;" class="closePageAll">
                                     <i class="seraph layui-icon">&#xe752;</i>
-                                        关闭全部
-                                 </a>
+                                    关闭全部
+                                </a>
                             </dd>
                         </dl>
                     </li>
-                  </ul>
-                  <div class="layui-tab-content clildFrame">
+                </ul>
+                <div class="layui-tab-content clildFrame">
                     <div class="layui-tab-item layui-show">
                         <iframe src="viewPage/main"></iframe>
                     </div>
-                  </div>
                 </div>
+            </div>
         </div>
 
-
+        <!-- 底部 -->
+        <div class="layui-footer">
+            <p><span>copyright @2018 管理员</span></p>
+        </div>
 
     </div>
     <script src="/static/layui/layui.js"></script>
