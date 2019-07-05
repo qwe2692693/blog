@@ -1,0 +1,31 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        <%= title %>
+    </title>
+    <link href="/static/layui/css/layui.css" rel="stylesheet">
+    <link href="/static/css/public.css" rel="stylesheet">
+</head>
+
+<body class="childrenBody">
+
+    <blockquote class="layui-elem-quote">
+        <button type="button" class="layui-btn addCategory">添加文章</button>
+        <button type="button" class="layui-btn layui-btn-danger allDelet">全部删除</button>
+    </blockquote>
+
+    <table class="layui-table layui-form" id="content-table"></table>
+
+    <!-- <div id="loading">
+        <img src="/static/images/loading.gif" alt="">
+    </div> -->
+
+    <script src="/static/layui/layui.js"></script>
+    <script src="/static/js/content.js"></script>
+</body>
+
+</html>

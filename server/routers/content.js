@@ -41,7 +41,6 @@ router.get('/', async(req, res, next) => {
 
             let contents = await Content.find().limit(data.limit).skip(skip).sort({ '_id': -1 }).populate(['category', 'user'])
             res.json({
-                username: req.session.user.nickname,
                 contents: contents,
                 data: data
             })
@@ -56,7 +55,6 @@ router.get('/content_add', async(req, res) => {
     try {
         let category = await Category.find().sort({ _id: -1 })
         res.render('content/content_add', {
-            username: req.session.user.nickname,
             category: category,
         })
     } catch (err) {

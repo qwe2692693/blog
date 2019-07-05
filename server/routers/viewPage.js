@@ -14,7 +14,6 @@ router.get('/category', async(req, res) => {
         try {
             res.render('pages/category', {
                 title: '栏目页面',
-                username: req.session.user.nickname,
             })
         } catch (err) {
             console.log(err)
@@ -25,7 +24,6 @@ router.get('/categoryAdd', async(req, res) => {
     try {
         res.render('pages/categoryAdd', {
             title: '栏目添加',
-            username: req.session.user.nickname
         })
     } catch (err) {
         console.log(err)
@@ -34,10 +32,20 @@ router.get('/categoryAdd', async(req, res) => {
 
 //内容页面
 router.get('/content', async(req, res, next) => {
+        try {
+            res.render('pages/content', {
+                title: '内容页面',
+            })
+        } catch (err) {
+            console.log(err)
+        }
+
+    })
+    //添加内容页面
+router.get('/contentAdd', async(req, res, next) => {
     try {
-        res.render('pages/content', {
-            title: '内容页面',
-            username: req.session.user.nickname,
+        res.render('pages/contentAdd', {
+            title: '添加内容',
         })
     } catch (err) {
         console.log(err)

@@ -112,32 +112,6 @@ router.post('/category_add', async(req, res) => {
     /**
      * 分类修改
      */
-    // router.get('/category_edit', async(req, res) => {
-    //     try {
-    //         let editId = await req.query.id || '';
-    //         let category = await Category.findOne({
-    //             _id: editId
-    //         })
-    //         if (!category) {
-    //             responseData.code = 1
-    //             responseData.message = '分类信息不存在'
-    //             res.render('category/category_err', {
-    //                 username: req.session.user.nickname,
-    //                 responseData: responseData
-    //             })
-    //             return
-    //         } else {
-    //             res.render('category/category_edit', {
-    //                 username: req.session.user.nickname,
-    //                 category: category
-    //             })
-    //             return
-    //         }
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // })
-
 router.post('/category_edit', async(req, res) => {
         try {
             let editId = await req.body.editId || '',
@@ -250,104 +224,47 @@ router.post('/category_removeFind', async(req, res) => {
     }
 })
 router.post('/category_remove', async(req, res) => {
-        try {
-            let appid = await req.body.appid || '';
-            let allid = await req.body.allid || '';
-            if (allid.length > 0 && allid != '') {
-                let categorAll = await Category.find({ id: allid })
-                if (categorAll) {
-                    responseData.message = '全部删除成功'
-                    res.json(responseData)
-                    return await Category.deleteMany({
-                        id: allid
-                    })
-                }
+    try {
+        let appid = await req.body.appid || '';
+        let allid = await req.body.allid || '';
+        if (allid.length > 0 && allid != '' && allid != 0) {
+            let categorAll = await Category.find({ id: allid })
+            if (categorAll) {
+                responseData.message = '全部删除成功'
+                res.json(responseData)
+                return await Category.deleteMany({
+                    id: allid
+                })
             }
-            let categor = await Category.findOne({
-                _id: appid
-            })
-            let categorChild = await Category.find({
+        }
+        let categor = await Category.findOne({
+            _id: appid
+        })
+        let categorChild = await Category.find({
+            $or: [
+                { _id: appid },
+                { pid: categor.id }
+            ]
+        })
+        if (categorChild.length > 1) {
+            responseData.code = 4
+            responseData.message = '全部删除成功'
+            res.json(responseData)
+            return await Category.deleteMany({
                 $or: [
                     { _id: appid },
                     { pid: categor.id }
                 ]
             })
-            if (categorChild.length > 1) {
-                responseData.code = 4
-                responseData.message = '全部删除成功'
-                res.json(responseData)
-                return await Category.deleteMany({
-                    $or: [
-                        { _id: appid },
-                        { pid: categor.id }
-                    ]
-                })
-            }
-            responseData.message = '该条目删除成功'
-            res.json(responseData)
-            return await Category.deleteOne({
-                _id: appid
-            })
-        } catch (err) {
-            console.log(err)
         }
+        responseData.message = '该条目删除成功'
+        res.json(responseData)
+        return await Category.deleteOne({
+            _id: appid
+        })
+    } catch (err) {
+        console.log(err)
+    }
 
-    })
-    // router.post('/category_remove', async (req, res) => {
-    //     try {
-    //         let appid = req.body.appid || '';
-    //         if (appid == '') {
-    //             responseData.code = 1
-    //             responseData.message = '条件不能为空'
-    //             return
-    //         }
-    //         let categor = await Category.findOne({
-    //             _id: appid
-    //         })
-    //         if (!categor) {
-    //             responseData.code = 2
-    //             responseData.message = '该条目不存在'
-    //             res.json(responseData)
-    //             return
-    //         } else {
-
-//             let deCategor = await Content.find({
-//                 category: appid
-//             }).populate(['category'])
-
-//             let categorChild = await Category.find({
-//                 $or: [
-//                     { _id: appid },
-//                     { pid: categor.id }
-//                 ]
-//             })
-
-//             if (!flag) {
-//                 if (deCategor.length > 0) {
-//                     responseData.code = 3
-//                     responseData.message = '该条目下有内容是否删除'
-//                     res.json(responseData)
-//                     return
-//                 }
-//             } else if (flag && deCategor.length > 0) {
-//                 responseData.message = '该条目以及内容删除成功'
-//                 res.json(responseData)
-//                 return await Content.deleteMany({
-//                     category: appid
-//                 }).populate(['category']), await Category.deleteOne({
-//                     _id: appid
-//                 })
-//             } else {
-//                 responseData.message = '该条目删除成功'
-//                 res.json(responseData)
-//                 return Category.deleteOne({
-//                     _id: appid
-//                 })
-//             }
-//         }
-//     } catch (err) {
-//         console.log(err)
-//     }
-
-// })
+})
 module.exports = router

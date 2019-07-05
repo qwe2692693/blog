@@ -144,7 +144,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
         });
     }
     $(".allDelet").click(function() {
-        if (treeTable.checked(re).length == 0) {
+        if (treeTable.checked(re).length == 0 || treeTable.checked(re) == 0) {
             layer.msg('选择参数')
             return
         }
