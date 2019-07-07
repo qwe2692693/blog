@@ -18,8 +18,13 @@ router.use((req, res, next) => {
  */
 router.get('/', async (req, res, next) => {
     try {
+        let dataPage = {
+            page: req.query.page <= 0 ? 1 : req.query.page || 1,
+            limit: Number(req.query.limit),
+        }
+        let skip = (dataPage.page - 1) * dataPage.limit;
         let contentCount = await Content.countDocuments()
-        let data = await Content.find().sort({ '_id': -1 }).populate(['category', 'user'])
+        let data = await Content.find().limit(dataPage.limit).skip(skip).sort({ '_id': -1 }).populate(['category', 'user'])
         res.json({
             code: 0,
             msg: "加载完成",
