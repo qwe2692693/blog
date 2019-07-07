@@ -5,7 +5,7 @@ function dateFilter(date) {
     return date < 10 ? '0' + date : date;
 }
 getNowDat()
-    //获取时间的方法
+//获取时间的方法
 function getNowDat() {
     let dateObj = new Date(),
         year = dateObj.getFullYear(), //年
@@ -46,13 +46,15 @@ function getNowDat() {
 }
 layui.use(['jquery'], () => {
     let $ = layui.jquery,
-        tabHtml = '';
+        tabHtml = '',
+        i = 0;
     $.get('/content', (data) => {
-        for (let i = 0; i < data.data.length; i++) {
+        while (i < 10) {
             tabHtml += '<tr>' +
                 '<td>' + data.data[i].title + '</td>' +
                 '<td>' + data.data[i].addTime + '</td>' +
                 '</tr>';
+            i++;
         }
         $('.bodyList').html(tabHtml)
     })
