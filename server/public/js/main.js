@@ -5,7 +5,7 @@ function dateFilter(date) {
     return date < 10 ? '0' + date : date;
 }
 getNowDat()
-//获取时间的方法
+    //获取时间的方法
 function getNowDat() {
     let dateObj = new Date(),
         year = dateObj.getFullYear(), //年
@@ -49,7 +49,7 @@ layui.use(['jquery'], () => {
         tabHtml = '',
         i = 0;
     $.get('/content', (data) => {
-        while (i < 10) {
+        while (i < data.data.length) {
             tabHtml += '<tr>' +
                 '<td>' + data.data[i].title + '</td>' +
                 '<td>' + data.data[i].addTime + '</td>' +
