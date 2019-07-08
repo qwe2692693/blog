@@ -2,11 +2,11 @@ const express = require('express')
 const db = require('./mongodb/db')
 const config = require('config-lite')(__dirname)
 const bodyParser = require('body-parser')
-    //暂时不用
-    // const cookieParser = require('cookie-parser')
+//暂时不用
+// const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
-    // 路由连接
+// 路由连接
 const admin = require('./routers/admin')
 const login = require('./routers/login')
 const viewPage = require('./routers/viewPage')
@@ -63,28 +63,28 @@ app.use('/api', api)
  * 判断用户是否登陆顺序很重要
  */
 app.use('/login', login)
-    // app.use((req, res, next) => {
-    //   // var url = req.originalUrl;
-    //   if (!req.session.user) {
-    //     res.redirect("/login");
-    //     return 
-    //   }else{
-    //     next();
-    //   }
-    // });
-app.use('/admin', admin)
+app.use((req, res, next) => {
+    // var url = req.originalUrl;
+    if (!req.session.user) {
+        res.redirect("/login");
+        return
+    } else {
+        next();
+    }
+});
+app.use('/', admin)
 app.use('/viewPage', viewPage)
 app.use('/category', category)
 app.use('/content', content)
 app.use('/upload', upload)
-    // app.use('/404', err404)
+// app.use('/404', err404)
 
-// app.use((req, res) => {
-//   res.render("404")
-// });
+app.use((req, res,next) => {
+    res.send('当前页面不存在')
+});
 
 
-const server = app.listen(config.port, 'localhost', function() {
+const server = app.listen(config.port, 'localhost', function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log('当前访问地址:  http://%s:%s', host, port)
