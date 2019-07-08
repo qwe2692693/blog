@@ -32,7 +32,7 @@ layui.use(['form', 'layer', 'jquery'], function() {
                 }
                 $(data.elem).text('登录中...').attr('disabled', 'disabled').addClass('layui-disabled');
                 setTimeout(function() {
-                    window.location.href = 'admin';
+                    window.location.href = '/';
                 }, 1000);
                 form.val('rest', {
                     'username': '',
