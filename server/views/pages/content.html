@@ -18,13 +18,17 @@
         <button type="button" class="layui-btn layui-btn-danger allDelet">全部删除</button>
     </blockquote>
 
-    <table class="layui-hide" id="contentTable"></table>
+    <table class="layui-hide" id="contentTable" lay-filter="contentTable"></table>
 
     <script type="text/html" id="categoryTpl">
         {{ d.category.catname}}
     </script>
     <script type="text/html" id="userTpl">
         {{ d.user.nickname}}
+    </script>
+    <script type="text/html" id="oper">
+        <button type="button" class="layui-btn layui-btn-xs layui-btn-normal" lay-event='edit'>编辑</button>
+        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event='delet'>删除</button>
     </script>
 
 
