@@ -135,7 +135,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
             $.post('/category/category_remove', {
                 appid: obj,
             }, function(res) {
-                layer.msg(res.message, { anim: 5, time: 1000 }, function() {
+                layer.msg(res.message, { time: 1000, anim: 5 }, function() {
                     location.reload()
                 })
                 layer.close(index)

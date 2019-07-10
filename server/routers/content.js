@@ -185,7 +185,7 @@ router.post('/content_edit', async(req, res) => {
     /**
      * 内容页面删除
      */
-router.post('/category_remove', async(req, res) => {
+router.post('/content_remove', async(req, res) => {
     try {
         let appid = req.body.appid || ''
         let contentId = await Content.findById({ _id: appid })
@@ -202,7 +202,7 @@ router.post('/category_remove', async(req, res) => {
             })
         }
     } catch (err) {
-        console.log("这是category_remove" + err)
+        console.log("这是content_remove" + err)
     }
 })
 module.exports = router

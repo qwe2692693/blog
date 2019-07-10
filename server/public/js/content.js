@@ -45,7 +45,23 @@ layui.use(['table', 'jquery', 'layer'], function() {
         if (obj.event == 'edit') {
             alert('编辑')
         } else if (obj.event == 'delet') {
-            alert('删除')
+            layer.confirm('是否删除', (index) => {
+                $.post('/content/content_remove', {
+                    appid: data._id
+                }, function(res) {
+                    if (res.code == 0) {
+                        layer.msg(res.message, { anim: 5, time: 1000 }, function() {
+                            location.reload();
+                            layer.close(index);
+                        })
+                        return
+                    }
+                    if (res.code == 1) {
+                        layer.msg(res.message)
+                        return
+                    }
+                })
+            })
         }
     })
 })
