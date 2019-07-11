@@ -1,6 +1,7 @@
-layui.config({
+let s = layui.config({
     base: '/static/layui/treeTable/', //假设这是你存放拓展模块的根目录
 })
+console.log(s)
 layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
     let $ = layui.jquery,
         layer = layui.layer,
@@ -14,6 +15,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
         if (flag) {
             $("#loading").hide()
             treeFun(data.CategoryList)
+            flag = false
         }
     })
 
