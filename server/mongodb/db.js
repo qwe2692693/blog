@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const config = require('config-lite')(__dirname)
-    // 启用Promise
+const crypto = require('crypto')
+const secret = 'SID';
+// 启用Promise
 mongoose.Promise = global.Promise
 mongoose.connect(config.url, { useNewUrlParser: true })
 
@@ -13,7 +15,7 @@ db.once('open', async() => {
             _id: mongoose.Types.ObjectId('5cb9c2fdd662d11de8680d67'),
             nickname: '管理员',
             username: 'admin',
-            password: 'admin',
+            password: crypto.createHash('md5', secret).update('admin').digest('hex'),
             isAdmin: true
         }
 

@@ -18,15 +18,7 @@ layui.use(['form', 'layer', 'jquery'], function() {
             },
             dataType: 'json',
             success(result) {
-                if (result.code == 1) {
-                    layer.msg(result.message, { icon: 5 });
-                    return
-                }
-                if (result.code == 2) {
-                    layer.msg(result.message, { icon: 5 });
-                    return
-                }
-                if (result.code == 3) {
+                if (result.code == 1 || result.code == 2 || result.code == 3) {
                     layer.msg(result.message, { icon: 5 });
                     return
                 }
@@ -104,7 +96,7 @@ layui.use(['form', 'layer', 'jquery'], function() {
     $('#regSub').on('click', function() {
         $('#regBox').removeClass('layui-hide');
         $('#loginBox').addClass('layui-hide');
-
+        document.getElementById('regBox').reset()
     })
     $('#returnLogin').on('click', function() {
         $('#loginBox').removeClass('layui-hide');
@@ -124,20 +116,7 @@ layui.use(['form', 'layer', 'jquery'], function() {
             },
             dataType: 'json',
             success(result) {
-                console.log()
-                if (result.code == 1 || result.code == 5) {
-                    layer.msg(result.message, { icon: 5 });
-                    return
-                }
-                if (result.code == 2) {
-                    layer.msg(result.message, { icon: 5 });
-                    return
-                }
-                if (result.code == 3 || result.code == 4) {
-                    layer.msg(result.message, { icon: 5 });
-                    return
-                }
-                if (result.code == 6) {
+                if (result.code == 1 || result.code == 2 || result.code == 3 || result.code == 4 || result.code == 5 || result.code == 6) {
                     layer.msg(result.message, { icon: 5 });
                     return
                 }
@@ -149,13 +128,8 @@ layui.use(['form', 'layer', 'jquery'], function() {
                         'password': data.field.password,
                     })
                     $('.loginBody .input-item .layui-input').parent().addClass('input-focus-active')
-                    form.val('restF', {
-                        'nickname': '',
-                        'email': '',
-                        'username': '',
-                        'password': '',
-                        'passwords': ''
-                    })
+                    document.getElementById('regBox').reset()
+                    $('#regBox').find('.layui-form-item').removeClass('input-focus-active');
                     return false
                 }
             }
