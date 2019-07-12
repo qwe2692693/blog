@@ -3,30 +3,11 @@ layui.use(['table', 'jquery', 'layer'], function() {
         $ = layui.jquery,
         layer = layui.layer,
         index;
-
-    function openPageFun(title) {
-        index = layer.open({
-            title: title,
-            type: 2,
-            content: 'contentAdd',
-        });
-        setTimeout(function() {
-            layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
-                tips: 3
-            });
-        }, 500)
-        layer.full(index);
-        $(window).on('resize', function() {
-            layer.full(index);
-        })
-    }
-    $(".addCon").on('click', function() {
-        openPageFun('添加页面')
-    })
     table.render({
         elem: '#contentTable',
         url: '/content',
         height: "full-125",
+        id: 'tableId',
         cols: [
             [ //表头
                 { checkbox: true, fixed: 'left' },
@@ -64,4 +45,43 @@ layui.use(['table', 'jquery', 'layer'], function() {
             })
         }
     })
+
+    function openPageFun(title) {
+        index = layer.open({
+            title: title,
+            type: 2,
+            content: 'contentAdd',
+        });
+        setTimeout(function() {
+            layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
+                tips: 3
+            });
+        }, 500)
+        layer.full(index);
+        $(window).on('resize', function() {
+            layer.full(index);
+        })
+    }
+
+
+    $(".addCon").on('click', function() {
+        openPageFun('添加页面')
+    })
+    $(".allDelet").on('click', function() {
+        let checkStatus = table.checkStatus('tableId');
+        if (checkStatus.data.length == 0) {
+            layer.msg('选择要删除的文章', { anim: 5, time: 1000 })
+        } else {
+            layer.confirm('是否全部删除', function(index) {
+                $.post('/content/content_remove', {
+                    appid: checkStatus.data._id
+                }, function(res) {
+                    console.log(res)
+                })
+                layer.close(index)
+            })
+        }
+
+    })
+
 })
