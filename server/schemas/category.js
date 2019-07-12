@@ -8,6 +8,7 @@ const categoreSchema = new mongoose.Schema({
     cateDes: String,
     cateContent: String,
     cateImg: String,
+    addTime: String,
 })
 
 module.exports = categoreSchema;
