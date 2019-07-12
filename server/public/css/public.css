@@ -19,6 +19,14 @@
     float: right;
 }
 
+.layui-layout-admin.showMenu .layui-side {
+    left: -200px;
+}
+
+.layui-layout-admin.showMenu .layui-body {
+    left: 0;
+}
+
 .logo {
     width: 200px;
     line-height: 60px;
@@ -28,7 +36,9 @@
 }
 
 .hideMenu,
-.hideMenu:hover {
+.hideMenu:hover,
+.layui-layout-admin .layui-side,
+.layui-layout-admin .layui-body {
     -webkit-transition: all .5s ease-in-out;
     -o-transition: all .5s ease-in-out;
     -moz-transition: all .5s ease-in-out;
