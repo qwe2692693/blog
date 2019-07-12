@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 const config = require('config-lite')(__dirname)
 const crypto = require('crypto')
 const secret = 'SID';
-let date = new Date();
-// 启用Promise
+const date = require('../config/date')
+    // 启用Promise
 mongoose.Promise = global.Promise
 mongoose.connect(config.url, { useNewUrlParser: true })
 
@@ -17,7 +17,7 @@ db.once('open', async() => {
             nickname: '管理员',
             username: 'admin',
             password: crypto.createHash('md5', secret).update('admin').digest('hex'),
-            addTime: this.addTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
+            addTime: date(),
             isAdmin: true
         }
 

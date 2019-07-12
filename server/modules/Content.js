@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const ContentSchemas = require('../schemas/content')
+const date = require('../config/date')
     //格式化时间
 ContentSchemas.pre('save', function(next) {
-    let date = new Date();
-    this.addTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    this.addTime = date();
     next()
 });
 module.exports = mongoose.model('Content', ContentSchemas)

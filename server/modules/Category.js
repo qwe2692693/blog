@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const CategorySchemas = require('../schemas/category')
+const date = require('../config/date')
 
 CategorySchemas.pre('save', function(next) {
     let doc = this;
-    let date = new Date();
-    this.addTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    this.addTime = date();
     CategoryModel.findOneAndUpdate({
         seq: 'entityId'
     }, { $inc: { id: 1 } }, { new: true, upsert: true }, function(err, counter) {
