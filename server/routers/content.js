@@ -16,7 +16,7 @@ router.use((req, res, next) => {
      * 内容列表首页
      * layui框架
      */
-router.get('/', async(req, res, next) => {
+router.get('/', async(req, res) => {
         try {
             let dataPage = {
                 page: req.query.page <= 0 ? 1 : req.query.page || 1,
@@ -125,6 +125,11 @@ router.post('/content_add', async(req, res) => {
                 responseData.message = "保存成功"
                 res.json(responseData)
                 return contentBox.save()
+            } else {
+                responseData.code = 5
+                responseData.message = "当前标题已存在"
+                res.json(responseData)
+                return
             }
 
 

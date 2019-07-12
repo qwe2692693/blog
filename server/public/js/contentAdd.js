@@ -15,7 +15,7 @@ function initEditor(obj) {
     obj.create()
 }
 
-layui.use(['form', 'jquery', 'layer', 'laytpl'], function () {
+layui.use(['form', 'jquery', 'layer', 'laytpl'], function() {
     let form = layui.form,
         $ = layui.jquery,
         laytpl = layui.laytpl,
@@ -25,13 +25,13 @@ layui.use(['form', 'jquery', 'layer', 'laytpl'], function () {
     /**
      * 获取栏目
      */
-    $.get('/category', { async: false }, function (res) {
+    $.get('/category', { async: false }, function(res) {
         let getTpl = parendFun.innerHTML,
             view = document.getElementById('parentView');
         let cateDatas = {
             CategoryList: res.CategoryList,
         }
-        laytpl(getTpl).render(cateDatas, function (html) {
+        laytpl(getTpl).render(cateDatas, function(html) {
             view.innerHTML = html;
         });
         form.render('select')
@@ -39,7 +39,7 @@ layui.use(['form', 'jquery', 'layer', 'laytpl'], function () {
 
 
 
-    form.on('submit(submit)', function (data) {
+    form.on('submit(submit)', function(data) {
         if (editor.txt.html().match('<p><br></p>')) {
             layer.msg('不添内容写他干什么', { icon: 5, anim: 6 })
             return
@@ -49,7 +49,7 @@ layui.use(['form', 'jquery', 'layer', 'laytpl'], function () {
             description: data.field.cateDes,
             content: editor.txt.html(),
             cateId: data.field.cateId
-        }, function (res) {
+        }, function(res) {
             if (res.code == 1) {
                 $('input[name=title]').addClass('layui-form-danger').focus()
                 layer.msg(res.message, {
@@ -59,7 +59,7 @@ layui.use(['form', 'jquery', 'layer', 'laytpl'], function () {
                 });
                 return
             }
-            if (res.code == 2) {
+            if (res.code == 2 || res.code == 5) {
                 layer.msg(res.message, {
                     anim: 6,
                     icon: 5,
@@ -79,7 +79,7 @@ layui.use(['form', 'jquery', 'layer', 'laytpl'], function () {
             if (res.code == 0) {
                 layer.msg(res.message, {
                     time: 1000,
-                }, function () {
+                }, function() {
                     layer.closeAll("iframe");
                     //刷新父页面
                     parent.location.reload();
