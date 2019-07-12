@@ -66,12 +66,12 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function() {
     getData("contentManagement");
 
     //手机设备的简单适配
-    $('.site-tree-mobile').on('click', function() {
-        $('body').addClass('site-mobile');
-    });
-    $('.site-mobile-shade').on('click', function() {
-        $('body').removeClass('site-mobile');
-    });
+    // $('.site-tree-mobile').on('click', function() {
+    //     $('body').addClass('site-mobile');
+    // });
+    // $('.site-mobile-shade').on('click', function() {
+    //     $('body').removeClass('site-mobile');
+    // });
 
     // 添加新窗口
     $("body").on("click", ".layui-nav .layui-nav-item a:not('.mobileTopLevelMenus .layui-nav-item a')", function() {
