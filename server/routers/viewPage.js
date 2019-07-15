@@ -43,9 +43,20 @@ router.get('/content', async(req, res, next) => {
     })
     //添加内容页面
 router.get('/contentAdd', async(req, res, next) => {
+        try {
+            res.render('pages/contentAdd', {
+                title: '添加内容',
+            })
+        } catch (err) {
+            console.log(err)
+        }
+
+    })
+    //图片管理页面
+router.get('/imgPage', async(req, res, next) => {
     try {
-        res.render('pages/contentAdd', {
-            title: '添加内容',
+        res.render('pages/imgPage', {
+            title: '图片显示页面',
         })
     } catch (err) {
         console.log(err)
