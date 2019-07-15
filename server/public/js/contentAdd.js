@@ -21,15 +21,24 @@ layui.use(['form', 'jquery', 'layer', 'laytpl'], function() {
         laytpl = layui.laytpl,
         layer = layui.layer;
     initEditor(editor);
-
     /**
      * 获取栏目
      */
+
     $.get('/category', { async: false }, function(res) {
         let getTpl = parendFun.innerHTML,
-            view = document.getElementById('parentView');
-        let cateDatas = {
-            CategoryList: res.CategoryList,
+            view = document.getElementById('parentView'),
+            editId = $('#editId').val(),
+            cateDatas = '';
+        if (editId != '') {
+            cateDatas = {
+                CategoryList: res.CategoryList,
+                editId: editId
+            }
+        } else {
+            cateDatas = {
+                CategoryList: res.CategoryList,
+            }
         }
         laytpl(getTpl).render(cateDatas, function(html) {
             view.innerHTML = html;
@@ -87,4 +96,9 @@ layui.use(['form', 'jquery', 'layer', 'laytpl'], function() {
             }
         })
     })
+    if ($("input[name=editor]").val() != '') {
+        editor.txt.html($("input[name=editor]").val())
+        $("input[name=editor]").val('')
+    }
+
 })

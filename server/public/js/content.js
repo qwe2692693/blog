@@ -21,10 +21,37 @@ layui.use(['table', 'jquery', 'layer'], function() {
         ],
         page: true, //开启分页
     })
+
+    function openPageFun(title, obj) {
+        index = layer.open({
+            title: title,
+            type: 2,
+            content: 'contentAdd',
+            success: function(layero, index) {
+                let body = layer.getChildFrame('body', index);
+                if (obj) {
+                    body.find('#editId').val(obj.category._id)
+                    body.find('input[name=title]').val(obj.title)
+                    body.find('textarea[name=cateDes]').val(obj.description)
+                    body.find('input[name=editor]').val(obj.content)
+                }
+            }
+        });
+
+        setTimeout(function() {
+            layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
+                tips: 3
+            });
+        }, 500)
+        layer.full(index);
+        $(window).on('resize', function() {
+            layer.full(index);
+        })
+    }
     table.on('tool(contentTable)', function(obj) {
         let data = obj.data;
         if (obj.event == 'edit') {
-            alert('编辑')
+            openPageFun('编辑页面', data)
         } else if (obj.event == 'delet') {
             layer.confirm('是否删除', (index) => {
                 $.post('/content/content_remove', {
@@ -46,37 +73,31 @@ layui.use(['table', 'jquery', 'layer'], function() {
         }
     })
 
-    function openPageFun(title) {
-        index = layer.open({
-            title: title,
-            type: 2,
-            content: 'contentAdd',
-        });
-        setTimeout(function() {
-            layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
-                tips: 3
-            });
-        }, 500)
-        layer.full(index);
-        $(window).on('resize', function() {
-            layer.full(index);
-        })
-    }
-
-
     $(".addCon").on('click', function() {
         openPageFun('添加页面')
     })
     $(".allDelet").on('click', function() {
+
         let checkStatus = table.checkStatus('tableId');
-        if (checkStatus.data.length == 0) {
+        let checkId = [];
+        for (let i = 0; i < checkStatus.data.length; i++) {
+            checkId.push(checkStatus.data[i]._id);
+        }
+        if (checkId == 0) {
             layer.msg('选择要删除的文章', { anim: 5, time: 1000 })
         } else {
             layer.confirm('是否全部删除', function(index) {
                 $.post('/content/content_remove', {
-                    appid: checkStatus.data._id
+                    appid: checkId
                 }, function(res) {
-                    console.log(res)
+                    if (res.code == 1) {
+                        layer.msg(res.message, { icon: 5, anim: 6, time: 1000 });
+                    } else if (res.code == 0) {
+                        layer.msg(res.message, { anim: 5, time: 1000 }, function() {
+                            location.reload();
+                            layer.close(index);
+                        })
+                    }
                 })
                 layer.close(index)
             })

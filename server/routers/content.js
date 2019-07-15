@@ -193,12 +193,18 @@ router.post('/content_edit', async(req, res) => {
 router.post('/content_remove', async(req, res) => {
     try {
         let appid = req.body.appid || ''
-        let contentId = await Content.findById({ _id: appid })
-        if (!contentId) {
+        let contentId = await Content.find({ _id: appid })
+        if (!contentId || contentId.length == 0) {
             responseData.code = 1
             responseData.message = '删除失败,请查看当前ID是否存在'
             res.json(responseData)
             return
+        } else if (contentId.length > 1) {
+            responseData.message = '全部删除成功'
+            res.json(responseData)
+            return Content.deleteMany({
+                _id: appid
+            })
         } else {
             responseData.message = '删除成功'
             res.json(responseData)

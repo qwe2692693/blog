@@ -13,6 +13,7 @@
 
 <body class="childrenBody">
     <form class="layui-form" action="">
+        <input type="hidden" id="editId">
         <div class="layui-row layui-col-space10">
             <div class="layui-col-md8 layui-col-xs7">
                 <div class="layui-form-item">
@@ -22,15 +23,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">内容标题</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="required" lay-reqtext="内容标题不能为空哦！"
-                            placeholder="输入内容标题" autocomplete="off" class="layui-input">
+                        <input type="text" name="title" lay-verify="required" lay-reqtext="内容标题不能为空哦！" placeholder="输入内容标题" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">内容摘要</label>
                     <div class="layui-input-block">
-                        <textarea placeholder="内容摘要" name="cateDes" autocomplete="off"
-                            class="layui-textarea"></textarea>
+                        <textarea placeholder="内容摘要" name="cateDes" autocomplete="off" class="layui-textarea"></textarea>
                     </div>
                 </div>
             </div>
@@ -62,9 +61,18 @@
     <script id="parendFun" type="text/html">
         <select name="cateId" id='cateNameVal'>
             {{# layui.each(d.CategoryList, function (index,item){ }}
-                <option value="{{ item._id }}"> {{ item.catname }} </option>
+               {{# if(d.editId){ }}
+                    {{# if(d.editId == item._id){ }}
+                        <option value="{{ item._id }}" selected> {{ item.catname }} </option>
+                    {{# }else { }}
+                        <option value="{{ item._id }}"> {{ item.catname }} </option> 
+                    {{#  } }}
+                {{# }else { }}
+                    <option value="{{ item._id }}"> {{ item.catname }} </option>
+                {{#  } }}
             {{# });}}
         </select>
+
     </script>
 </body>
 

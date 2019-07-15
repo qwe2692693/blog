@@ -24,7 +24,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
             data: data,
             icon_key: 'title',
             is_checkbox: true,
-            end: function(e) {
+            end: function() {
                 form.render();
             },
             cols: [{
@@ -38,7 +38,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
                     title: '操作',
                     align: 'center',
                     width: '50px',
-                    template: function(item) {
+                    template: function() {
                         return '<div class="more">' +
                             '<a href = "javascript:;" >' +
                             '<i class="layui-icon">&#xe65f;</i>' +
@@ -144,6 +144,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
             })
         });
     }
+
     $(".allDelet").click(function() {
         if (treeTable.checked(re).length == 0 || treeTable.checked(re) == 0) {
             layer.msg('选择参数')
