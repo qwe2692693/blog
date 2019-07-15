@@ -140,22 +140,22 @@ router.post('/content_add', async(req, res) => {
     /***
      * 内容页编辑
      */
-router.get('/content_edit', async(req, res) => {
-    try {
-        let contentId = req.query.id || ''
-        let category = await Category.find()
-        let content = await Content.findOne({
-            _id: contentId
-        }).populate(['category'])
-        res.render('content/content_edit', {
-            username: req.session.user.nickname,
-            content: content,
-            category: category
-        })
-    } catch (err) {
-        console.log("这是错误" + err)
-    }
-})
+    // router.get('/content_edit', async(req, res) => {
+    //     try {
+    //         let contentId = req.query.id || ''
+    //         let category = await Category.find()
+    //         let content = await Content.findOne({
+    //             _id: contentId
+    //         }).populate(['category'])
+    //         res.render('content/content_edit', {
+    //             username: req.session.user.nickname,
+    //             content: content,
+    //             category: category
+    //         })
+    //     } catch (err) {
+    //         console.log("这是错误" + err)
+    //     }
+    // })
 router.post('/content_edit', async(req, res) => {
         try {
             let cateName = req.body.cateName || ''
@@ -163,6 +163,7 @@ router.post('/content_edit', async(req, res) => {
             let description = req.body.description || ''
             let content = req.body.content || ''
             let contentId = req.body.contentId || ''
+            let contentImg = req.body.contentImg || ''
             let contents = await Content.findOne({ _id: contentId })
             if (!contents) {
                 responseData.code = 1
@@ -180,7 +181,8 @@ router.post('/content_edit', async(req, res) => {
                 user: req.session.user._id,
                 title: title,
                 content: content,
-                description: description
+                description: description,
+                contentImg: contentImg
             })
 
         } catch (err) {

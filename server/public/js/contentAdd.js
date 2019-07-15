@@ -15,15 +15,38 @@ function initEditor(obj) {
     obj.create()
 }
 
-layui.use(['form', 'jquery', 'layer', 'laytpl'], function() {
+layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
     let form = layui.form,
         $ = layui.jquery,
         laytpl = layui.laytpl,
-        layer = layui.layer;
+        layer = layui.layer,
+        upload = layui.upload;
+    let imgErr = true,
+        contentImg;
     initEditor(editor);
-    /**
-     * 获取栏目
-     */
+    //上传图片
+    upload.render({
+            elem: '#dateAddUpload',
+            url: '/upload/',
+            auto: false, //选择文件后不自动上传
+            bindAction: '#submitBtn', //指向一个按钮触发上传
+            field: 'myFileName',
+            done: function(res, index, upload) {
+                if (!res.isOk) {
+                    imgErr = false;
+                }
+            },
+            choose: function(obj) {
+                obj.preview(function(index, file, result) {
+                    let imgSrc = '<div class="showImgBox"><img src=' + result + '></div>';
+                    contentImg = file.name;
+                    $("#dateAddUpload .zw").html(imgSrc)
+                })
+            }
+        })
+        /**
+         * 获取栏目
+         */
 
     $.get('/category', { async: false }, function(res) {
         let getTpl = parendFun.innerHTML,
@@ -49,14 +72,11 @@ layui.use(['form', 'jquery', 'layer', 'laytpl'], function() {
 
 
     form.on('submit(submit)', function(data) {
-        if (editor.txt.html().match('<p><br></p>')) {
-            layer.msg('不添内容写他干什么', { icon: 5, anim: 6 })
-            return
-        }
-        $.post('/content/content_add', {
+        editFun('/content/content_add', {
             title: data.field.title,
             description: data.field.cateDes,
             content: editor.txt.html(),
+            contentImg: contentImg,
             cateId: data.field.cateId
         }, function(res) {
             if (res.code == 1) {
@@ -96,9 +116,44 @@ layui.use(['form', 'jquery', 'layer', 'laytpl'], function() {
             }
         })
     })
+
+    form.on('submit(edit)', function(data) {
+        editFun('/content/content_edit', {
+            contentId: $("#contentId").val(),
+            title: data.field.title,
+            description: data.field.cateDes,
+            content: editor.txt.html(),
+            contentImg: contentImg,
+            cateName: data.field.cateId
+        }, function(res) {
+            if (res.code == 1) {
+                layer.msg(res.message, {
+                    anim: 6,
+                    icon: 5,
+                    time: 1000,
+                });
+            }
+            if (res.code == 0) {
+                layer.msg(res.message, {
+                    time: 1000,
+                }, function() {
+                    layer.closeAll("iframe");
+                    //刷新父页面
+                    parent.location.reload();
+                });
+            }
+        })
+    })
+
+    function editFun(url, obj, funObj) {
+        if (editor.txt.html().match('<p><br></p>')) {
+            layer.msg('不添内容写他干什么', { icon: 5, anim: 6 })
+            return
+        }
+        $.post(url, obj, funObj)
+    }
     if ($("input[name=editor]").val() != '') {
         editor.txt.html($("input[name=editor]").val())
         $("input[name=editor]").val('')
     }
-
 })

@@ -29,4 +29,5 @@ module.exports = new mongoose.Schema({
         type: String,
         default: ''
     },
+    contentImg: String,
 })

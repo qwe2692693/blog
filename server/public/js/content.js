@@ -30,10 +30,15 @@ layui.use(['table', 'jquery', 'layer'], function() {
             success: function(layero, index) {
                 let body = layer.getChildFrame('body', index);
                 if (obj) {
+                    body.find('#contentId').val(obj._id)
                     body.find('#editId').val(obj.category._id)
                     body.find('input[name=title]').val(obj.title)
                     body.find('textarea[name=cateDes]').val(obj.description)
                     body.find('input[name=editor]').val(obj.content)
+                    body.find('a#submitBtn').attr('lay-filter', 'edit')
+                    if (obj.contentImg) {
+                        body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=/static/upload/' + obj.contentImg + '></div>')
+                    }
                 }
             }
         });
