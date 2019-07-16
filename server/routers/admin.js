@@ -28,7 +28,7 @@ router.get('/user', function(req, res) {
      */
     let dataPage = {
         page: req.query.page <= 0 ? 1 : req.query.page || 1,
-        limit: 10,
+        limit: Number(req.query.limit) || 10,
     }
 
     User.countDocuments().then((count) => {
@@ -36,7 +36,7 @@ router.get('/user', function(req, res) {
         User.find({ $and: [{ _id: { $ne: req.session.user.userId } }, { _id: { $ne: '5cb9c2fdd662d11de8680d67' } }] }).limit(dataPage.limit).skip(skip).sort({ '_id': -1 }).then((data) => {
             res.json({
                 data,
-                count,
+                count: count - 1,
                 code: 0,
                 msg: '加载完成'
             })
