@@ -8,5 +8,14 @@ layui.use(['jquery', 'flow'], function() {
         flow.lazyimg({
             elem: '#imgPage img'
         });
+        heightFun()
+
     })
+
+    function heightFun() {
+        $("#imgPage div").height($("#imgPage div").width());
+        $(window).resize(function() {
+            $("#imgPage div").height($("#imgPage div").width());
+        })
+    }
 })

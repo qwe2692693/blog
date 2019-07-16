@@ -245,10 +245,11 @@ iframe {
     text-align: center;
 }
 
-#imgPage {
+#imgPage div {
     text-align: center;
 }
 
 #imgPage img {
     max-width: 100%;
+    height: 100%;
 }
