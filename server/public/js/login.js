@@ -96,6 +96,7 @@ layui.use(['form', 'layer', 'jquery'], function() {
     $('#regSub').on('click', function() {
         $('#regBox').removeClass('layui-hide');
         $('#loginBox').addClass('layui-hide');
+        $('#regBox').find('.input-focus-active').removeClass('input-focus-active')
         document.getElementById('regBox').reset()
     })
     $('#returnLogin').on('click', function() {
@@ -108,7 +109,7 @@ layui.use(['form', 'layer', 'jquery'], function() {
             type: 'post',
             url: '/login/user/register',
             data: {
-                nickname: data.field.nicknamee,
+                nickname: data.field.nickname,
                 email: data.field.email,
                 username: data.field.username,
                 password: data.field.password,
@@ -121,16 +122,20 @@ layui.use(['form', 'layer', 'jquery'], function() {
                     return
                 }
                 if (result.code == 0) {
-                    $('#loginBox').removeClass('layui-hide');
-                    $('#regBox').addClass('layui-hide');
-                    form.val('rest', {
-                        'username': data.field.username,
-                        'password': data.field.password,
-                    })
-                    $('.loginBody .input-item .layui-input').parent().addClass('input-focus-active')
-                    document.getElementById('regBox').reset()
-                    $('#regBox').find('.layui-form-item').removeClass('input-focus-active');
-                    return false
+                    layer.msg(result.message, { anim: 5, time: 1000 }, function() {
+                        $('#loginBox').removeClass('layui-hide');
+                        $('#regBox').addClass('layui-hide');
+
+                        form.val('rest', {
+                            'username': data.field.username,
+                            'password': data.field.password,
+                        })
+                        $('.loginBody .input-item .layui-input').parent().addClass('input-focus-active')
+                        document.getElementById('regBox').reset()
+                        $('#regBox').find('.layui-form-item').removeClass('input-focus-active');
+                        return false
+                    });
+
                 }
             }
 

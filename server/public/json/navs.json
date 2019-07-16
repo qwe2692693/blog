@@ -33,7 +33,7 @@
     "memberCenter": [{
         "title": "用户中心",
         "icon": "&#xe613;",
-        "href": "page/user/userList.html",
+        "href": "viewPage/userAdmin",
         "spread": false
     }]
 }

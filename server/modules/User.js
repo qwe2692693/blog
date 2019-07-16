@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const usersSchemas = require('../schemas/user')
-let date = new Date();
+const date = require('../config/date');
 
 usersSchemas.pre('save', (next) => {
     this.addTime = date();

@@ -63,4 +63,14 @@ router.get('/imgPage', async(req, res, next) => {
     }
 
 })
+router.get('/userAdmin', async(req, res, next) => {
+    try {
+        res.render('pages/userAdmin', {
+            title: '图片显示页面',
+        })
+    } catch (err) {
+        console.log(err)
+    }
+
+})
 module.exports = router;
