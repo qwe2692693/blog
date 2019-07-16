@@ -17,9 +17,22 @@ layui.use(['jquery', 'table', 'form'], function() {
         page: true
 
     })
+    let flag = true,
+        time = null;
     form.on('switch(isAdminBtn)', function(obj) {
-        console.log(obj)
-            // layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
+        if (flag) {
+            console.log('我点了')
+            flag = false
+            setTimeout(function() {
+                flag = true
+            }, 5000)
+        }
+        if (!flag) {
+            console.log("等会再点")
+        }
+
+
+        // layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
     });
 
 })
