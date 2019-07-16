@@ -244,3 +244,11 @@ iframe {
     width: 100%;
     text-align: center;
 }
+
+#imgPage {
+    text-align: center;
+}
+
+#imgPage img {
+    max-width: 100%;
+}
