@@ -23,7 +23,8 @@
     left: -200px;
 }
 
-.layui-layout-admin.showMenu .layui-body {
+.layui-layout-admin.showMenu .layui-body,
+.layui-layout-admin.showMenu .layui-footer {
     left: 0;
 }
 
@@ -38,7 +39,8 @@
 .hideMenu,
 .hideMenu:hover,
 .layui-layout-admin .layui-side,
-.layui-layout-admin .layui-body {
+.layui-layout-admin .layui-body,
+.layui-layout-admin.showMenu .layui-footer {
     -webkit-transition: all .5s ease-in-out;
     -o-transition: all .5s ease-in-out;
     -moz-transition: all .5s ease-in-out;
