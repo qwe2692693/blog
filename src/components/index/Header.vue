@@ -6,7 +6,7 @@
       <router-link
          v-for='navs in nav' 
          :key='navs._id'
-         :to="{ name: 'list', params: { id: navs.cateShort}}"
+         :to="{ name: 'list', params: { id: navs._id}}"
          exact-active-class="active"
          >
          {{ navs.catname }}
@@ -28,12 +28,13 @@ export default {
     async head() {
       try {
         const res = await this.axios.get("/category");
+        console.log(res)
         this.nav = res.data;
       } catch (err) {
         console.log('导航错误'+err);
       }
     },
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
