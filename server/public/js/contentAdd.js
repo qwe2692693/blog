@@ -10,9 +10,9 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
     //上传图片
     upload.render({
             elem: '#dateAddUpload',
-            url: '/upload/',
+            // url: '/upload/',
             auto: false, //选择文件后不自动上传
-            bindAction: '#submitBtn', //指向一个按钮触发上传
+            // bindAction: '#submitBtn', //指向一个按钮触发上传
             field: 'myFileName',
             done: function(res, index, upload) {
                 if (!res.isOk) {

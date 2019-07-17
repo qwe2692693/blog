@@ -9,7 +9,7 @@
           <div class="list-inner">
             <div class="list-img">
               <img
-                :src="item.contentImg !=true  ? 'http://www.yangqq.com/d/file/news/life/2018-06-29/75842f4d1e18d692a66c38eb172a40ab.jpg' : item.contentImg"
+                :src="item.contentImg ==''  ? 'http://www.yangqq.com/d/file/news/life/2018-06-29/75842f4d1e18d692a66c38eb172a40ab.jpg' : item.contentImg"
                 alt
               />
             </div>
@@ -48,8 +48,7 @@ export default {
   methods: {
     async contenFun(id) {
       try {
-        const res = await this.axios.get("/content?id=" + id);
-        console.log(res);
+        const res = await this.axios.post("/content?id=" + id);
         this.list = res.data;
       } catch (err) {
         console.log(err);

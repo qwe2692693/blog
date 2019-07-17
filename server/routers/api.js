@@ -17,7 +17,7 @@ router.get('/category', async(req, res) => {
     /**
      * 列表查询
      */
-router.get('/content', async(req, res) => {
+router.post('/content', async(req, res) => {
         try {
             let id = req.query.id || ''
             let content = await Content.find({
