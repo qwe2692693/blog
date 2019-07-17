@@ -9,16 +9,16 @@
           <div class="list-inner">
             <div class="list-img">
               <img
-                src="http://www.yangqq.com/d/file/news/life/2018-06-29/75842f4d1e18d692a66c38eb172a40ab.jpg"
+                :src="item.contentImg !=true  ? 'http://www.yangqq.com/d/file/news/life/2018-06-29/75842f4d1e18d692a66c38eb172a40ab.jpg' : item.contentImg"
                 alt
-              >
+              />
             </div>
             <el-row tag="p" class="list-text">{{ item.description }}</el-row>
             <el-row class="list-info">
               <div class="info-position">
                 <el-row type="flex" align="middle">
                   <a class="list-avatar" href="javvascript:;">
-                    <img src="@/assets/images/20190429151448.jpg" alt>
+                    <img src="@/assets/images/20190429151448.jpg" alt />
                   </a>
                   <span class="info-time">2018-11-08</span>
                   <a href="javascript:;" class="info-link">
@@ -49,6 +49,7 @@ export default {
     async contenFun(id) {
       try {
         const res = await this.axios.get("/content?id=" + id);
+        console.log(res);
         this.list = res.data;
       } catch (err) {
         console.log(err);
@@ -60,7 +61,7 @@ export default {
     this.contenFun(this.$route.params.id);
   },
   watch: {
-    '$route'() {
+    $route() {
       this.contenFun(this.$route.params.id);
     }
   }

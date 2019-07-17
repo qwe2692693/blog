@@ -37,7 +37,7 @@ layui.use(['table', 'jquery', 'layer'], function() {
                     body.find('input[name=editor]').val(obj.content)
                     body.find('a#submitBtn').attr('lay-filter', 'edit')
                     if (obj.contentImg) {
-                        body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=/static/upload/' + obj.contentImg + '></div>')
+                        body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=' + obj.contentImg + '></div>')
                     }
                 }
             }

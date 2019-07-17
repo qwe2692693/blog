@@ -1,20 +1,3 @@
-var E = window.wangEditor
-var editor = new E('#editor')
-
-function initEditor(obj) {
-    obj.customConfig = {
-        debug: true, //开启debug调试
-        uploadImgServer: '/upload/', //配置上传图片的接口api
-        uploadImgMaxSize: 5 * 1024 * 1024, //图片大小限制为 5M
-        uploadImgMaxLength: 10, // 限制一次最多上传 10 张图片
-        uploadFileName: 'myFileName', //配置文件参数名（这个参数必需配置，后台用这个值接收图片）
-        showLinkImg: true //隐藏网络图片tab
-    };
-    obj.customConfig.uploadImgShowBase64 = true
-    obj.customConfig.zIndex = 100;
-    obj.create()
-}
-
 layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
     let form = layui.form,
         layer = layui.layer,
@@ -27,9 +10,9 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
         //上传栏目图片
     upload.render({
         elem: '#dateAddUpload',
-        url: '/upload/',
+        // url: '/upload/',
         auto: false, //选择文件后不自动上传
-        bindAction: '#submitBtn', //指向一个按钮触发上传
+        // bindAction: '#submitBtn', //指向一个按钮触发上传
         field: 'myFileName',
         done: function(res, index, upload) {
             if (!res.isOk) {
@@ -39,7 +22,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
         choose: function(obj) {
             obj.preview(function(index, file, result) {
                 let imgSrc = '<div class="showImgBox"><img src=' + result + '></div>';
-                cateImg = file.name;
+                cateImg = result;
                 $("#dateAddUpload .zw").html(imgSrc)
             })
         }

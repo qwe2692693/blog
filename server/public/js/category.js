@@ -77,7 +77,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
                         body.find('input[name=editor]').val(obj.item.cateContent)
                         body.find('a#submitBtn').attr('lay-filter', 'edit')
                         if (obj.item.cateImg) {
-                            body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=/static/upload/' + obj.item.cateImg + '></div>')
+                            body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=' + obj.item.cateImg + '></div>')
                         }
                     }
 
@@ -88,7 +88,7 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
                         body.find('input[name=editor]').val(obj.item.cateContent)
                         body.find('a#submitBtn').attr('lay-filter', 'edit')
                         if (obj.item.cateImg) {
-                            body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=/static/upload/' + obj.item.cateImg + '></div>')
+                            body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=' + obj.item.cateImg + '></div>')
                         }
                     }
                 }
