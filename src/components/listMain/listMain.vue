@@ -48,7 +48,7 @@ export default {
   methods: {
     async contenFun(id) {
       try {
-        const res = await this.axios.post("/content?id=" + id);
+        const res = await this.axios.get("/content?id=" + id);
         this.list = res.data;
       } catch (err) {
         console.log(err);
