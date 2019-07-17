@@ -127,6 +127,10 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
             }
         })
     })
+    if ($("input[name=editor]").val() != '') {
+        editor.txt.html($("input[name=editor]").val())
+        $("input[name=editor]").val('')
+    }
 
     function editFun(url, obj, funObj) {
         if (editor.txt.html().match('<p><br></p>')) {
@@ -135,8 +139,5 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
         }
         $.post(url, obj, funObj)
     }
-    if ($("input[name=editor]").val() != '') {
-        editor.txt.html($("input[name=editor]").val())
-        $("input[name=editor]").val('')
-    }
+
 })
