@@ -20,7 +20,7 @@
         <table class="layui-hide" id="table"></table>
 
         <script type="text/html" id="userTpl">
-            <input type="checkbox" name="isAdmin" value="{{d.isAdmin}}" lay-skin="switch" lay-text="是|否" lay-filter="isAdminBtn" {{ d.isAdmin==false ? '' : 'checked' }}>
+            <input type="checkbox" name="isAdmin" value="{{d._id}}" lay-skin="switch" lay-text="是|否" lay-filter="isAdminBtn" {{ d.isAdmin==false ? '' : 'checked' }}>
         </script>
         <script src="/static/layui/layui.js"></script>
         <script src="/static/js/userAdmin.js"></script>

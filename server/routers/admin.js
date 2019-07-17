@@ -100,7 +100,7 @@ router.route('/user_edit')
                 isAdmin = req.body.isAdmin
             if (userId == '') {
                 responseData.code = 1
-                responseData.message = '昵称不能为空'
+                responseData.message = 'id不能为空'
                 res.send(responseData)
                 return
             }
