@@ -43,7 +43,7 @@ router.get('/', (req, res) => {
             console.log(error);
             return false;
         }
-        
+    
     })
     res.send('ada')
 })
