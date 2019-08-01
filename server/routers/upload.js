@@ -30,11 +30,11 @@ const fs = require('fs');
 // })
 
 router.get('/', (req, res) => {
-    let dir = "./public/";
-    fs.stat(dir+'upload',function(error,stats){
-        if(error){
-            fs.mkdir(dir+'upload', function (error){
-                if(error){
+    let dir = "./public/upload";
+    fs.stat(dir, function(error, stats) {
+        if (error) {
+            fs.mkdir(dir, function(error) {
+                if (error) {
                     console.log(error);
                     return false;
                 }
@@ -43,7 +43,14 @@ router.get('/', (req, res) => {
             console.log(error);
             return false;
         }
-    
+        let date = new Date(),
+            year = date.getFullYear(),
+            month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1),
+            d = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
+            dateStr = year + month + d;
+        let hasDir = fs.fstatSync(dir + '/' + dateStr)
+        console.log(hasDir.isDirectory())
+        return false;
     })
     res.send('ada')
 })
