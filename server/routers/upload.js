@@ -48,7 +48,7 @@ router.get('/', (req, res) => {
             month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1),
             d = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
             dateStr = year + month + d;
-        let hasDir = fs.fstatSync(dir + '/' + dateStr)
+        let hasDir = fs.fstatSync(dir)
         console.log(hasDir.isDirectory())
         return false;
     })
