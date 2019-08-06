@@ -48,8 +48,19 @@ router.get('/', (req, res) => {
             month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1),
             d = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
             dateStr = year + month + d;
-        let hasDir = fs.fstatSync(dir)
-        console.log(hasDir.isDirectory())
+
+
+        let hasDir = fs.statSync(dir + '/' + dateStr);
+        if (!hasDir.isDirectory()) {
+            fs.mkdir(dir + '/' + dateStr, function() {
+                if (error) {
+                    console.log(error);
+                    return false;
+                }
+                console.log('创建成功')
+
+            })
+        }
         return false;
     })
     res.send('ada')
