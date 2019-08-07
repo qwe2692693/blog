@@ -79,59 +79,85 @@ router.get('/', async(req, res) => {
  */
 router.post('/content_addORedit', async(req, res) => {
         try {
-            let title = req.body.title || '',
+            let contentId = req.body.contentId || '',
+                contentImg = req.body.contentImg || '',
+                title = req.body.title || '',
                 description = req.body.description || '',
                 content = req.body.content || '',
                 cateId = req.body.cateId || '';
-            if (cateId == '') {
-                responseData.code = 4
-                responseData.message = "栏目ID不存在"
-                res.json(responseData)
-                return
-            }
-            let cateIdMod = await Category.findOne({
-                _id: cateId
-            })
-            if (!cateIdMod) {
-                responseData.code = 3
-                responseData.message = "当前栏目不存在"
-                res.json(responseData)
-                return
-            }
-            if (title == '') {
-                responseData.code = 1
-                responseData.message = "标题不能为空"
-                res.json(responseData)
-                return
-            }
-            if (content == '') {
-                responseData.code = 2
-                responseData.message = "内容不能为空"
-                res.json(responseData)
-                return
-            }
-            let contents = await Content.findOne({
-                title: title,
-            })
-
-            if (!contents) {
-                let contentBox = new Content({
-                    category: cateId,
-                    user: req.session.user._id,
-                    title: title,
-                    description: description,
-                    content: content
+            if(contentId==''){
+                if (cateId == '') {
+                    responseData.code = 4
+                    responseData.message = "栏目ID不存在"
+                    res.json(responseData)
+                    return
+                }
+                let cateIdMod = await Category.findOne({
+                    _id: cateId
                 })
-                responseData.message = "保存成功"
-                res.json(responseData)
-                return contentBox.save()
-            } else {
-                responseData.code = 5
-                responseData.message = "当前标题已存在"
+                if (!cateIdMod) {
+                    responseData.code = 3
+                    responseData.message = "当前栏目不存在"
+                    res.json(responseData)
+                    return
+                }
+                if (title == '') {
+                    responseData.code = 1
+                    responseData.message = "标题不能为空"
+                    res.json(responseData)
+                    return
+                }
+                if (content == '') {
+                    responseData.code = 2
+                    responseData.message = "内容不能为空"
+                    res.json(responseData)
+                    return
+                }
+                let contents = await Content.findOne({
+                    title: title,
+                })
+
+                if (!contents) {
+                    let contentBox = new Content({
+                        category: cateId,
+                        user: req.session.user._id,
+                        title: title,
+                        description: description,
+                        content: content,
+                        contentImg:contentImg
+                    })
+                    responseData.message = "保存成功"
+                    res.json(responseData)
+                    return contentBox.save()
+                } else {
+                    responseData.code = 5
+                    responseData.message = "当前标题已存在"
+                    res.json(responseData)
+                    return
+                }
+        }else{
+            let contents = await Content.findOne({ _id: contentId });
+            if (!contents) {
+                responseData.code = 1
+                responseData.message = '当前类目不存在'
                 res.json(responseData)
                 return
             }
+            responseData.message = '更新完成'
+            res.json(responseData)
 
+            return Content.updateOne({
+                _id: contentId,
+            }, {
+                category: cateId,
+                user: req.session.user._id,
+                title: title,
+                content: content,
+                description: description,
+                contentImg: contentImg
+            })
+
+        }
 
         } catch (err) {
             console.log("这是错误" + err)

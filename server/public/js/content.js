@@ -35,7 +35,6 @@ layui.use(['table', 'jquery', 'layer'], function() {
                     body.find('input[name=title]').val(obj.title)
                     body.find('textarea[name=cateDes]').val(obj.description)
                     body.find('input[name=editor]').val(obj.content)
-                    body.find('a#submitBtn').attr('lay-filter', 'edit')
                     if (obj.contentImg) {
                         body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=' + obj.contentImg + '></div>')
                     }

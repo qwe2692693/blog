@@ -4,28 +4,32 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
         laytpl = layui.laytpl,
         layer = layui.layer,
         upload = layui.upload;
-    let imgErr = true,
-        contentImg;
+    
     initEditor(editor);
+    let imgStr = '';
     //上传图片
     upload.render({
             elem: '#dateAddUpload',
-            // url: '/upload/',
+            url: '/upload/',
             auto: false, //选择文件后不自动上传
-            // bindAction: '#submitBtn', //指向一个按钮触发上传
+            bindAction: '#submitBtn', //指向一个按钮触发上传
             field: 'myFileName',
-            done: function(res, index, upload) {
-                if (!res.isOk) {
-                    imgErr = false;
-                }
+            before:function (obj){
+                layer.load();
             },
             choose: function(obj) {
                 obj.preview(function(index, file, result) {
                     let imgSrc = '<div class="showImgBox"><img src=' + result + '></div>';
-                    contentImg = result;
                     $("#dateAddUpload .zw").html(imgSrc)
                 })
-            }
+            },
+            done: function(res, index, upload) {
+               if(res.isOk){
+                imgStr = res.imgPath
+                    layer.closeAll('loading')
+                    formSubmitFun(imgStr);
+               }
+            },
         })
         /**
          * 获取栏目
@@ -52,15 +56,15 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
         form.render('select')
     })
 
-
-
-    form.on('submit(submit)', function(data) {
+    function formSubmitFun(obj){
         editFun('/content/content_addORedit', {
-            title: data.field.title,
-            description: data.field.cateDes,
+            contentId: $("#contentId").val(),
+            title: $("input[name=title]").val(),
+            description: $("textarea[name=cateDes]").val(),
             content: editor.txt.html(),
-            contentImg: contentImg,
-            cateId: data.field.cateId
+            contentImg: obj,
+            cateId: $("#cateNameVal").val(),
+            cateName:$("#cateNameVal").val()
         }, function(res) {
             if (res.code == 1) {
                 $('input[name=title]').addClass('layui-form-danger').focus()
@@ -98,35 +102,41 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
                 });
             }
         })
-    })
 
-    form.on('submit(edit)', function(data) {
-        editFun('/content/content_edit', {
-            contentId: $("#contentId").val(),
-            title: data.field.title,
-            description: data.field.cateDes,
-            content: editor.txt.html(),
-            contentImg: contentImg,
-            cateName: data.field.cateId
-        }, function(res) {
-            if (res.code == 1) {
-                layer.msg(res.message, {
-                    anim: 6,
-                    icon: 5,
-                    time: 1000,
-                });
-            }
-            if (res.code == 0) {
-                layer.msg(res.message, {
-                    time: 1000,
-                }, function() {
-                    layer.closeAll("iframe");
-                    //刷新父页面
-                    parent.location.reload();
-                });
-            }
-        })
-    })
+    }
+
+form.on("submit(submit)",function (){
+    formSubmitFun(imgStr)
+})
+
+
+    // form.on('submit(edit)', function(data) {
+    //     editFun('/content/content_edit', {
+    //         contentId: $("#contentId").val(),
+    //         title: data.field.title,
+    //         description: data.field.cateDes,
+    //         content: editor.txt.html(),
+    //         contentImg: contentImg,
+    //         cateName: data.field.cateId
+    //     }, function(res) {
+    //         if (res.code == 1) {
+    //             layer.msg(res.message, {
+    //                 anim: 6,
+    //                 icon: 5,
+    //                 time: 1000,
+    //             });
+    //         }
+    //         if (res.code == 0) {
+    //             layer.msg(res.message, {
+    //                 time: 1000,
+    //             }, function() {
+    //                 layer.closeAll("iframe");
+    //                 //刷新父页面
+    //                 parent.location.reload();
+    //             });
+    //         }
+    //     })
+    // })
     if ($("input[name=editor]").val() != '') {
         editor.txt.html($("input[name=editor]").val())
         $("input[name=editor]").val('')
