@@ -77,7 +77,7 @@ router.get('/', async(req, res) => {
 /***
  * 添加内容页面
  */
-router.post('/content_add', async(req, res) => {
+router.post('/content_addORedit', async(req, res) => {
         try {
             let title = req.body.title || '',
                 description = req.body.description || '',

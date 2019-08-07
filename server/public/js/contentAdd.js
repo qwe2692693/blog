@@ -55,7 +55,7 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
 
 
     form.on('submit(submit)', function(data) {
-        editFun('/content/content_add', {
+        editFun('/content/content_addORedit', {
             title: data.field.title,
             description: data.field.cateDes,
             content: editor.txt.html(),
