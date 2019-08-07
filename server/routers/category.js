@@ -39,58 +39,9 @@ router.get('/category_err', async(req, res) => {
         }
     })
     /**
-     * 分类保存
+     * 分类保存和修改
      **/
-router.post('/category_add', async(req, res) => {
-        try {
-            let cateName = await req.body.cateName || '',
-                cateDes = await req.body.cateDes || '',
-                cateContent = await req.body.cateContent || '',
-                cateImg = await req.body.cateImg || '',
-                cateId = await req.body.cateId || '';
-            // 类名是否为空
-            if (cateName == '') {
-                responseData.code = 1
-                responseData.message = '名称不能为空'
-                res.json(responseData)
-                return
-            }
-            let catName = await Category.findOne({ catname: cateName })
-                // 类名是否存在
-            if (catName) {
-                responseData.code = 2
-                responseData.message = '当前类名已存在,请勿重复添加'
-                res.json(responseData)
-                return
-            }
-            if (cateId != '') {
-                categoryName = await new Category({
-                    catname: cateName,
-                    cateDes: cateDes,
-                    cateContent: cateContent,
-                    cateImg: cateImg,
-                    pid: cateId
-                })
-            } else {
-                categoryName = await new Category({
-                    catname: cateName,
-                    cateDes: cateDes,
-                    cateContent: cateContent,
-                    cateImg: cateImg
-                })
-            }
-            responseData.code = 0
-            responseData.message = '保存成功'
-            res.json(responseData)
-            return categoryName.save()
-        } catch (err) {
-            console.log('这是错误' + err)
-        }
-    })
-    /**
-     * 分类修改
-     */
-router.post('/category_edit', async(req, res) => {
+router.post('/category_addORedit', async(req, res) => {
         try {
             let editId = await req.body.editId || '',
                 cateName = await req.body.cateName || '',
@@ -98,60 +49,88 @@ router.post('/category_edit', async(req, res) => {
                 cateContent = await req.body.cateContent || '',
                 cateImg = await req.body.cateImg || '',
                 cateId = await req.body.cateId || '';
-            // 类名是否为空
-            if (cateName == '') {
-                responseData.code = 1
-                responseData.message = '名称不能为空'
+            if (editId == '') {
+                // 类名是否为空
+                if (cateName == '') {
+                    responseData.code = 1
+                    responseData.message = '名称不能为空'
+                    res.json(responseData)
+                    return
+                }
+                let catName = await Category.findOne({ catname: cateName })
+                    // 类名是否存在
+                if (catName) {
+                    responseData.code = 2
+                    responseData.message = '当前类名已存在,请勿重复添加'
+                    res.json(responseData)
+                    return
+                }
+                if (cateId != '') {
+                    categoryName = await new Category({
+                        catname: cateName,
+                        cateDes: cateDes,
+                        cateContent: cateContent,
+                        cateImg: cateImg,
+                        pid: cateId
+                    })
+                } else {
+                    categoryName = await new Category({
+                        catname: cateName,
+                        cateDes: cateDes,
+                        cateContent: cateContent,
+                        cateImg: cateImg
+                    })
+                }
+                responseData.code = 0
+                responseData.message = '保存成功'
                 res.json(responseData)
-                return
-            }
-            let category = await Category.findOne({
-                _id: editId
-            })
-
-            if (!category) {
-                responseData.code = 2
-                responseData.message = '分类信息不存在'
-                res.json(responseData)
-                return
-            }
-            // if (editName == category.catname) {
-            //     responseData.code = 3
-            //     responseData.message = '名称未修改'
-            //     res.json(responseData)
-            // }
-            // if ((editcateShort == '') || (editcateShort != category.cateShort)) {
-            //     editcateShort = pinyin(editName, {
-            //         style: 'normal'
-            //     }).join().replace(/,/g, '')
-            // }
-            responseData.message = '修改成功'
-            res.json(responseData)
-
-            if (cateId != '') {
-                return Category.updateOne({
-                    _id: editId
-                }, {
-                    catname: cateName,
-                    cateDes: cateDes,
-                    cateContent: cateContent,
-                    cateImg: cateImg,
-                    pid: cateId
-                })
+                return categoryName.save()
             } else {
-                return Category.updateOne({
+                // 类名是否为空
+                if (cateName == '') {
+                    responseData.code = 1
+                    responseData.message = '名称不能为空'
+                    res.json(responseData)
+                    return
+                }
+                let category = await Category.findOne({
                     _id: editId
-                }, {
-                    catname: cateName,
-                    cateDes: cateDes,
-                    cateContent: cateContent,
-                    cateImg: cateImg
                 })
-            }
 
+                if (!category) {
+                    responseData.code = 2
+                    responseData.message = '分类信息不存在'
+                    res.json(responseData)
+                    return
+                }
+                responseData.message = '修改成功'
+                res.json(responseData)
+
+                if (cateId != '') {
+                    return Category.updateOne({
+                        _id: editId
+                    }, {
+                        catname: cateName,
+                        cateDes: cateDes,
+                        cateContent: cateContent,
+                        cateImg: cateImg,
+                        pid: cateId
+                    })
+                } else {
+                    return Category.updateOne({
+                        _id: editId
+                    }, {
+                        catname: cateName,
+                        cateDes: cateDes,
+                        cateContent: cateContent,
+                        cateImg: cateImg
+                    })
+                }
+
+            }
 
         } catch (err) {
-            console.log(err)
+            console.log('这是错误' + err)
         }
     })
     /**

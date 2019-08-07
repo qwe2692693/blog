@@ -67,7 +67,6 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
                         body.find('#parentS').removeClass('layui-hide');
                         body.find('#parentId').val(obj.item._id);
                     }
-
                     if (obj.item.pid != 0 && obj.elem.className == 'edit') {
                         body.find('#parentS').removeClass('layui-hide');
                         body.find('#parentId').val(obj.item.pid);
@@ -75,18 +74,15 @@ layui.use(['treeTable', 'layer', 'form', 'jquery'], function() {
                         body.find('input[name=cateName]').val(obj.item.catname)
                         body.find('textarea[name=cateDes]').val(obj.item.cateDes)
                         body.find('input[name=editor]').val(obj.item.cateContent)
-                        body.find('a#submitBtn').attr('lay-filter', 'edit')
                         if (obj.item.cateImg) {
                             body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=' + obj.item.cateImg + '></div>')
                         }
                     }
-
                     if (obj.elem.className == 'edit') {
                         body.find('#editId').val(obj.item._id)
                         body.find('input[name=cateName]').val(obj.item.catname)
                         body.find('textarea[name=cateDes]').val(obj.item.cateDes)
                         body.find('input[name=editor]').val(obj.item.cateContent)
-                        body.find('a#submitBtn').attr('lay-filter', 'edit')
                         if (obj.item.cateImg) {
                             body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=' + obj.item.cateImg + '></div>')
                         }

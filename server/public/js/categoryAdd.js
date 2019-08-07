@@ -4,86 +4,62 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
         upload = layui.upload,
         laytpl = layui.laytpl,
         $ = layui.jquery;
-    let imgErr = true,
-        cateImg;
     initEditor(editor)
         //上传栏目图片
+    let imgStr = '';
     upload.render({
         elem: '#dateAddUpload',
-        // url: '/upload/',
+        url: '/upload/',
         auto: false, //选择文件后不自动上传
-        // bindAction: '#submitBtn', //指向一个按钮触发上传
+        bindAction: '#submitBtn', //指向一个按钮触发上传
         field: 'myFileName',
-        done: function(res, index, upload) {
-            if (!res.isOk) {
-                imgErr = false;
-            }
+        before: function(obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+            layer.load(); //上传loading
         },
         choose: function(obj) {
             obj.preview(function(index, file, result) {
                 let imgSrc = '<div class="showImgBox"><img src=' + result + '></div>';
-                cateImg = result;
                 $("#dateAddUpload .zw").html(imgSrc)
             })
-        }
-    })
+        },
+        done: function(res, index, upload) { //上传后的回调
+            layer.closeAll('loading')
+            imgStr = res.imgPath
+            submitFun(res.imgPath)
 
-    form.on('submit(submit)', function(data) {
-        if (!imgErr) {
-            layer.msg('图片上传错误', {
-                anim: 6,
-                icon: 5,
-                time: 1000,
-            });
-            return
-        }
-        if ($("#parentId").val() != '') {
-            cateAddFun('/category/category_add', {
-                cateName: data.field.cateName,
-                cateDes: data.field.cateDes,
-                cateContent: editor.txt.text(),
-                cateImg: cateImg,
-                cateId: $("#cateNameVal").val(),
-            })
-
-        } else {
-            cateAddFun('/category/category_add', {
-                cateName: data.field.cateName,
-                cateDes: data.field.cateDes,
-                cateContent: editor.txt.html(),
-                cateImg: cateImg
-            })
+        },
+        error: function(index, upload) {
+            layer.closeAll('loading'); //关闭loading
         }
     })
 
 
-    form.on('submit(edit)', function(data) {
-        if (!imgErr) {
-            layer.msg('图片上传错误', {
-                anim: 6,
-                icon: 5,
-                time: 1000,
-            });
-            return
-        }
+    function submitFun(obj) {
         if ($("#parentId").val() != '') {
-            cateAddFun('/category/category_edit', {
+            cateAddFun('/category/category_addORedit', {
                 editId: $("#editId").val(),
-                cateName: data.field.cateName,
-                cateDes: data.field.cateDes,
+                cateName: $("input[name=cateName]").val(),
+                cateDes: $("textarea[name=cateDes]").val(),
                 cateContent: editor.txt.text(),
-                cateImg: cateImg,
+                cateImg: obj,
                 cateId: $("#cateNameVal").val(),
             })
-
         } else {
-            cateAddFun('/category/category_edit', {
+            cateAddFun('/category/category_addORedit', {
                 editId: $("#editId").val(),
-                cateName: data.field.cateName,
-                cateDes: data.field.cateDes,
+                cateName: $("input[name=cateName]").val(),
+                cateDes: $("textarea[name=cateDes]").val(),
                 cateContent: editor.txt.html(),
-                cateImg: cateImg
+                cateImg: obj
             })
+        }
+    }
+
+    form.on("submit(submit)", function() {
+        if (imgStr == '') {
+            submitFun(imgStr)
+        } else if (imgStr != '') {
+            submitFun(imgStr)
         }
     })
 
@@ -112,10 +88,8 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
         })
     }
 
-    if ($("#submitBtn").attr('lay-filter') == 'edit') {
-        editor.txt.html($("input[name=editor]").val())
-        $("input[name=editor]").val('')
-    }
+    editor.txt.html($("input[name=editor]").val())
+    $("input[name=editor]").val('')
 
     if (!$("#parentS").hasClass('layui-hide')) {
         $.get('/category', { async: false }, function(data) {
