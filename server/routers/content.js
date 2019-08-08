@@ -84,8 +84,9 @@ router.post('/content_addORedit', async(req, res) => {
                 title = req.body.title || '',
                 description = req.body.description || '',
                 content = req.body.content || '',
-                cateId = req.body.cateId || '';
-            if(contentId==''){
+                cateId = req.body.cateId || '',
+                homePageTj = req.body.homePageTj || 0;
+            if (contentId == '') {
                 if (cateId == '') {
                     responseData.code = 4
                     responseData.message = "栏目ID不存在"
@@ -124,7 +125,8 @@ router.post('/content_addORedit', async(req, res) => {
                         title: title,
                         description: description,
                         content: content,
-                        contentImg:contentImg
+                        contentImg: contentImg,
+                        homePageTj: homePageTj
                     })
                     responseData.message = "保存成功"
                     res.json(responseData)
@@ -135,29 +137,30 @@ router.post('/content_addORedit', async(req, res) => {
                     res.json(responseData)
                     return
                 }
-        }else{
-            let contents = await Content.findOne({ _id: contentId });
-            if (!contents) {
-                responseData.code = 1
-                responseData.message = '当前类目不存在'
+            } else {
+                let contents = await Content.findOne({ _id: contentId });
+                if (!contents) {
+                    responseData.code = 1
+                    responseData.message = '当前类目不存在'
+                    res.json(responseData)
+                    return
+                }
+                responseData.message = '更新完成'
                 res.json(responseData)
-                return
+
+                return Content.updateOne({
+                    _id: contentId,
+                }, {
+                    category: cateId,
+                    user: req.session.user._id,
+                    title: title,
+                    content: content,
+                    description: description,
+                    contentImg: contentImg,
+                    homePageTj: homePageTj
+                })
+
             }
-            responseData.message = '更新完成'
-            res.json(responseData)
-
-            return Content.updateOne({
-                _id: contentId,
-            }, {
-                category: cateId,
-                user: req.session.user._id,
-                title: title,
-                content: content,
-                description: description,
-                contentImg: contentImg
-            })
-
-        }
 
         } catch (err) {
             console.log("这是错误" + err)

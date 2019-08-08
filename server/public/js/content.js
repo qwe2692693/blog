@@ -32,9 +32,11 @@ layui.use(['table', 'jquery', 'layer'], function() {
                 if (obj) {
                     body.find('#contentId').val(obj._id)
                     body.find('#editId').val(obj.category._id)
+                    body.find('#homeSwidthId').val(obj.homePageTj)
                     body.find('input[name=title]').val(obj.title)
                     body.find('textarea[name=cateDes]').val(obj.description)
                     body.find('input[name=editor]').val(obj.content)
+
                     if (obj.contentImg) {
                         body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=' + obj.contentImg + '></div>')
                     }

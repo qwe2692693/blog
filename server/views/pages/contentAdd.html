@@ -15,44 +15,56 @@
     <form class="layui-form" action="">
         <input type="hidden" id="editId">
         <input type="hidden" id="contentId">
-        <div class="layui-row layui-col-space10">
-            <div class="layui-col-md8 layui-col-xs7">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">栏目选择</label>
-                    <div class="layui-input-block" id="parentView"></div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">内容标题</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="required" lay-reqtext="内容标题不能为空哦！" placeholder="输入内容标题" autocomplete="off" class="layui-input">
+        <input type="hidden" id="homeSwidthId" value="0">
+        <div class="layui-row  layui-col-space10">
+            <div class="layui-col-md9">
+                <div class="layui-row">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">栏目选择</label>
+                        <div class="layui-input-block" id="parentView"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">内容标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" lay-verify="required" lay-reqtext="内容标题不能为空哦！" placeholder="输入内容标题" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">内容摘要</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="内容摘要" name="cateDes" autocomplete="off" class="layui-textarea"></textarea>
+                        </div>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">内容摘要</label>
+                    <label class="layui-form-label">内容编辑</label>
+                    <input type="hidden" name="editor">
                     <div class="layui-input-block">
-                        <textarea placeholder="内容摘要" name="cateDes" autocomplete="off" class="layui-textarea"></textarea>
+                        <div id="editor"></div>
                     </div>
                 </div>
             </div>
-            <div class="layui-col-md4 layui-col-xs5">
+            <div class="layui-col-md3">
+                <blockquote class="layui-elem-quote">
+                    上传图片
+                </blockquote>
                 <div class="layui-upload-drag upload-box" id="dateAddUpload">
                     <i class="layui-icon"></i>
                     <p>点击上传，或将文件拖拽到此处</p>
                     <div class="zw"></div>
                 </div>
-            </div>
+                <blockquote class="layui-elem-quote margin-t-10 margin-b-0">
+                    发布
+                </blockquote>
+                <div class="block-box">
+                    <div class="layui-form-item margin-t-10" id="homeSwitch">
 
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">内容编辑</label>
-            <input type="hidden" name="editor">
-            <div class="layui-input-block">
-                <div id="editor"></div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <a href="javascript:;" class="layui-btn" lay-filter="submit" lay-submit id="submitBtn">立即提交</a>
+                    </div>
+                    <hr>
+                    <div class="layui-form-item">
+                        <a href="javascript:;" class="layui-btn" lay-filter="submit" lay-submit id="submitBtn">提交</a>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
@@ -74,8 +86,15 @@
                 {{#  } }}
             {{# });}}
         </select>
-
     </script>
+
+    <script id="homeSwitchTtl" type="text/html">
+        <label class="layui-form-label"> {{ d }}</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="home" lay-skin="switch" lay-filter="homeSwitch" lay-text="ON|OFF">
+        </div>
+    </script>
+
 </body>
 
 </html>
