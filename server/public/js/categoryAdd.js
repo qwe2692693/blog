@@ -23,9 +23,13 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
             })
         },
         done: function(res, index, upload) { //上传后的回调
-            layer.closeAll('loading')
-            imgStr = res.imgPath
-            submitFun(res.imgPath)
+            if (res.isOk) {
+                layer.closeAll('loading')
+                imgStr = res.imgPath;
+                submitFun(res.imgPath)
+            } else {
+                alert("失败")
+            }
 
         },
         error: function(index, upload) {
