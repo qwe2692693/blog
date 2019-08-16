@@ -40,9 +40,9 @@ function getNowDat() {
             dayStr = '星期日';
     }
 
-    nowDate = '当前时间' + year + '年' + dateFilter(month) + '月' + dateFilter(date) + '日' + dateFilter(hours) + ':' + dateFilter(minutes) + ':' + dateFilter(seconds) + '&nbsp;' + dayStr + '&nbsp;' + pam
+    nowDate = '当前时间' + year + '年' + dateFilter(month) + '月' + dateFilter(date) + '日' + dateFilter(hours) + ':' + dateFilter(minutes) + ':' + dateFilter(seconds) + '&nbsp;' + dayStr + '&nbsp;' + pam;
     document.getElementById('nowTime').innerHTML = nowDate;
-    setTimeout('getNowDat()', 1000)
+    setTimeout('getNowDat()', 1000);
 }
 layui.use(['jquery'], () => {
     let $ = layui.jquery,

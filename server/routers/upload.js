@@ -46,14 +46,13 @@ router.post('/', (req, res) => {
                 mkdirFun(dirDate)
             }
             let form = new formidable.IncomingForm(),
-            temDir = form.uploadDir = dirDate;
+                temDir = form.uploadDir = dirDate;
             form.parse(req, (err, fields, files) => {
                 if (err) {
                     console.log(err)
                     return false;
                 }
-        
-        
+
                 //根据前端设置
                 let filspath = files.myFileName.path;
                 let filsname = files.myFileName.name;
@@ -66,7 +65,7 @@ router.post('/', (req, res) => {
                     let resPath = newPath.replace("./public", "/static"); //处理图片路径  让前端能访问
                     res.json({ isOk: true, imgPath: resPath, errno: 0 }) //返回图片路径
                 })
-        
+
             })
         });
     });

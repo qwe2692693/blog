@@ -4,7 +4,7 @@
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item
-          :to="{name:'list',params:{id:contentObj.content.category.cateShort}}"
+          :to="{name:'list',params:{id:contentObj.content.category._id}}"
         >{{contentObj.content.category.catname}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{contentObj.content.title}}</el-breadcrumb-item>
       </el-breadcrumb>

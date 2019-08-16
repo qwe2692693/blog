@@ -1,15 +1,18 @@
 .htmlHeight,
-.loginBody{
+.loginBody {
     height: 100%
 }
-.layui-text-right{
+
+.layui-text-right {
     text-align: right;
 }
-.loginBody{
+
+.loginBody {
     background: url(../images/loginbg.jpeg) no-repeat center center;
     background-size: cover
 }
-.loginBody form.layui-form{
+
+.loginBody form.layui-form {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     position: absolute;
@@ -21,7 +24,8 @@
     padding: 0 20px;
     border-radius: 5px;
 }
-.loginBody .login-icon{
+
+.loginBody .login-icon {
     margin: -55px auto 20px;
     width: 100px;
     height: 100px;
@@ -33,13 +37,16 @@
     box-shadow: 0 0 30px #009688;
     background: #fff;
 }
-.loginBody .login-icon img{
+
+.loginBody .login-icon img {
     width: 100%;
 }
-.loginBody .layui-form-item{
+
+.loginBody .layui-form-item {
     position: relative;
 }
-.loginBody .layui-form-item label{
+
+.loginBody .layui-form-item label {
     position: absolute;
     left: 10px;
     top: 9px;
@@ -47,42 +54,52 @@
     background: #fff;
     color: #757575;
 }
-.loginBody .layui-input::placeholder{
+
+.loginBody .layui-input::placeholder {
     color: #fff;
 }
-.loginBody .input-item{
+
+.loginBody .input-item {
     margin-bottom: 20px;
 }
-.loginBody .input-focus .layui-input{
+
+.loginBody .input-focus .layui-input {
     border-color: red;
 }
-.loginBody .input-focus label{
+
+.loginBody .input-focus label {
     top: -9;
     font-size: 12px;
     color: red;
 }
-.loginBody .input-focus-active label{
+
+.loginBody .input-focus-active label {
     top: -9;
     font-size: 12px;
 }
-.loginBody .input-focus .layui-input::placeholder{
+
+.loginBody .input-focus .layui-input::placeholder {
     color: #757575;
 }
-.loginBody .input-focus .layui-input:hover{
+
+.loginBody .input-focus .layui-input:hover {
     border-color: red !important;
 }
-.loginBody .input-focus .layui-input:focus:hover{
+
+.loginBody .input-focus .layui-input:focus:hover {
     border-color: red !important;
 }
-.loginBody .input-focus .layui-input:focus{
+
+.loginBody .input-focus .layui-input:focus {
     border-color: red !important;
 }
+
 .loginBody .input-focus .layui-input,
 .loginBody .input-focus label,
 .loginBody .input-focus .layui-input::placeholder,
-.loginBody .layui-form-item  label{
+.loginBody .layui-form-item label {
     -webkit-transition: all 0.3s ease-in-out;
-    -o-transition:  all 0.3s ease-in-out;
-    -moz-transition:  all 0.3s ease-in-out;
-    transition:  all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }

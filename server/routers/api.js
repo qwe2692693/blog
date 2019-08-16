@@ -15,6 +15,23 @@ router.get('/category', async(req, res) => {
         }
     })
     /**
+     * 首页推荐查询
+     */
+router.get('/homeHot', async(req, res) => {
+        try {
+            let homeHot = await Content.find({ homePageTj: '1' }).sort({ '_id': -1 });
+            for (let i = 0; i < homeHot.length; i++) {
+                if (i > 8) {
+                    return homeHot;
+                }
+            }
+            res.json(homeHot)
+        } catch (err) {
+            console.log(err)
+        }
+
+    })
+    /**
      * 列表查询
      */
 router.get('/content', async(req, res) => {

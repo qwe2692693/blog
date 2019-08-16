@@ -10,13 +10,13 @@ layui.use(['table', 'jquery', 'layer'], function() {
         id: 'tableId',
         cols: [
             [ //表头
-                { checkbox: true, fixed: 'left' },
-                { field: '_id', title: 'ID', sort: true, },
-                { field: 'title', title: '文章标题' },
-                { field: 'category', title: '所属栏目', templet: '#categoryTpl' },
-                { field: 'user', title: '发布者', templet: '#userTpl' },
-                { field: 'addTime', title: '发布时间' },
-                { title: '操作', width: 110, templet: '#oper' }
+                { checkbox: true, fixed: 'left', },
+                { field: '_id', title: 'ID', sort: true, unresize: 'false' },
+                { field: 'title', title: '文章标题', unresize: 'false' },
+                { field: 'category', title: '所属栏目', templet: '#categoryTpl', unresize: 'false' },
+                { field: 'user', title: '发布者', templet: '#userTpl', unresize: 'false' },
+                { field: 'addTime', title: '发布时间', unresize: 'false' },
+                { title: '操作', width: 110, templet: '#oper', unresize: 'false' }
             ]
         ],
         page: true, //开启分页
@@ -36,7 +36,6 @@ layui.use(['table', 'jquery', 'layer'], function() {
                     body.find('input[name=title]').val(obj.title)
                     body.find('textarea[name=cateDes]').val(obj.description)
                     body.find('input[name=editor]').val(obj.content)
-
                     if (obj.contentImg) {
                         body.find('#dateAddUpload .zw').html('<div class="showImgBox"><img src=' + obj.contentImg + '></div>')
                     }

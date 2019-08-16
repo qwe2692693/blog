@@ -2,36 +2,19 @@
   <el-row class="row-container">
     <h1 class="htitle">特别推荐</h1>
     <el-row class="recommend-container">
-      <el-col :span="6">
+      <el-col :span="6" v-for="(item,index) in homeHotData" :key="index">
         <el-card :body-style="{ padding: '10px' }" shadow="hover" class="card">
           <div class="card-imgBox">
             <img
-              src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+              :src="axios.defaults.baseURL.replace('/api','') + item.contentImg"
               class="image"
             >
           </div>
           <div class="recommend-text">
-            <span>好吃的汉堡</span>
+            <span>{{ item.title }}</span>
             <el-row type="flex" justify="space-between" align="middle">
-              <time class="time">2017-8-12</time>
-              <el-link :underline="false" type="primary">+查看全文</el-link>
-            </el-row>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card :body-style="{ padding: '10px' }" shadow="hover" class="card">
-          <div class="card-imgBox">
-            <img
-              src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-              class="image"
-            >
-          </div>
-          <div class="recommend-text">
-            <span>好吃的汉堡</span>
-            <el-row type="flex" justify="space-between" align="middle">
-              <time class="time">2017-8-12</time>
-              <el-link :underline="false" type="primary">+查看全文</el-link>
+              <time class="time">{{ item.addTime }}</time>
+              <router-link tag="a" class="el-link el-link--primary" :to="{ name:'content',params:{name:item._id}}">+查看全文</router-link>
             </el-row>
           </div>
         </el-card>
@@ -39,6 +22,32 @@
     </el-row>
   </el-row>
 </template>
+<script>
+export default {
+  data(){
+    return{
+        homeHotData:[],
+    }
+  },
+  created(){
+    this.getHomeHot();
+  },
+  methods:{
+      async getHomeHot(){
+        try{
+            const res = await this.axios.get('/homeHot');
+            if(res.status == 200){
+                this.homeHotData = res.data;
+            }else{
+              console.log("加载错误")
+            }
+        }catch(err){
+          console.log(err)
+        }
+      }
+  }
+}
+</script>
 <style lang="scss" scoped>
 .recommend-container {
   margin-left: -10px;

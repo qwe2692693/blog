@@ -43,17 +43,13 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
             editId = $('#editId').val(),
             homeSwidthId = $("#homeSwidthId").val(),
             cateDatas = '';
-        if (editId != '') {
-            cateDatas = {
-                CategoryList: res.CategoryList,
-                editId: editId,
-                homeSwidthId: homeSwidthId
-            }
-        } else {
-            cateDatas = {
-                CategoryList: res.CategoryList,
-            }
+
+        cateDatas = {
+            CategoryList: res.CategoryList,
+            editId: editId,
+            homeSwidthId: homeSwidthId
         }
+
         laytpl(getTpl).render(cateDatas, function(html) {
             view.innerHTML = html;
             form.render('select')
@@ -73,7 +69,7 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
             title: $("input[name=title]").val(),
             description: $("textarea[name=cateDes]").val(),
             content: editor.txt.html(),
-            contentImg: obj,
+            contentImg: obj == '' ? $(".showImgBox").find("img").attr("src") : obj,
             cateId: $("#cateNameVal").val(),
             cateName: $("#cateNameVal").val(),
             homePageTj: homeSwitch
