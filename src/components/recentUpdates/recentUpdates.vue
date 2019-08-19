@@ -113,7 +113,34 @@
   </el-row>
 </template>
 <script>
-export default {};
+import { mapGetters } from 'vuex';
+export default {
+  data(){
+    return{
+        newBlog:[],
+    } 
+  },
+  created(){
+    this.newBlogFun();
+  },
+  methods:{
+   async newBlogFun(){
+     try{
+       let res = await this.axios.get('/contentAll',{
+         params:{
+           id:5
+         }
+       });
+       if(res.status == 200){
+          console.log(res)
+       }
+     }catch(err){
+       console.log(err)
+     }
+
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 .list {

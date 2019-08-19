@@ -6,7 +6,7 @@
         <el-card :body-style="{ padding: '10px' }" shadow="hover" class="card">
           <div class="card-imgBox">
             <img
-              :src="axios.defaults.baseURL.replace('/api','') + item.contentImg"
+              :src="doneServeUrl + item.contentImg"
               class="image"
             >
           </div>
@@ -23,6 +23,7 @@
   </el-row>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 export default {
   data(){
     return{
@@ -45,6 +46,11 @@ export default {
           console.log(err)
         }
       }
+  },
+  computed:{
+    ...mapGetters([
+      'doneServeUrl'
+    ])
   }
 }
 </script>

@@ -19,12 +19,7 @@ router.get('/category', async(req, res) => {
      */
 router.get('/homeHot', async(req, res) => {
         try {
-            let homeHot = await Content.find({ homePageTj: '1' }).sort({ '_id': -1 });
-            for (let i = 0; i < homeHot.length; i++) {
-                if (i > 8) {
-                    return homeHot;
-                }
-            }
+            let homeHot = await Content.find({ homePageTj: '1' }).limit(0, 8).sort({ '_id': -1 });
             res.json(homeHot)
         } catch (err) {
             console.log(err)
@@ -32,7 +27,25 @@ router.get('/homeHot', async(req, res) => {
 
     })
     /**
-     * 列表查询
+     * 内容查询
+     */
+router.get('/contentAll', async(req, res) => {
+        try {
+            console.log(req.query)
+            let content = await Content.find().limit(0, 1).sort({ '_id': -1 });
+            if (content) {
+                res.json(content)
+            } else {
+                res.json({
+                    msg: '加载失败'
+                })
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    })
+    /**
+     * 列表id查询
      */
 router.get('/content', async(req, res) => {
         try {
@@ -46,7 +59,7 @@ router.get('/content', async(req, res) => {
         }
     })
     /**
-     * 内容查询
+     * 内容id查询
      */
 router.get('/contentName', async(req, res) => {
     try {

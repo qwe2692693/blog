@@ -4,13 +4,18 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-     
-  },
-  mutations: {
-    
-  },
-  actions: {
+    state: {
+        serveUrl: axios.defaults.baseURL
+    },
+    getters: {
+        doneServeUrl: (state) => {
+            return state.serveUrl.replace('/api', '')
+        }
+    },
+    mutations: {
 
-  }
+    },
+    actions: {
+
+    }
 })
