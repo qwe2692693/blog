@@ -4,35 +4,41 @@
     <ul class="list">
       <li v-for="(item,index) in newBlog" :key="index">
         <h3 class="list-title">
-          <router-link tag="a" :to="{name:'content',params:{name:item._id}}" target="_blank" class="fc-gray">
-            {{ item.title }}
-          </router-link>
+          <router-link
+            tag="a"
+            :to="{name:'content',params:{name:item._id}}"
+            target="_blank"
+            class="fc-gray"
+          >{{ item.title }}</router-link>
         </h3>
         <div class="list-inner">
           <div class="list-img">
-            <img
-              :src="item.contentImg ==''? imgNull :doneServeUrl+item.contentImg"
-              alt
-            >
+            <img :src="item.contentImg ==''? imgNull :doneServeUrl+item.contentImg" alt />
           </div>
-          <el-row tag="p" class="list-text">
-           {{item.description}}
-          </el-row>
+          <el-row tag="p" class="list-text">{{item.description}}</el-row>
           <el-row class="list-info">
             <div class="info-position">
               <el-row type="flex" align="middle">
                 <a class="list-avatar" href="javascript:;">
-                  <img src="@/assets/images/20190429151448.jpg" alt>
+                  <img src="@/assets/images/20190429151448.jpg" alt />
                 </a>
                 <span class="info-time">{{ item.addTime }}</span>
-                <a href="javascript:;" class="info-link" @click.prevent="linkBtn('list',{id:item.category._id})">
+                <a
+                  href="javascript:;"
+                  class="info-link"
+                  @click.prevent="linkBtn('list',{id:item.category._id},item.category.catname)"
+                >
                   【
                   <span>{{ item.category.catname }}</span> 】
                 </a>
               </el-row>
 
               <div>
-                <el-button type="primary" size="small" @click="linkBtn('content',{name:item._id})">阅读全文</el-button>
+                <el-button
+                  type="primary"
+                  size="small"
+                  @click="linkBtn('content',{name:item._id},item.category.catname)"
+                >阅读全文</el-button>
               </div>
             </div>
           </el-row>
@@ -42,44 +48,41 @@
   </el-row>
 </template>
 <script>
-import { mapGetters , mapState} from 'vuex'
+import { mapGetters, mapState, mapMutations } from "vuex";
 
 export default {
-  data(){
-    return{
-        newBlog:[],
-    } 
+  data() {
+    return {
+      newBlog: []
+    };
   },
-  created(){
+  created() {
     this.newBlogFun();
   },
-  methods:{
-   async newBlogFun(){
-     try{
-       let res = await this.axios.get('/contentAll',{
-         params:{
-           limit:''
-         }
-       });
-       if(res.status == 200){
-          this.newBlog =res.data;
-       }
-     }catch(err){
-       console.log(err)
-     }
-
+  methods: {
+    ...mapMutations(['homeActiveFun']),
+    async newBlogFun() {
+      try {
+        let res = await this.axios.get("/contentAll", {
+          params: {
+            limit: ""
+          }
+        });
+        if (res.status == 200) {
+          this.newBlog = res.data;
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
-    linkBtn(name,params){
-        this.$router.push({name:name,params:params})
+    linkBtn(name, params,str) {
+      this.$router.push({ name: name, params: params });
+      this.homeActiveFun(str)
     }
   },
-  computed:{
-    ...mapGetters([
-      'doneServeUrl'
-    ]),
-    ...mapState([
-      'imgNull'
-    ])
+  computed: {
+    ...mapGetters(["doneServeUrl"]),
+    ...mapState(["imgNull"])
   }
 };
 </script>

@@ -19,7 +19,7 @@ router.get('/category', async(req, res) => {
      */
 router.get('/homeHot', async(req, res) => {
         try {
-            let homeHot = await Content.find({ homePageTj: '1' }).limit(0, 8).sort({ '_id': -1 });
+            let homeHot = await Content.find({ homePageTj: '1' }).limit(0, 8).sort({ '_id': -1 }).populate(['category']);
             res.json(homeHot)
         } catch (err) {
             console.log(err)

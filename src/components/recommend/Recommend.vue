@@ -5,16 +5,18 @@
       <el-col :span="6" v-for="(item,index) in homeHotData" :key="index">
         <el-card :body-style="{ padding: '10px' }" shadow="hover" class="card">
           <div class="card-imgBox">
-            <img
-              :src="item.contentImg ==''?imgNull:doneServeUrl + item.contentImg"
-              class="image"
-            >
+            <img :src="item.contentImg ==''?imgNull:doneServeUrl + item.contentImg" class="image" />
           </div>
           <div class="recommend-text">
             <span>{{ item.title }}</span>
             <el-row type="flex" justify="space-between" align="middle">
               <time class="time">{{ item.addTime }}</time>
-              <router-link tag="a" class="el-link el-link--primary" :to="{ name:'content',params:{name:item._id}}">+查看全文</router-link>
+              <router-link
+                tag="a"
+                class="el-link el-link--primary"
+                :to="{ name:'content',params:{name:item._id}}"
+                @click.native="homeActiveFun(item.category.catname)"
+              >+查看全文</router-link>
             </el-row>
           </div>
         </el-card>
@@ -23,39 +25,36 @@
   </el-row>
 </template>
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapState, mapMutations } from "vuex";
 export default {
-  data(){
-    return{
-        homeHotData:[],
-    }
+  data() {
+    return {
+      homeHotData: []
+    };
   },
-  created(){
+  created() {
     this.getHomeHot();
   },
-  methods:{
-      async getHomeHot(){
-        try{
-            const res = await this.axios.get('/homeHot');
-            if(res.status == 200){
-                this.homeHotData = res.data;
-            }else{
-              console.log("加载错误")
-            }
-        }catch(err){
-          console.log(err)
+  methods: {
+    ...mapMutations(['homeActiveFun']),
+    async getHomeHot() {
+      try {
+        const res = await this.axios.get("/homeHot");
+        if (res.status == 200) {
+          this.homeHotData = res.data;
+        } else {
+          console.log("加载错误");
         }
+      } catch (err) {
+        console.log(err);
       }
+    }
   },
-  computed:{
-    ...mapGetters([
-      'doneServeUrl'
-    ]),
-    ...mapState([
-      'imgNull'
-    ])
+  computed: {
+    ...mapGetters(["doneServeUrl"]),
+    ...mapState(["imgNull"])
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .recommend-container {
@@ -69,7 +68,7 @@ export default {
     height: auto;
     transition: 1s all;
   }
-  &:hover img{
+  &:hover img {
     transform: scale(1.1);
   }
   .card-imgBox {
@@ -88,7 +87,7 @@ export default {
     font-size: 14px;
     max-height: 62px;
   }
-  .time{
+  .time {
     font-size: 14px;
   }
 }

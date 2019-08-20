@@ -7,6 +7,7 @@ export default new Vuex.Store({
     state: {
         serveUrl: axios.defaults.baseURL,
         imgNull: require('@/assets/images/undefined.jpg'),
+        homeActive: '首页'
     },
     getters: {
         doneServeUrl: (state) => {
@@ -14,7 +15,9 @@ export default new Vuex.Store({
         }
     },
     mutations: {
-
+        homeActiveFun(state, str) {
+            state.homeActive = str;
+        }
     },
     actions: {
 

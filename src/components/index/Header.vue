@@ -1,39 +1,46 @@
 <template>
   <el-header class="header" height="48px">
     <el-row type="flex" tag="nav" class="nav">
-      <!-- {{ activeNavChilden() }} -->
-     <router-link to="/" class="nav-head" @click.native="activeClick('首页')" :class="active == '首页' ? 'active' : '' ">首页</router-link>
-      <router-link 
-        class="nav-head" 
-        v-for='navs in activeNav' 
-        :key='navs._id'
+      <router-link
+        to="/"
+        class="nav-head"
+        @click.native="activeClick('首页')"
+        :class="homeActive == '首页' ? 'active' : '' "
+      >首页</router-link>
+      <router-link
+        class="nav-head"
+        v-for="navs in activeNav"
+        :key="navs._id"
         :to="{ name: 'list', params: { id: navs._id}}"
-         @click.native="activeClick(navs.catname)"
-         :class="active == navs.catname ? 'active' : '' ">
-          {{ navs.catname }}
+        @click.native="activeClick(navs.catname)"
+        :class="homeActive == navs.catname ? 'active' : '' "
+      >
+        {{ navs.catname }}
         <div class="nav-content">
-          <router-link 
-            v-for="item in activeNavChilden(navs.id)" 
-            :key="item._id" 
-            :to="{ name: 'list', params: { id: item._id}}" > {{ item.id }}</router-link>
+          <router-link
+            v-for="item in activeNavChilden(navs.id)"
+            :key="item._id"
+            :to="{ name: 'list', params: { id: item._id}}"
+          >{{ item.id }}</router-link>
         </div>
       </router-link>
-    
     </el-row>
   </el-header>
 </template>
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      nav: [],
-      active:'首页'
+      nav: []
     };
   },
   created() {
     this.head();
+    
   },
   methods: {
+    ...mapMutations([ "homeActiveFun"]),
     async head() {
       try {
         const res = await this.axios.get("/category");
@@ -42,22 +49,23 @@ export default {
         console.log("导航错误" + err);
       }
     },
-    activeClick(obj){
-      this.active = obj;
+    activeClick(obj) {
+      this.homeActiveFun(obj)
     }
   },
   computed: {
+    ...mapState(["homeActive",'count']),
     activeNav() {
-      return this.nav.filter((navObj)=>{
-        return navObj.pid == 0
-      })
+      return this.nav.filter(navObj => {
+        return navObj.pid == 0;
+      });
     },
-     activeNavChilden() {
-      return (obj)=>{
-        return this.nav.filter((navObj)=>{
-            return obj == navObj.pid
-        })
-      }
+    activeNavChilden() {
+      return obj => {
+        return this.nav.filter(navObj => {
+          return obj == navObj.pid;
+        });
+      };
     }
   }
 };
