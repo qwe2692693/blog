@@ -62,26 +62,41 @@ router.get('/content', async(req, res) => {
      * 内容id查询
      */
 router.get('/contentName', async(req, res) => {
+        try {
+            let name = req.query.name || ''
+            let content = await Content.findOne({
+                _id: name
+            }).populate(['category'])
+            let contentPrve = await Content.findOne({
+                category: content.category._id,
+                _id: { $lt: name }
+            }).populate(['category']).sort({ _id: -1 }).limit(1)
+
+            let contentNext = await Content.findOne({
+                category: content.category._id,
+                _id: { $gt: name }
+            }).populate(['category']).sort({ _id: 1 }).limit(1)
+
+            res.json({
+                content,
+                contentPrve,
+                contentNext
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    })
+    ///点击排行
+router.get('/hits', async(req, res, next) => {
     try {
-        let name = req.query.name || ''
-        let content = await Content.findOne({
-            _id: name
-        }).populate(['category'])
-        let contentPrve = await Content.findOne({
-            category: content.category._id,
-            _id: { $lt: name }
-        }).populate(['category']).sort({ _id: -1 }).limit(1)
+        let id = req.query.id;
+        let count = Content.find({
 
-        let contentNext = await Content.findOne({
-            category: content.category._id,
-            _id: { $gt: name }
-        }).populate(['category']).sort({ _id: 1 }).limit(1)
-
-        res.json({
-            content,
-            contentPrve,
-            contentNext
-        })
+            })
+            // let content = new Content({
+            //     _id: id,
+            //     addView:
+            // }) 
     } catch (err) {
         console.log(err)
     }

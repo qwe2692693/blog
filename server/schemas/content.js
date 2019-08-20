@@ -12,7 +12,9 @@ module.exports = new mongoose.Schema({
         //引用
         ref: 'User'
     },
+    //添加时间
     addTime: String,
+    //点击次数
     addView: {
         type: Number,
         default: 0
