@@ -6,11 +6,13 @@ import store from './store'
 import './assets/css/reset.css'
 import './plugins/element.js'
 
-
+router.afterEach(() => {
+    window.scrollTo(0, 0)
+})
 Vue.config.productionTip = false
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

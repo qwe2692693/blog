@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        serveUrl: axios.defaults.baseURL
+        serveUrl: axios.defaults.baseURL,
+        imgNull: require('@/assets/images/undefined.jpg'),
     },
     getters: {
         doneServeUrl: (state) => {

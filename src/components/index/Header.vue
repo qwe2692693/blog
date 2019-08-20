@@ -2,12 +2,14 @@
   <el-header class="header" height="48px">
     <el-row type="flex" tag="nav" class="nav">
       <!-- {{ activeNavChilden() }} -->
-     <router-link to="/" class="nav-head">首页</router-link>
+     <router-link to="/" class="nav-head" @click.native="activeClick('首页')" :class="active == '首页' ? 'active' : '' ">首页</router-link>
       <router-link 
         class="nav-head" 
         v-for='navs in activeNav' 
         :key='navs._id'
-        :to="{ name: 'list', params: { id: navs._id}}">
+        :to="{ name: 'list', params: { id: navs._id}}"
+         @click.native="activeClick(navs.catname)"
+         :class="active == navs.catname ? 'active' : '' ">
           {{ navs.catname }}
         <div class="nav-content">
           <router-link 
@@ -24,7 +26,8 @@
 export default {
   data() {
     return {
-      nav: []
+      nav: [],
+      active:'首页'
     };
   },
   created() {
@@ -38,6 +41,9 @@ export default {
       } catch (err) {
         console.log("导航错误" + err);
       }
+    },
+    activeClick(obj){
+      this.active = obj;
     }
   },
   computed: {
@@ -52,7 +58,7 @@ export default {
             return obj == navObj.pid
         })
       }
-    },
+    }
   }
 };
 </script>

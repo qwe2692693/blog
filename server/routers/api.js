@@ -31,8 +31,8 @@ router.get('/homeHot', async(req, res) => {
      */
 router.get('/contentAll', async(req, res) => {
         try {
-            console.log(req.query)
-            let content = await Content.find().limit(0, 1).sort({ '_id': -1 });
+            let limitInt = req.query.limit || 5,
+                content = await Content.find().limit(0, limitInt).sort({ '_id': -1 }).populate(['category']);
             if (content) {
                 res.json(content)
             } else {

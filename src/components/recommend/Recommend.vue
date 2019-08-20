@@ -6,7 +6,7 @@
         <el-card :body-style="{ padding: '10px' }" shadow="hover" class="card">
           <div class="card-imgBox">
             <img
-              :src="doneServeUrl + item.contentImg"
+              :src="item.contentImg ==''?imgNull:doneServeUrl + item.contentImg"
               class="image"
             >
           </div>
@@ -23,7 +23,7 @@
   </el-row>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 export default {
   data(){
     return{
@@ -50,6 +50,9 @@ export default {
   computed:{
     ...mapGetters([
       'doneServeUrl'
+    ]),
+    ...mapState([
+      'imgNull'
     ])
   }
 }

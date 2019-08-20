@@ -9,7 +9,7 @@
           <div class="list-inner">
             <div class="list-img">
               <img
-                :src="item.contentImg ==''  ? 'http://www.yangqq.com/d/file/news/life/2018-06-29/75842f4d1e18d692a66c38eb172a40ab.jpg' : item.contentImg"
+                :src="item.contentImg ==''  ? imgNull : doneServeUrl+item.contentImg"
                 alt
               />
             </div>
@@ -39,6 +39,7 @@
   </el-main>
 </template>
 <script>
+import {mapGetters,mapState} from 'vuex'
 export default {
   data() {
     return {
@@ -63,6 +64,14 @@ export default {
     $route() {
       this.contenFun(this.$route.params.id);
     }
+  },
+  computed:{
+     ...mapGetters([
+      'doneServeUrl'
+    ]),
+    ...mapState([
+      'imgNull'
+    ])
   }
 };
 </script>
@@ -88,6 +97,7 @@ export default {
   }
   .list-img {
     width: 23%;
+    height: 130px;
     float: left;
     margin-right: 10px;
     overflow: hidden;

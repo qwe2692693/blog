@@ -2,108 +2,37 @@
   <el-row class="row-container">
     <h1 class="htitle">最新博文</h1>
     <ul class="list">
-      <li>
+      <li v-for="(item,index) in newBlog" :key="index">
         <h3 class="list-title">
-          <el-link href="javascript:;" target="_blank" type="info">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</el-link>
+          <router-link tag="a" :to="{name:'content',params:{name:item._id}}" target="_blank" class="fc-gray">
+            {{ item.title }}
+          </router-link>
         </h3>
         <div class="list-inner">
           <div class="list-img">
             <img
-              src="http://www.yangqq.com/d/file/news/life/2018-06-29/75842f4d1e18d692a66c38eb172a40ab.jpg"
+              :src="item.contentImg ==''? imgNull :doneServeUrl+item.contentImg"
               alt
             >
           </div>
           <el-row tag="p" class="list-text">
-            就拿我自己来说吧，有时候会很矛盾，设计好的作品，不把它分享出来，会觉得待在自己电脑里面实在是没有意义。
-            干脆就发布出去吧。我也害怕收到大家不好的评论，有些评论，可能说者无意，但是对于每一个用心的站长来说，
-            都会受很深
+           {{item.description}}
           </el-row>
           <el-row class="list-info">
             <div class="info-position">
               <el-row type="flex" align="middle">
-                <a class="list-avatar" href="javvascript:;">
+                <a class="list-avatar" href="javascript:;">
                   <img src="@/assets/images/20190429151448.jpg" alt>
                 </a>
-                <span class="info-time">2018-11-08</span>
-                <a href="javascript:;" class="info-link">
+                <span class="info-time">{{ item.addTime }}</span>
+                <a href="javascript:;" class="info-link" @click.prevent="linkBtn('list',{id:item.category._id})">
                   【
-                  <span>设计心得</span> 】
+                  <span>{{ item.category.catname }}</span> 】
                 </a>
               </el-row>
 
               <div>
-                <el-button type="primary" size="small">阅读全文</el-button>
-              </div>
-            </div>
-          </el-row>
-        </div>
-      </li>
-        <li>
-        <h3 class="list-title">
-          <el-link href="javascript:;" target="_blank" type="info">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</el-link>
-        </h3>
-        <div class="list-inner">
-          <div class="list-img">
-            <img
-              src="http://www.yangqq.com/d/file/news/life/2018-06-29/75842f4d1e18d692a66c38eb172a40ab.jpg"
-              alt
-            >
-          </div>
-          <el-row tag="p" class="list-text">
-            就拿我自己来说吧，有时候会很矛盾，设计好的作品，不把它分享出来，会觉得待在自己电脑里面实在是没有意义。
-            干脆就发布出去吧。我也害怕收到大家不好的评论，有些评论，可能说者无意，但是对于每一个用心的站长来说，
-            都会受很深
-          </el-row>
-          <el-row class="list-info">
-            <div class="info-position">
-              <el-row type="flex" align="middle">
-                <a class="list-avatar" href="javvascript:;">
-                  <img src="@/assets/images/20190429151448.jpg" alt>
-                </a>
-                <span class="info-time">2018-11-08</span>
-                <a href="javascript:;" class="info-link">
-                  【
-                  <span>设计心得</span> 】
-                </a>
-              </el-row>
-
-              <div>
-                <el-button type="primary" size="small">阅读全文</el-button>
-              </div>
-            </div>
-          </el-row>
-        </div>
-      </li>
-        <li>
-        <h3 class="list-title">
-          <el-link href="javascript:;" target="_blank" type="info">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</el-link>
-        </h3>
-        <div class="list-inner">
-          <div class="list-img">
-            <img
-              src="http://www.yangqq.com/d/file/news/life/2018-06-29/75842f4d1e18d692a66c38eb172a40ab.jpg"
-              alt
-            >
-          </div>
-          <el-row tag="p" class="list-text">
-            就拿我自己来说吧，有时候会很矛盾，设计好的作品，不把它分享出来，会觉得待在自己电脑里面实在是没有意义。
-            干脆就发布出去吧。我也害怕收到大家不好的评论，有些评论，可能说者无意，但是对于每一个用心的站长来说，
-            都会受很深
-          </el-row>
-          <el-row class="list-info">
-            <div class="info-position">
-              <el-row type="flex" align="middle">
-                <a class="list-avatar" href="javvascript:;">
-                  <img src="@/assets/images/20190429151448.jpg" alt>
-                </a>
-                <span class="info-time">2018-11-08</span>
-                <a href="javascript:;" class="info-link">
-                  【<span>设计心得</span>】
-                </a>
-              </el-row>
-
-              <div>
-                <el-button type="primary" size="small">阅读全文</el-button>
+                <el-button type="primary" size="small" @click="linkBtn('content',{name:item._id})">阅读全文</el-button>
               </div>
             </div>
           </el-row>
@@ -113,7 +42,8 @@
   </el-row>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters , mapState} from 'vuex'
+
 export default {
   data(){
     return{
@@ -128,17 +58,28 @@ export default {
      try{
        let res = await this.axios.get('/contentAll',{
          params:{
-           id:5
+           limit:''
          }
        });
        if(res.status == 200){
-          console.log(res)
+          this.newBlog =res.data;
        }
      }catch(err){
        console.log(err)
      }
 
+    },
+    linkBtn(name,params){
+        this.$router.push({name:name,params:params})
     }
+  },
+  computed:{
+    ...mapGetters([
+      'doneServeUrl'
+    ]),
+    ...mapState([
+      'imgNull'
+    ])
   }
 };
 </script>
@@ -159,6 +100,7 @@ export default {
   }
   .list-img {
     width: 23%;
+    height: 130px;
     float: left;
     margin-right: 10px;
     overflow: hidden;

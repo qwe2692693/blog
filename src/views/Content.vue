@@ -28,7 +28,6 @@ export default {
       try {
         const content = await this.$axios.get("/contentName?name=" + name);
         this.contentObj = content.data;
-        console.log(this.contentObj)
         this.loging = true;
       } catch (err) {
         alert("内容" + err);
