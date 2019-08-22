@@ -8,10 +8,7 @@
           </h3>
           <div class="list-inner">
             <div class="list-img">
-              <img
-                :src="item.contentImg ==''  ? imgNull : doneServeUrl+item.contentImg"
-                alt
-              />
+              <img :src="item.contentImg ==''  ? imgNull : doneServeUrl+item.contentImg" alt />
             </div>
             <el-row tag="p" class="list-text">{{ item.description }}</el-row>
             <el-row class="list-info">
@@ -20,7 +17,7 @@
                   <a class="list-avatar" href="javvascript:;">
                     <img src="@/assets/images/20190429151448.jpg" alt />
                   </a>
-                  <span class="info-time">2018-11-08</span>
+                  <span class="info-time">{{ item.addTime }}</span>
                   <a href="javascript:;" class="info-link">
                     【
                     <span>{{ item.category.catname }}</span> 】
@@ -35,43 +32,70 @@
           </div>
         </li>
       </ul>
+
+      <div class="block">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[pagesize, 15, 20, 25]"
+          :page-size="pagesize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="pages.count"
+        ></el-pagination>
+      </div>
     </el-row>
   </el-main>
 </template>
 <script>
-import {mapGetters,mapState} from 'vuex'
+import { mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
-      list: []
+      list: [],
+      pages:{},
+      currentPage: 1, 
+      pagesize:10, 
     };
   },
   methods: {
-    async contenFun(id) {
+    async contenFun(id,page,pagesize) {
       try {
-        const res = await this.axios.get("/content?id=" + id);
-        this.list = res.data;
+        const res = await this.axios.get("/content",{
+          params:{
+            id:id,
+            page:page,
+            limit:pagesize
+          }
+        });
+        this.list = res.data.content;
+        this.pages = res.data.pages;
       } catch (err) {
         console.log(err);
       }
+    },
+    handleSizeChange(val) {
+      this.pagesize = val;
+      this.contenFun(this.$route.params.id,this.currentPage,val);
+       window.scrollTo(0,0)
+    },
+    handleCurrentChange(val) {
+      this.currentPage1 = val;
+       this.contenFun(this.$route.params.id,val,this.pagesize);
     }
   },
   created() {
     //注意顺序
-    this.contenFun(this.$route.params.id);
+    this.contenFun(this.$route.params.id,this.currentPage,this.pagesize);
   },
   watch: {
     $route() {
-      this.contenFun(this.$route.params.id);
+      this.contenFun(this.$route.params.id,this.currentPage,this.pagesize);
     }
   },
-  computed:{
-     ...mapGetters([
-      'doneServeUrl'
-    ]),
-    ...mapState([
-      'imgNull'
-    ])
+  computed: {
+    ...mapGetters(["doneServeUrl"]),
+    ...mapState(["imgNull"])
   }
 };
 </script>

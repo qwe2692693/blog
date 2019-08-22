@@ -19,7 +19,7 @@ router.get('/category', async(req, res) => {
      */
 router.get('/homeHot', async(req, res) => {
         try {
-            let homeHot = await Content.find({ homePageTj: '1' }).limit(0, 8).sort({ '_id': -1 }).populate(['category']);
+            let homeHot = await Content.find({ homePageTj: '1' }).limit(8).sort({ '_id': -1 }).populate(['category']);
             res.json(homeHot)
         } catch (err) {
             console.log(err)
@@ -32,7 +32,7 @@ router.get('/homeHot', async(req, res) => {
 router.get('/contentAll', async(req, res) => {
         try {
             let limitInt = req.query.limit || 5,
-                content = await Content.find().limit(0, limitInt).sort({ '_id': -1 }).populate(['category']);
+                content = await Content.find().limit(limitInt).sort({ '_id': -1 }).populate(['category']);
             if (content) {
                 res.json(content)
             } else {
@@ -50,10 +50,24 @@ router.get('/contentAll', async(req, res) => {
 router.get('/content', async(req, res) => {
         try {
             let id = req.query.id || ''
+            let pages = {
+                page: Number(req.query.page) <= 0 ? 1 : Number(req.query.page) || 1,
+                count: '',
+                limit: Number(req.query.limit) || 10
+            }
+            let skip = (pages.page - 1) * pages.limit;
+
+            pages.count = await Content.find({
+                category: id
+            }).populate(['category']).countDocuments();
+
             let content = await Content.find({
                 category: id
-            }).populate(['category'])
-            res.json(content)
+            }).limit(pages.limit).skip(skip).sort({ _id: -1 }).populate(['category'])
+            res.json({
+                content,
+                pages
+            })
         } catch (err) {
             console.log(err)
         }
@@ -87,16 +101,12 @@ router.get('/contentName', async(req, res) => {
         }
     })
     ///点击排行
-router.get('/hits', async(req, res, next) => {
+router.get('/hitsAdd', async(req, res, next) => {
     try {
         let id = req.query.id;
-        let count = Content.find({
-
-            })
-            // let content = new Content({
-            //     _id: id,
-            //     addView:
-            // }) 
+        let getAddView = Content.find({ _id: 'id' })
+        console.log(getAddView)
+            // let content = new Content( {_id: id ,addView:}) 
     } catch (err) {
         console.log(err)
     }

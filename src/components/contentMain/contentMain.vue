@@ -2,7 +2,8 @@
   <el-main>
     <el-row class="row-container">
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/' }" 
+          @click.native="homeActiveFun('首页')">首页</el-breadcrumb-item>
         <el-breadcrumb-item
           :to="{name:'list',params:{id:contentObj.content.category._id}}"
         >{{contentObj.content.category.catname}}</el-breadcrumb-item>
@@ -31,12 +32,28 @@
   </el-main>
 </template>
 <script>
+import { mapMutations } from 'vuex';
 export default {
   props: {
     contentObj: {
       type: Object,
       required: true
     }
+  },
+  created(){
+
+  },
+  methods:{
+    ...mapMutations([
+      'homeActiveFun'
+    ]),
+    async addView(){
+      try{
+          let res = await this.axios.get()
+      }catch(err){
+        console.log(err)
+      }
+    } 
   }
 };
 </script>
