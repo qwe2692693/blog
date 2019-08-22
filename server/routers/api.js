@@ -116,14 +116,15 @@ router.get('/hitsAdd', async(req, res) => {
 //添加点击
 router.get('/getHits', async(req, res) => {
     try {
-        let id = req.query.id || '',
-            getContent = '';
+        let id = req.query.id || ''
+        getContent = '';
+
         if (id == '') {
             getContent = await Content.find().populate(['category']).sort({ addView: -1 });
             res.json(getContent)
         } else {
             getContent = await Content.find({
-                _category: id,
+                category: id,
             }).populate(['category']).sort({ addView: -1 }).limit(10);
             res.json(getContent);
         }

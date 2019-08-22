@@ -3,7 +3,7 @@
     <h1 class="htitle">点击排行</h1>
     <ul class="list">
       <li v-for="(item,index) in Hits" :key="index">
-        <router-link tag="div" :to="{name:'content',params:{name:item._id}}" @click.native="homeActiveFun(item.category.catname)">
+        <router-link tag="div" :to="{name:'content',params:{name:item._id}}" @click.native="getHits(item.category._id,item.category.catname)">
           <el-link :underline="false" type="info">
             <i :style="index<3 ? 'color:red' : ''">{{ index+1 }}</i>
             {{item.title}}
@@ -22,16 +22,16 @@ export default {
     };
   },
   created() {
-    this.getHits();
+    this.getHits('','首页')
   },
   methods: {
     ...mapMutations(['homeActiveFun']),
-    async getHits() {
+    async getHits(id,str) {
       try {
-        let res = await this.axios.get("/getHits");
+        let res = await this.axios.get("/getHits",{params:{id:id}});
         if (res.status == 200) {
           this.Hits = res.data;
-          console.log(res)
+          this.homeActiveFun(str)
         }
       } catch (err) {
         console.log(err);
