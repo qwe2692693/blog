@@ -2,15 +2,44 @@
   <el-row class="row-container">
     <h1 class="htitle">点击排行</h1>
     <ul class="list">
-      <li v-for="i in 10" :key="i">
-        <el-link :underline="false" type="info">
-          <i :style="i<=3 ? 'color:red' : ''">{{i}}</i>
-          【个人博客空间申请】金牛云服，免费领空间啦
-        </el-link>
+      <li v-for="(item,index) in Hits" :key="index">
+        <router-link tag="div" :to="{name:'content',params:{name:item._id}}" @click.native="homeActiveFun(item.category.catname)">
+          <el-link :underline="false" type="info">
+            <i :style="index<3 ? 'color:red' : ''">{{ index+1 }}</i>
+            {{item.title}}
+          </el-link>
+        </router-link>
       </li>
     </ul>
   </el-row>
 </template>
+<script>
+import { mapMutations } from "vuex";
+export default {
+  data() {
+    return {
+      Hits: ""
+    };
+  },
+  created() {
+    this.getHits();
+  },
+  methods: {
+    ...mapMutations(['homeActiveFun']),
+    async getHits() {
+      try {
+        let res = await this.axios.get("/getHits");
+        if (res.status == 200) {
+          this.Hits = res.data;
+          console.log(res)
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+};
+</script>
 <style lang="scss" scoped>
 .list {
   margin-top: 10px;
