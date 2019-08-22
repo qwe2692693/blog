@@ -32,17 +32,30 @@ export default {
       } catch (err) {
         alert("内容" + err);
       }
-    }
+    },
+    async addView(id){
+      try{
+          let res = await this.axios.get('/hitsAdd',{
+            params:{
+              id:id
+            }
+          });
+      }catch(err){
+        console.log(err)
+      }
+    } 
   },
   created() {
     this.name = this.$route.params.name;
     this.$nextTick(() => {
       this.content(this.name);
+      this.addView(this.name);
     });
   },
   watch: {
     '$route'(to) {
        this.content(to.params.name);
+       this.addView(to.params.name);
     }
   }
 };

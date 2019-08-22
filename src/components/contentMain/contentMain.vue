@@ -13,7 +13,7 @@
         <h2 class="title">{{contentObj.content.title}}</h2>
         <div class="item">
           <span>{{ contentObj.content.addTime}}</span>
-          <span>{{contentObj.content.addView}}人浏览</span>
+          <span>{{contentObj.content.addView}} 次浏览</span>
         </div>
         <article class="content" v-html="contentObj.content.content"></article>
       </section>
@@ -40,20 +40,10 @@ export default {
       required: true
     }
   },
-  created(){
-
-  },
   methods:{
     ...mapMutations([
       'homeActiveFun'
     ]),
-    async addView(){
-      try{
-          let res = await this.axios.get()
-      }catch(err){
-        console.log(err)
-      }
-    } 
   }
 };
 </script>

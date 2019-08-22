@@ -104,9 +104,10 @@ router.get('/contentName', async(req, res) => {
 router.get('/hitsAdd', async(req, res, next) => {
     try {
         let id = req.query.id;
-        let getAddView = Content.find({ _id: 'id' })
-        console.log(getAddView)
-            // let content = new Content( {_id: id ,addView:}) 
+        let getAddView = await Content.findOne({ _id: id });
+        getAddView.addView++;
+        getAddView.save();
+        res.send();
     } catch (err) {
         console.log(err)
     }
