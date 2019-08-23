@@ -1,22 +1,10 @@
 <template>
   <!--最新推荐-->
   <el-row class="row-container">
-    <h1 class="htitle">最新更新</h1>
+    <h1 class="htitle">个人资料</h1>
     <ul class="list">
       <li>
-        <el-link :underline="false" type="info">【个人博客空间申请】金牛云服，免费领空间啦</el-link>
-      </li>
-      <li>
-        <el-link :underline="false" type="info">双十一，阿里云特惠活动，快来领券啦</el-link>
-      </li>
-       <li>
-        <el-link :underline="false" type="info">双十一，阿里云特惠活动，快来领券啦</el-link>
-      </li>
-       <li>
-        <el-link :underline="false" type="info">双十一，阿里云特惠活动，快来领券啦</el-link>
-      </li>
-       <li>
-        <el-link :underline="false" type="info">双十一，阿里云特惠活动，快来领券啦</el-link>
+        <el-link :underline="false" type="info">....暂无</el-link>
       </li>
     </ul>
   </el-row>

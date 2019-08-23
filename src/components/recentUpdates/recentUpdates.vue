@@ -7,7 +7,7 @@
           <router-link
             tag="a"
             :to="{name:'content',params:{name:item._id}}"
-            target="_blank"
+            @click.native="homeActiveFun(item.category.catname)"
             class="fc-gray"
           >{{ item.title }}</router-link>
         </h3>

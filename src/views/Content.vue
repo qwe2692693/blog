@@ -35,7 +35,7 @@ export default {
     },
     async addView(id){
       try{
-          let res = await this.axios.get('/hitsAdd',{
+          await this.axios.get('/hitsAdd',{
             params:{
               id:id
             }
