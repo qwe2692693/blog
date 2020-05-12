@@ -44,7 +44,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
                 cateName: $("input[name=cateName]").val(),
                 cateDes: $("textarea[name=cateDes]").val(),
                 cateContent: editor.txt.text(),
-                cateImg: imgStr,
+                cateImg: imgStr == '' ? $(".showImgBox").find("img").attr("src") : imgStr,
                 cateId: $("#cateNameVal").val(),
             })
         } else {
@@ -53,7 +53,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
                 cateName: $("input[name=cateName]").val(),
                 cateDes: $("textarea[name=cateDes]").val(),
                 cateContent: editor.txt.html(),
-                cateImg: imgStr
+                cateImg:  imgStr == '' ? $(".showImgBox").find("img").attr("src") : imgStr
             })
         }
     }
