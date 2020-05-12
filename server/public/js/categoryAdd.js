@@ -10,8 +10,8 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
     upload.render({
         elem: '#dateAddUpload',
         url: '/upload/',
-        auto: false, //选择文件后不自动上传
-        bindAction: '#submitBtn', //指向一个按钮触发上传
+        auto: true, //选择文件后不自动上传
+        //bindAction: '#submitBtn', //指向一个按钮触发上传
         field: 'myFileName',
         before: function(obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
             layer.load(); //上传loading
@@ -26,7 +26,6 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
             if (res.isOk) {
                 layer.closeAll('loading')
                 imgStr = res.imgPath;
-                submitFun(res.imgPath)
             } else {
                 alert("失败")
             }
@@ -45,7 +44,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
                 cateName: $("input[name=cateName]").val(),
                 cateDes: $("textarea[name=cateDes]").val(),
                 cateContent: editor.txt.text(),
-                cateImg: obj,
+                cateImg: imgStr,
                 cateId: $("#cateNameVal").val(),
             })
         } else {
@@ -54,7 +53,7 @@ layui.use(['form', 'layer', 'upload', 'laytpl'], function() {
                 cateName: $("input[name=cateName]").val(),
                 cateDes: $("textarea[name=cateDes]").val(),
                 cateContent: editor.txt.html(),
-                cateImg: obj
+                cateImg: imgStr
             })
         }
     }

@@ -12,8 +12,8 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
     upload.render({
             elem: '#dateAddUpload',
             url: '/upload/',
-            auto: false, //选择文件后不自动上传
-            bindAction: '#submitBtn', //指向一个按钮触发上传
+            auto: auto, //选择文件后不自动上传
+            //bindAction: '#submitBtn', //指向一个按钮触发上传
             field: 'myFileName',
             before: function(obj) {
                 layer.load();
@@ -28,7 +28,7 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
                 if (res.isOk) {
                     imgStr = res.imgPath
                     layer.closeAll('loading')
-                    formSubmitFun(imgStr);
+                   // formSubmitFun(imgStr);
                 }
             },
         })
@@ -69,7 +69,7 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function() {
             title: $("input[name=title]").val(),
             description: $("textarea[name=cateDes]").val(),
             content: editor.txt.html(),
-            contentImg: obj == '' ? $(".showImgBox").find("img").attr("src") : obj,
+            contentImg: imgStr,
             cateId: $("#cateNameVal").val(),
             cateName: $("#cateNameVal").val(),
             homePageTj: homeSwitch
