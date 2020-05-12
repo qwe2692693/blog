@@ -41,14 +41,14 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function () {
             view = document.getElementById('parentView'),
             viewtHomeSwitch = document.getElementById('homeSwitch'),
             editId = $('#editId').val(),
-            homeSwidthId = $("#homeSwidthId").val(),
             cateDatas = '';
+        homeSwitch = $("#homeSwidthId").val(),
 
-        cateDatas = {
-            CategoryList: res.CategoryList,
-            editId: editId,
-            homeSwidthId: homeSwidthId
-        }
+            cateDatas = {
+                CategoryList: res.CategoryList,
+                editId: editId,
+                homeSwidthId: homeSwitch
+            }
 
         laytpl(getTpl).render(cateDatas, function (html) {
             view.innerHTML = html;
@@ -63,6 +63,8 @@ layui.use(['form', 'jquery', 'layer', 'laytpl', 'upload'], function () {
 
     })
     function formSubmitFun(obj) {
+
+
         editFun('/content/content_addORedit', {
             contentId: $("#contentId").val(),
             title: $("input[name=title]").val(),
