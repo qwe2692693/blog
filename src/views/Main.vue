@@ -26,5 +26,6 @@ export default {
 #container {
   width: 1250px;
   margin: 0 auto;
+ overflow-y: auto;
 }
 </style>

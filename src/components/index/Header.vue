@@ -21,7 +21,7 @@
             v-for="item in activeNavChilden(navs.id)"
             :key="item._id"
             :to="{ name: 'list', params: { id: item._id}}"
-          >{{ item.id }}</router-link>
+          >{{ item.catname }}</router-link>
         </div>
       </router-link>
     </el-row>

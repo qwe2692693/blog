@@ -38,23 +38,6 @@ _axios.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-
-// Plugin.install = function(Vue, options) {
-//   Vue.axios = _axios;
-//   window.axios = _axios;
-//   Object.defineProperties(Vue.prototype, {
-//     axios: {
-//       get() {
-//         return _axios;
-//       }
-//     },
-//     $axios: {
-//       get() {
-//         return _axios;
-//       }
-//     },
-//   });
-// };
 Plugin.install = function(Vue) {
     Vue.axios = _axios;
     window.axios = _axios;

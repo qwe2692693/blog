@@ -1,5 +1,5 @@
 <template>
-  <el-container direction="vertical">
+  <el-container direction="vertical" id="container">
     <Header/>
     <router-view/>
     <Footer/>
@@ -25,8 +25,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-#container {
-  width: 1250px;
-  margin: 0 auto;
+#container{
+  height: 100%;
 }
 </style>
