@@ -3,7 +3,7 @@ layui.use(['layer', 'form', 'jquery'], function () {
         layer = layui.layer,
         form = layui.form;
 
-    $(".signOut").on("click", function () {
+    $("#signOut").on("click", function () {
         layer.confirm('确定退出？', {
             btn: ['确定', '取消']
         }, function () {
