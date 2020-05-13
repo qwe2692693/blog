@@ -3,6 +3,22 @@ layui.use(['layer', 'form', 'jquery'], function () {
         layer = layui.layer,
         form = layui.form;
 
+    $("#adminData").on('click', function () {
+        let users = ''
+        $.get({
+            url: "/user_now",
+            type: "get",
+            success(res) {
+                if (res.code == 200) {
+                    users = res.data
+                }
+            }
+        })
+    })
+
+
+
+
     $("#signOut").on("click", function () {
         layer.confirm('确定退出？', {
             btn: ['确定', '取消']
@@ -18,5 +34,8 @@ layui.use(['layer', 'form', 'jquery'], function () {
             })
         });
     })
+
+
+
 
 })

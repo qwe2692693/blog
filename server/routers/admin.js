@@ -12,14 +12,14 @@ router.use((req, res, next) => {
 })
 
 // 暴露首页
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     res.render('index', {
         title: '后台管理界面',
         username: req.session.user.nickname,
     })
 })
 
-router.get('/user', function(req, res) {
+router.get('/user', function (req, res) {
     /**
      * 读取所有的用户记录
      * skip: 忽略几条
@@ -81,7 +81,7 @@ router.get('/user', function(req, res) {
  * 用户编辑
  */
 router.route('/user_edit')
-    .get(async(req, res) => {
+    .get(async (req, res) => {
         try {
             let userId = req.query.id || ''
             let user = await User.findOne({ _id: userId })
@@ -92,7 +92,7 @@ router.route('/user_edit')
             console.log("这是admin页面错误" + err)
         }
     })
-    .post(async(req, res) => {
+    .post(async (req, res) => {
         try {
             let userId = req.body.userId || '',
                 nickname = req.body.nickname || '',
@@ -121,10 +121,10 @@ router.route('/user_edit')
             console.log(err)
         }
     })
-    /**
-     * 删除
-     */
-router.post('/user_remove', async(req, res) => {
+/**
+ * 删除
+ */
+router.post('/user_remove', async (req, res) => {
     try {
         let userId = req.body.appId || '';
         if (userId == '') {
@@ -151,4 +151,23 @@ router.post('/user_remove', async(req, res) => {
         console.log('用户界面错误' + err)
     }
 })
+
+//查询当前的用户
+router.get('/user_now', async (req, res) => {
+    try {
+        let resData = {}
+        let userId = req.session.user._id;
+        let users = await User.findById(userId);
+        resData.code = 200;
+        resData.message = '查询成功';
+        resData.data = users;
+
+
+        res.json(resData)
+
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 module.exports = router
