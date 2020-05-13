@@ -10,17 +10,17 @@ router.get('/main', (req, res) => {
 })
 
 //栏目管理
-router.get('/category', async(req, res) => {
-        try {
-            res.render('pages/category', {
-                title: '栏目页面',
-            })
-        } catch (err) {
-            console.log(err)
-        }
-    })
-    //栏目添加
-router.get('/categoryAdd', async(req, res) => {
+router.get('/category', async (req, res) => {
+    try {
+        res.render('pages/category', {
+            title: '栏目页面',
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+//栏目添加
+router.get('/categoryAdd', async (req, res) => {
     try {
         res.render('pages/categoryAdd', {
             title: '栏目添加',
@@ -31,29 +31,29 @@ router.get('/categoryAdd', async(req, res) => {
 })
 
 //内容页面
-router.get('/content', async(req, res, next) => {
-        try {
-            res.render('pages/content', {
-                title: '内容页面',
-            })
-        } catch (err) {
-            console.log(err)
-        }
+router.get('/content', async (req, res, next) => {
+    try {
+        res.render('pages/content', {
+            title: '内容页面',
+        })
+    } catch (err) {
+        console.log(err)
+    }
 
-    })
-    //添加内容页面
-router.get('/contentAdd', async(req, res, next) => {
-        try {
-            res.render('pages/contentAdd', {
-                title: '添加内容',
-            })
-        } catch (err) {
-            console.log(err)
-        }
+})
+//添加内容页面
+router.get('/contentAdd', async (req, res, next) => {
+    try {
+        res.render('pages/contentAdd', {
+            title: '添加内容',
+        })
+    } catch (err) {
+        console.log(err)
+    }
 
-    })
-    //图片管理页面
-router.get('/imgPage', async(req, res, next) => {
+})
+//图片管理页面
+router.get('/imgPage', async (req, res, next) => {
     try {
         res.render('pages/imgPage', {
             title: '图片显示页面',
@@ -63,10 +63,21 @@ router.get('/imgPage', async(req, res, next) => {
     }
 
 })
-router.get('/userAdmin', async(req, res, next) => {
+router.get('/userAdmin', async (req, res, next) => {
     try {
         res.render('pages/userAdmin', {
-            title: '图片显示页面',
+            title: '用户中心',
+        })
+    } catch (err) {
+        console.log(err)
+    }
+
+})
+
+router.get('/adminData', async (req, res, next) => {
+    try {
+        res.render('admin/index', {
+            title: '管理员资料',
         })
     } catch (err) {
         console.log(err)

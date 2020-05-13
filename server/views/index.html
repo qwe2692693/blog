@@ -21,7 +21,8 @@
                 <%= title %>
             </a>
             <!--控制左侧按钮-->
-            <a class="layui-icon layui-icon-shrink-right layui-float-left hideMenu" href="javascript:;" id="hideMenu"></a>
+            <a class="layui-icon layui-icon-shrink-right layui-float-left hideMenu" href="javascript:;"
+                id="hideMenu"></a>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-float-left topLevelMenus">
                 <li class="layui-nav-item layui-this" data-menu="contentManagement">
@@ -38,9 +39,12 @@
                         <%= username%>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="seraph icon-ziliao" data-icon="icon-ziliao"></i><cite>个人资料</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="page/user/changePwd.html"><i class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
-                        <dd><a href="page/login/login.html" class="signOut"><i class="seraph icon-tuichu"></i><cite>退出</cite></a></dd>
+                        <dd><a href="javascript:;" class="adminData"><i class="seraph icon-ziliao"
+                                    data-icon="icon-ziliao"></i><cite>个人资料</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="page/user/changePwd.html"><i class="seraph icon-xiugai"
+                                    data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
+                        <dd><a href="javascript:;" class="signOut"><i class="seraph icon-tuichu"></i><cite>退出</cite></a>
+                        </dd>
                     </dl>
                 </li>
             </ul>
@@ -118,6 +122,7 @@
     <script src="/static/layui/layui.js"></script>
     <script src="/static/js/index.js"></script>
     <script src="/static/js/cache.js"></script>
+    <script src="/static/js/admin/index.js"></script>
 </body>
 
 </html>

@@ -14,7 +14,7 @@ router.use((req, res, next) => {
     next()
 })
 
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     res.render('login')
 })
 
@@ -63,95 +63,100 @@ router.post('/user/register', (req, res) => {
 
     // 数据库查询Es6语法
     User.findOne({
-            username: username
-        }).then((userInfo) => {
-            if (userInfo) {
-                responseData.code = 5
-                responseData.message = '用户名已经存在'
-                res.json(responseData)
-                return
-            }
-            let user = new User({
-                nickname: nickname,
-                email: email,
-                isAdmin: false,
-                username: username,
-                password: password
-            })
-            responseData.message = '注册成功'
+        username: username
+    }).then((userInfo) => {
+        if (userInfo) {
+            responseData.code = 5
+            responseData.message = '用户名已经存在'
             res.json(responseData)
-            return user.save()
-        }).catch((err) => {
-            console.log(err)
             return
+        }
+        let user = new User({
+            nickname: nickname,
+            email: email,
+            isAdmin: false,
+            username: username,
+            password: password
         })
-        // 数据库查询
-        // User.findOne({username: username}, (err, doc) => {
-        //   if (doc) {
-        //     // responseData.code = 5
-        //     // responseData.message = '用户名已经存在'
-        //     res.json({
-        //       code: 5,
-        //       message: '用户名已经存在'
-        //     })
-        //     return
-        //   }else {
-        //     let user = new User({
-        //       username: username,
-        //       password: password
-        //     })
-        //     user.save((err, doc) => {
-        //       responseData.message = '注册成功'
-        //       res.json(responseData)
-        //     })
-        //   }
-        // })
+        responseData.message = '注册成功'
+        res.json(responseData)
+        return user.save()
+    }).catch((err) => {
+        console.log(err)
+        return
+    })
+    // 数据库查询
+    // User.findOne({username: username}, (err, doc) => {
+    //   if (doc) {
+    //     // responseData.code = 5
+    //     // responseData.message = '用户名已经存在'
+    //     res.json({
+    //       code: 5,
+    //       message: '用户名已经存在'
+    //     })
+    //     return
+    //   }else {
+    //     let user = new User({
+    //       username: username,
+    //       password: password
+    //     })
+    //     user.save((err, doc) => {
+    //       responseData.message = '注册成功'
+    //       res.json(responseData)
+    //     })
+    //   }
+    // })
 })
 
 // 登陆
 router.post('/user/login', (req, res) => {
-        let username = req.body.username,
-            password = crypto.createHash('md5', secret).update(req.body.password).digest('hex');
-        if (username == '' || password == '') {
-            responseData.code = 1,
-                responseData.message = '用户名和密码不能为空',
-                res.json(responseData)
-            return
-        }
-        // 数据库中查询 账号密码
-        User.findOne({
-            username: username,
-            password: password
-        }).then((userInfo) => {
-            if (!userInfo) {
-                responseData.code = 2
-                responseData.message = '用户名密码错误'
-                res.json(responseData)
-                return
-            }
-            if (!userInfo.isAdmin) {
-                responseData.code = 3
-                responseData.message = '亲不是管理员无法登录后台'
-                res.json(responseData)
-                return
-            }
-            responseData.message = '登陆成功'
-            responseData.userInfo = {
-                nickname: userInfo.nickname,
-                _id: userInfo._id,
-                username: username
-            }
-            req.session.user = responseData.userInfo;
+    let username = req.body.username,
+        password = crypto.createHash('md5', secret).update(req.body.password).digest('hex');
+    if (username == '' || password == '') {
+        responseData.code = 1,
+            responseData.message = '用户名和密码不能为空',
+            res.json(responseData)
+        return
+    }
+    // 数据库中查询 账号密码
+    User.findOne({
+        username: username,
+        password: password
+    }).then((userInfo) => {
+        if (!userInfo) {
+            responseData.code = 2
+            responseData.message = '用户名密码错误'
             res.json(responseData)
             return
-        }).catch((err) => {
-            console.error(err)
+        }
+        if (!userInfo.isAdmin) {
+            responseData.code = 3
+            responseData.message = '亲不是管理员无法登录后台'
+            res.json(responseData)
             return
-        })
+        }
+        responseData.message = '登陆成功'
+        responseData.userInfo = {
+            nickname: userInfo.nickname,
+            _id: userInfo._id,
+            username: username
+        }
+        req.session.user = responseData.userInfo;
+        res.json(responseData)
+        return
+    }).catch((err) => {
+        console.error(err)
+        return
     })
-    //退出
-router.get('/user/logout', (req, res) => {
+})
+//退出
+router.post('/user/logout', (req, res) => {
+    let resData = {
+        code: 100,
+        msg: "退出成功"
+    }
+
     delete req.session.user;
-    res.json(responseData);
+    res.json(resData);
 })
 module.exports = router
