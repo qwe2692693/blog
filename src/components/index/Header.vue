@@ -1,30 +1,33 @@
 <template>
   <el-header class="header" height="48px">
-    <el-row type="flex" tag="nav" class="nav">
-      <router-link
-        to="/"
-        class="nav-head"
-        @click.native="activeClick('首页')"
-        :class="homeActive == '首页' ? 'active' : '' "
-      >首页</router-link>
-      <router-link
-        class="nav-head"
-        v-for="navs in activeNav"
-        :key="navs._id"
-        :to="{ name: 'list', params: { id: navs._id}}"
-        @click.native="activeClick(navs.catname)"
-        :class="homeActive == navs.catname ? 'active' : '' "
-      >
-        {{ navs.catname }}
-        <div class="nav-content">
+    <div class="nav">
+      <ul class="nav dropdown-box">
+        <li class="dropdown">
           <router-link
-            v-for="item in activeNavChilden(navs.id)"
-            :key="item._id"
-            :to="{ name: 'list', params: { id: item._id}}"
-          >{{ item.catname }}</router-link>
-        </div>
-      </router-link>
-    </el-row>
+            to="/"
+            @click.native="activeClick('首页')"
+            :class="homeActive == '首页' ? 'active' : '' "
+            tag="a"
+          >首页</router-link>
+        </li>
+        <li class="dropdown" v-for="navs in activeNav" :key="navs._id">
+          <router-link
+            :to="{ name: 'list', params: { id: navs._id}}"
+            @click.native="activeClick(navs.catname)"
+            :class="homeActive == navs.catname ? 'active' : '' "
+            tag="a"
+          >{{ navs.catname }}</router-link>
+          <div class="dropdown-content">
+            <router-link
+              v-for="item in activeNavChilden(navs.id)"
+              :key="item._id"
+              :to="{ name: 'list', params: { id: item._id}}"
+              tag="a"
+            >{{ item.catname }}</router-link>
+          </div>
+        </li>
+      </ul>
+    </div>
   </el-header>
 </template>
 <script>
@@ -37,10 +40,9 @@ export default {
   },
   created() {
     this.head();
-    
   },
   methods: {
-    ...mapMutations([ "homeActiveFun"]),
+    ...mapMutations(["homeActiveFun"]),
     async head() {
       try {
         const res = await this.axios.get("/category");
@@ -50,11 +52,11 @@ export default {
       }
     },
     activeClick(obj) {
-      this.homeActiveFun(obj)
+      this.homeActiveFun(obj);
     }
   },
   computed: {
-    ...mapState(["homeActive",'count']),
+    ...mapState(["homeActive", "count"]),
     activeNav() {
       return this.nav.filter(navObj => {
         return navObj.pid == 0;
@@ -77,44 +79,40 @@ export default {
 .nav {
   max-width: 1250px;
   margin: 0 auto;
+  height: 48px;
   line-height: 48px;
+}
+.dropdown-box {
+  display: flex;
+}
+.dropdown {
+  position: relative;
+  z-index: 1;
+  &:hover {
+    background: #d68686;
+  }
   a {
-    color: #fff;
-    padding: 0 10px;
-    font-size: 14px;
-    background: #409eff;
-    z-index: 10;
+    padding: 0 15px;
     display: block;
+    color: #fff;
+    white-space: nowrap;
     &.active {
       background: #d68686;
     }
+  }
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #409eff;
+  a {
     &:hover {
-      color: #fff;
       background: #d68686;
-      border: none !important;
-      &.nav-head {
-        .nav-content {
-          display: block;
-        }
-      }
-
-      &::after {
-        border: none;
-      }
-    }
-    &.nav-head {
-      position: relative;
-      .nav-content {
-        position: absolute;
-        top: 48px;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        background: #409eff;
-        display: none;
-      }
     }
   }
+}
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 </style>
 
